@@ -11,7 +11,7 @@ import java.sql.*;
  */
 public class DBConnect {
     
-    public static Connection conn() {
+    public static Connection getInstance() {
         Connection conn = null;
         
         try {
