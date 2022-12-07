@@ -232,7 +232,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void ManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagerMouseClicked
         // TODO add your handling code here:
-        TableManager Manager = new TableManager();
+        ManagerPanel Manager = new ManagerPanel();
         jDesktopPane1.removeAll();
         jDesktopPane1.add(Manager).setVisible(true);
     }//GEN-LAST:event_ManagerMouseClicked
