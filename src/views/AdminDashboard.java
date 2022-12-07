@@ -22,6 +22,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     public AdminDashboard() {
         initComponents();
         this.setVisible(true);
+        this.setLocationRelativeTo(null);
         
         DefaultColor=new Color(25,118,211);
         ClickedColor=new Color (255,255,255);
