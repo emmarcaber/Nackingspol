@@ -5,6 +5,8 @@
 package views;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -12,26 +14,41 @@ import java.sql.*;
  */
 public class EditCashierDialog extends javax.swing.JDialog {
 
-    Statement stmt = null;
-    PreparedStatement pstmt = null;
-    ResultSet rs = null;
+    private Statement stmt = null;
+    private PreparedStatement pstmt = null;
+    private ResultSet rs = null;
+    private int cashierID = 0;
 
     /**
      * Creates new form EditCashierDialog
      */
-    public EditCashierDialog(java.awt.Frame parent, boolean modal, String[] data) {
+    public EditCashierDialog(java.awt.Frame parent, boolean modal, int cashierID) {
         super(parent, modal);
         initComponents();
-        loadToTextFields(data);
+        this.cashierID = cashierID;
+        loadToTextFields(cashierID);
         this.setVisible(true);
     }
 
-    private void loadToTextFields(String[] data) {
-        txtFirstName.setText(data[0]);
-        txtLastName.setText(data[1]);
-        txtContactNumber.setText(data[2]);
-        txtUsername.setText(data[3]);
-        txtPassword.setText(data[4]);
+    private void loadToTextFields(int cashierID) {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT * FROM user WHERE UserType = 'Cashier' AND UserID = " + cashierID;
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            txtFirstName.setText(rs.getString("FirstName"));
+            txtLastName.setText(rs.getString("LastName"));
+            txtContactNumber.setText(rs.getString("ContactNumber"));
+            txtUsername.setText(rs.getString("Username"));
+            txtPassword.setText(rs.getString("Password"));
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -50,7 +67,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
-        btnSubmit = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         txtFirstName = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
@@ -79,9 +96,14 @@ public class EditCashierDialog extends javax.swing.JDialog {
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel4.setText("Last Name");
 
-        btnSubmit.setBackground(new java.awt.Color(255, 255, 0));
-        btnSubmit.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnSubmit.setText("EDIT");
+        btnEdit.setBackground(new java.awt.Color(255, 255, 0));
+        btnEdit.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnEdit.setText("EDIT");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
 
         btnCancel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnCancel.setText("Cancel");
@@ -119,7 +141,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
                         .addGap(87, 87, 87)
                         .addComponent(btnCancel)
                         .addGap(36, 36, 36)
-                        .addComponent(btnSubmit)
+                        .addComponent(btnEdit)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -181,7 +203,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
-                    .addComponent(btnSubmit))
+                    .addComponent(btnEdit))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -198,13 +220,87 @@ public class EditCashierDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        // TODO add your handling code here:
+        String firstName = txtFirstName.getText();
+        String lastName = txtLastName.getText();
+        String contactNumber = txtContactNumber.getText();
+        String userName = txtUsername.getText();
+        String password = new String(txtPassword.getPassword());
+        String confirmPassword = new String(txtConfirmPassword.getPassword());
+
+        if (firstName.equals("")) {
+            JOptionPane.showMessageDialog(null, "First name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (lastName.equals("")) {
+            JOptionPane.showMessageDialog(null, "Last name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (contactNumber.equals("")) {
+            JOptionPane.showMessageDialog(null, "Contact Number is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (userName.equals("")) {
+            JOptionPane.showMessageDialog(null, "Username is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (password.equals("")) {
+            JOptionPane.showMessageDialog(null, "Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (confirmPassword.equals("")) {
+            JOptionPane.showMessageDialog(null, "Confirm Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!confirmPassword.equals(password)) {
+            JOptionPane.showMessageDialog(null, "Password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int rowAffected = updateCashierToDB(cashierID, firstName, lastName, contactNumber, userName, password);
+            System.out.println(rowAffected);
+            System.out.println(this.cashierID);
+            if (rowAffected > 0) {
+                DefaultTableModel tblModel = (DefaultTableModel) TableCashier.tblCashier.getModel();
+
+                String[] data = {firstName + " " + lastName, contactNumber, userName, password};
+                tblModel.setValueAt(data[0], TableCashier.tblCashier.getSelectedRow(), 0);
+                tblModel.setValueAt(data[1], TableCashier.tblCashier.getSelectedRow(), 1);
+                tblModel.setValueAt(data[2], TableCashier.tblCashier.getSelectedRow(), 2);
+                tblModel.setValueAt(data[3], TableCashier.tblCashier.getSelectedRow(), 3);
+
+                JOptionPane.showMessageDialog(null, "Cashier updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Cashier not updated successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private int updateCashierToDB(int cashierID, String firstName, String lastName, String contactNumber, String userName, String password) {
+        int updatedRows = 0;
+        try {
+            String sql = "UPDATE user SET FirstName = ?, LastName = ?, ContactNumber = ?, Username = ?, Password = ? "
+                    + "WHERE UserID = ?";
+
+            pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, contactNumber);
+            pstmt.setString(4, userName);
+            pstmt.setString(5, password);
+            pstmt.setInt(6, cashierID);
+
+            int rowAffected = pstmt.executeUpdate();
+            updatedRows = rowAffected;
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return updatedRows;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnSubmit;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;

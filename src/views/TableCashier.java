@@ -166,38 +166,22 @@ public class TableCashier extends javax.swing.JInternalFrame {
 
     private void btnEditCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCashierActionPerformed
         // TODO add your handling code here:
-        
+
         DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
-        
-        String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
-        String [] data = loadData(getCashierID(userName));
-        new EditCashierDialog(null, true, data);
+
+        if (tblCashier.getSelectedRowCount() == 1) {
+            String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
+            new EditCashierDialog(null, true, getCashierID(userName));
+        } else {
+            if (tblCashier.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnEditCashierActionPerformed
 
-    private String [] loadData(int cashierID) {
-        String [] data = new String[5];
-        try {
-            stmt = DBConnect.getInstance().createStatement();
-            
-            String sql = "SELECT * FROM user WHERE UserType = 'Cashier' AND UserID = " + cashierID;
-            rs = stmt.executeQuery(sql);
-           
-            rs.next();
-            data[0] = rs.getString("FirstName");
-            data[1] = rs.getString("LastName");
-            data[2] = rs.getString("ContactNumber");
-            data[3] = rs.getString("Username");
-            data[4] = rs.getString("Password");
-            
-            rs.close();
-            stmt.close();
-        } catch(SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        
-        return data;
-    }
-    
+
     private void btnDeleteCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCashierActionPerformed
         // TODO add your handling code here:
 
@@ -266,7 +250,7 @@ public class TableCashier extends javax.swing.JInternalFrame {
 
             int rowAffected = pstmt.executeUpdate();
             deletedRows = rowAffected;
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -278,7 +262,7 @@ public class TableCashier extends javax.swing.JInternalFrame {
                 System.out.println(e.getMessage());
             }
         }
-       
+
         return deletedRows;
     }
 

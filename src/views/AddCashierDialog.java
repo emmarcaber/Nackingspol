@@ -225,9 +225,9 @@ public class AddCashierDialog extends javax.swing.JDialog {
         } else if (!confirmPassword.equals(password)) {
             JOptionPane.showMessageDialog(null, "Password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int insertedUserID = insertDataToDB(firstName, lastName, contactNumber, userName, password);
+            int insertedCashierID = insertCashierToDB(firstName, lastName, contactNumber, userName, password);
             
-            if (insertedUserID > 0) { 
+            if (insertedCashierID > 0) { 
                 DefaultTableModel tblModel = (DefaultTableModel) TableCashier.tblCashier.getModel();
                 
                 String [] data = {firstName + " " + lastName, contactNumber, userName, password};
@@ -241,7 +241,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private int insertDataToDB(String firstName, String lastName, String contactNumber, String userName, String password) {
+    private int insertCashierToDB(String firstName, String lastName, String contactNumber, String userName, String password) {
         int userID = 0;
         try {
             String sql = "INSERT INTO user(UserType, FirstName, LastName, Username, Password, ContactNumber) "
