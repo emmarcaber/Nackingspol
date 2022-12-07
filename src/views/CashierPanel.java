@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Anaclita
  */
-public class TableCashier extends javax.swing.JInternalFrame {
+public class CashierPanel extends javax.swing.JInternalFrame {
 
     Statement stmt = null;
     ResultSet rs = null;
@@ -25,7 +25,7 @@ public class TableCashier extends javax.swing.JInternalFrame {
     /**
      * Creates new form TableCashier
      */
-    public TableCashier() {
+    public CashierPanel() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
@@ -190,7 +190,7 @@ public class TableCashier extends javax.swing.JInternalFrame {
             DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
 
             String name = tblModel.getValueAt(tblCashier.getSelectedRow(), 0).toString();
-            int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + name + "?", "This is my title", JOptionPane.YES_NO_OPTION);
+            int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + name + "?", "Delete", JOptionPane.YES_NO_OPTION);
 
             if (answer == 0) {
                 String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();

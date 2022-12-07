@@ -208,7 +208,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void CashierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CashierMouseClicked
         // TODO add your handling code here:
-        TableCashier Cashier = new TableCashier();
+        CashierPanel Cashier = new CashierPanel();
         jDesktopPane1.removeAll();
         jDesktopPane1.add(Cashier).setVisible(true);
     }//GEN-LAST:event_CashierMouseClicked

@@ -29,7 +29,7 @@
                   <Group type="102" attributes="0">
                       <Component id="jPanel3" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jDesktopPane1" pref="1040" max="32767" attributes="0"/>
+                      <Component id="jDesktopPane1" pref="1052" max="32767" attributes="0"/>
                   </Group>
                   <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
               </Group>

@@ -228,7 +228,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
             int insertedCashierID = insertCashierToDB(firstName, lastName, contactNumber, userName, password);
             
             if (insertedCashierID > 0) { 
-                DefaultTableModel tblModel = (DefaultTableModel) TableCashier.tblCashier.getModel();
+                DefaultTableModel tblModel = (DefaultTableModel) CashierPanel.tblCashier.getModel();
                 
                 String [] data = {firstName + " " + lastName, contactNumber, userName, password};
                 tblModel.addRow(data);

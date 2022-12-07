@@ -248,13 +248,13 @@ public class EditCashierDialog extends javax.swing.JDialog {
             System.out.println(rowAffected);
             System.out.println(this.cashierID);
             if (rowAffected > 0) {
-                DefaultTableModel tblModel = (DefaultTableModel) TableCashier.tblCashier.getModel();
+                DefaultTableModel tblModel = (DefaultTableModel) CashierPanel.tblCashier.getModel();
 
                 String[] data = {firstName + " " + lastName, contactNumber, userName, password};
-                tblModel.setValueAt(data[0], TableCashier.tblCashier.getSelectedRow(), 0);
-                tblModel.setValueAt(data[1], TableCashier.tblCashier.getSelectedRow(), 1);
-                tblModel.setValueAt(data[2], TableCashier.tblCashier.getSelectedRow(), 2);
-                tblModel.setValueAt(data[3], TableCashier.tblCashier.getSelectedRow(), 3);
+                tblModel.setValueAt(data[0], CashierPanel.tblCashier.getSelectedRow(), 0);
+                tblModel.setValueAt(data[1], CashierPanel.tblCashier.getSelectedRow(), 1);
+                tblModel.setValueAt(data[2], CashierPanel.tblCashier.getSelectedRow(), 2);
+                tblModel.setValueAt(data[3], CashierPanel.tblCashier.getSelectedRow(), 3);
 
                 JOptionPane.showMessageDialog(null, "Cashier updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
