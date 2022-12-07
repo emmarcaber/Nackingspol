@@ -84,6 +84,7 @@ public class Login extends javax.swing.JFrame {
         btnLogin.setFont(new java.awt.Font("Poppins Light", 1, 14)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(25, 118, 211));
         btnLogin.setText("LOGIN");
+        btnLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
