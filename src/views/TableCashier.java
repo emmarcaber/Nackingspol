@@ -6,7 +6,10 @@ package views;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.sql.*;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Anaclita
@@ -16,40 +19,42 @@ public class TableCashier extends javax.swing.JInternalFrame {
     Statement stmt = null;
     ResultSet rs = null;
     PreparedStatement pstmt = null;
-    
+
+    public static HashMap<String, Integer> cashierMap = new HashMap<>();
+
     /**
      * Creates new form TableCashier
      */
     public TableCashier() {
         initComponents();
-        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0,0,0,0));
-        BasicInternalFrameUI ui=(BasicInternalFrameUI)this.getUI();
+        this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-        
+
         getCashiersFromDB();
     }
-    
+
     public void getCashiersFromDB() {
         try {
             stmt = DBConnect.getInstance().createStatement();
-            
+
             String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS Name, ContactNumber, Username, Password FROM user WHERE UserType = 'Cashier'";
             rs = stmt.executeQuery(sql);
-            
+
             while (rs.next()) {
                 String name = rs.getString("Name");
                 String contactNumber = rs.getString("ContactNumber");
                 String userName = rs.getString("Username");
                 String password = rs.getString("Password");
-                
-                String [] data = {name, contactNumber, userName, password};
-                
+
+                String[] data = {name, contactNumber, userName, password};
+
                 DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
                 tblModel.addRow(data);
             }
-            
+
             rs.close();
-            stmt.close(); 
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -101,6 +106,7 @@ public class TableCashier extends javax.swing.JInternalFrame {
             }
         });
 
+        tblCashier.setAutoCreateRowSorter(true);
         tblCashier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -108,7 +114,15 @@ public class TableCashier extends javax.swing.JInternalFrame {
             new String [] {
                 "Name", "Contact Number", "Username", "Password"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tblCashier);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -152,19 +166,127 @@ public class TableCashier extends javax.swing.JInternalFrame {
 
     private void btnEditCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCashierActionPerformed
         // TODO add your handling code here:
-        new EditCashierDialog(null,true);
+        
+        DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
+        
+        String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
+        String [] data = loadData(getCashierID(userName));
+        new EditCashierDialog(null, true, data);
     }//GEN-LAST:event_btnEditCashierActionPerformed
 
+    private String [] loadData(int cashierID) {
+        String [] data = new String[5];
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+            
+            String sql = "SELECT * FROM user WHERE UserType = 'Cashier' AND UserID = " + cashierID;
+            rs = stmt.executeQuery(sql);
+           
+            rs.next();
+            data[0] = rs.getString("FirstName");
+            data[1] = rs.getString("LastName");
+            data[2] = rs.getString("ContactNumber");
+            data[3] = rs.getString("Username");
+            data[4] = rs.getString("Password");
+            
+            rs.close();
+            stmt.close();
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        
+        return data;
+    }
+    
     private void btnDeleteCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCashierActionPerformed
         // TODO add your handling code here:
+
+        if (tblCashier.getSelectedRowCount() == 1) {
+
+            DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
+
+            String name = tblModel.getValueAt(tblCashier.getSelectedRow(), 0).toString();
+            int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + name + "?", "This is my title", JOptionPane.YES_NO_OPTION);
+
+            if (answer == 0) {
+                String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
+
+                int toDeleteID = getCashierID(userName);
+                int deletedID = deleteCashierFromDB(toDeleteID);
+
+                System.out.println(toDeleteID);
+                if (deletedID > 0) {
+                    tblModel.removeRow(tblCashier.getSelectedRow());
+
+                    JOptionPane.showMessageDialog(null, "Cashier deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Cashier not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else if (answer == 1) {
+                JOptionPane.showMessageDialog(null, "Cashier not deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            }
+
+        } else {
+            if (tblCashier.getRowCount() == 0) {
+                JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_btnDeleteCashierActionPerformed
 
+    private int getCashierID(String userName) {
+        int toDeleteID = 0;
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT UserID FROM user WHERE Username = '" + userName + "'";
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            toDeleteID = rs.getInt("UserID");
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return toDeleteID;
+    }
+
+    private int deleteCashierFromDB(int deleteID) {
+        int deletedRows = 0;
+        try {
+            String sql = "DELETE FROM user WHERE UserID = ?";
+
+            pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setInt(1, deleteID);
+
+            int rowAffected = pstmt.executeUpdate();
+            deletedRows = rowAffected;
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+       
+        return deletedRows;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCashier;
     private javax.swing.JButton btnDeleteCashier;
     private javax.swing.JButton btnEditCashier;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblCashier;
+    public static javax.swing.JTable tblCashier;
     // End of variables declaration//GEN-END:variables
 }

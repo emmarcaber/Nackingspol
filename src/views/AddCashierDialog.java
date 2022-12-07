@@ -5,12 +5,17 @@
 package views;
 
 import javax.swing.JOptionPane;
+import java.sql.*;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Anaclita
  */
 public class AddCashierDialog extends javax.swing.JDialog {
+
+    ResultSet rs = null;
+    PreparedStatement pstmt = null;
 
     /**
      * Creates new form AddCashierDialog
@@ -37,7 +42,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         txtPassword = new javax.swing.JPasswordField();
-        btnSubmit = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         txtFirstName = new javax.swing.JTextField();
         txtLastName = new javax.swing.JTextField();
@@ -72,11 +77,13 @@ public class AddCashierDialog extends javax.swing.JDialog {
             }
         });
 
-        btnSubmit.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnSubmit.setText("Submit");
-        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setBackground(new java.awt.Color(0, 153, 0));
+        btnAdd.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("ADD");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSubmitActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
@@ -116,7 +123,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
                         .addGap(89, 89, 89)
                         .addComponent(btnCancel)
                         .addGap(28, 28, 28)
-                        .addComponent(btnSubmit))
+                        .addComponent(btnAdd))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -176,7 +183,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnSubmit)
+                    .addComponent(btnAdd)
                     .addComponent(btnCancel))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -194,7 +201,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
@@ -202,38 +209,76 @@ public class AddCashierDialog extends javax.swing.JDialog {
         String userName = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
         String confirmPassword = new String(txtConfirmPassword.getPassword());
-        
-        System.out.println(password);
-        
+
         if (firstName.equals("")) {
             JOptionPane.showMessageDialog(null, "First name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (lastName.equals("")) {
+        } else if (lastName.equals("")) {
             JOptionPane.showMessageDialog(null, "Last name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (contactNumber.equals("")) {
+        } else if (contactNumber.equals("")) {
             JOptionPane.showMessageDialog(null, "Contact Number is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (userName.equals("")) {
+        } else if (userName.equals("")) {
             JOptionPane.showMessageDialog(null, "Username is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (password.equals("")) {
+        } else if (password.equals("")) {
             JOptionPane.showMessageDialog(null, "Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else if (confirmPassword.equals("")) {
+        } else if (confirmPassword.equals("")) {
             JOptionPane.showMessageDialog(null, "Confirm Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } 
-        else if (!confirmPassword.equals(password)) {
+        } else if (!confirmPassword.equals(password)) {
             JOptionPane.showMessageDialog(null, "Password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            int insertedUserID = insertDataToDB(firstName, lastName, contactNumber, userName, password);
             
+            if (insertedUserID > 0) { 
+                DefaultTableModel tblModel = (DefaultTableModel) TableCashier.tblCashier.getModel();
+                
+                String [] data = {firstName + " " + lastName, contactNumber, userName, password};
+                tblModel.addRow(data);
+                
+                JOptionPane.showMessageDialog(null, "Cashier added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose(); 
+            } else {
+                JOptionPane.showMessageDialog(null, "Cashier not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
-    }//GEN-LAST:event_btnSubmitActionPerformed
+    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void insertDataToDB() {
-        
+    private int insertDataToDB(String firstName, String lastName, String contactNumber, String userName, String password) {
+        int userID = 0;
+        try {
+            String sql = "INSERT INTO user(UserType, FirstName, LastName, Username, Password, ContactNumber) "
+                    + "VALUES('Cashier', ?, ?, ?, ?, ?)";
+
+            pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+            pstmt.setString(1, firstName);
+            pstmt.setString(2, lastName);
+            pstmt.setString(3, userName);
+            pstmt.setString(4, password);
+            pstmt.setString(5, contactNumber);
+
+            int rowAffected = pstmt.executeUpdate();
+            if (rowAffected == 1) {
+                // get candidate id
+                rs = pstmt.getGeneratedKeys();
+                if (rs.next()) {
+                    userID = rs.getInt(1);
+                }
+
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return userID;
     }
-    
+
     private void txtConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConfirmPasswordActionPerformed
@@ -243,8 +288,8 @@ public class AddCashierDialog extends javax.swing.JDialog {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
