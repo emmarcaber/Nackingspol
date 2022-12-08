@@ -76,6 +76,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         tblCashier = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
+        setVisible(true);
 
         btnAddCashier.setBackground(new java.awt.Color(0, 153, 0));
         btnAddCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -124,6 +125,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblCashier.setMinimumSize(new java.awt.Dimension(50, 0));
         jScrollPane1.setViewportView(tblCashier);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -131,16 +133,16 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAddCashier)
-                        .addGap(102, 102, 102)
+                        .addGap(82, 82, 82)
                         .addComponent(btnEditCashier)
-                        .addGap(96, 96, 96)
+                        .addGap(79, 79, 79)
                         .addComponent(btnDeleteCashier))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 966, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(126, 126, 126))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,8 +153,8 @@ public class CashierPanel extends javax.swing.JInternalFrame {
                     .addComponent(btnEditCashier)
                     .addComponent(btnDeleteCashier))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
