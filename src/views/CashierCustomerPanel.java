@@ -70,9 +70,12 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
 
         btnAddCustomer = new javax.swing.JButton();
         btnEditCustomer = new javax.swing.JButton();
-        btnDeleteCustomer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomer = new javax.swing.JTable();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox2 = new javax.swing.JComboBox<>();
+        jTextField1 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setVisible(true);
@@ -99,17 +102,6 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
             }
         });
 
-        btnDeleteCustomer.setBackground(new java.awt.Color(255, 0, 0));
-        btnDeleteCustomer.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnDeleteCustomer.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteCustomer.setText("DELETE CUSTOMER");
-        btnDeleteCustomer.setFocusable(false);
-        btnDeleteCustomer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteCustomerActionPerformed(evt);
-            }
-        });
-
         tblCustomer.setAutoCreateRowSorter(true);
         tblCustomer.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
@@ -131,33 +123,71 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
         tblCustomer.setMinimumSize(new java.awt.Dimension(50, 0));
         jScrollPane1.setViewportView(tblCustomer);
 
+        jComboBox1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose City/Municipality", "Iriga City", "Baao" }));
+
+        jComboBox2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Barangay" }));
+        jComboBox2.setPreferredSize(new java.awt.Dimension(211, 25));
+
+        jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        jTextField1.setPreferredSize(new java.awt.Dimension(211, 25));
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(0, 102, 255));
+        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("SEARCH CUSTOMER");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(509, 509, 509)
                         .addComponent(btnAddCustomer)
-                        .addGap(82, 82, 82)
-                        .addComponent(btnEditCustomer)
-                        .addGap(79, 79, 79)
-                        .addComponent(btnDeleteCustomer))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(126, 126, 126))
+                        .addGap(58, 58, 58)
+                        .addComponent(btnEditCustomer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(187, 187, 187)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(365, 365, 365)
+                        .addComponent(jButton1)))
+                .addContainerGap(162, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCustomer)
-                    .addComponent(btnEditCustomer)
-                    .addComponent(btnDeleteCustomer))
+                    .addComponent(btnEditCustomer))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -185,41 +215,10 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditCustomerActionPerformed
 
-
-    private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
-        if (tblCustomer.getSelectedRowCount() == 1) {
-
-            DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
-
-            String name = tblModel.getValueAt(tblCustomer.getSelectedRow(), 0).toString();
-            int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + name + "?", "Delete", JOptionPane.YES_NO_OPTION);
-
-            if (answer == 0) {
-                String userName = tblModel.getValueAt(tblCustomer.getSelectedRow(), 2).toString();
-
-                int toDeleteID = getCashierID(userName);
-                int deletedID = deleteCashierFromDB(toDeleteID);
-
-                System.out.println(toDeleteID);
-                if (deletedID > 0) {
-                    tblModel.removeRow(tblCustomer.getSelectedRow());
-
-                    JOptionPane.showMessageDialog(null, "Cashier deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(null, "Cashier not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-
-        } else {
-            if (tblCustomer.getRowCount() == 0) {
-                JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }//GEN-LAST:event_btnDeleteCustomerActionPerformed
 
     private int getCashierID(String userName) {
         int toDeleteID = 0;
@@ -270,9 +269,12 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCustomer;
-    private javax.swing.JButton btnDeleteCustomer;
     private javax.swing.JButton btnEditCustomer;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextField1;
     public static javax.swing.JTable tblCustomer;
     // End of variables declaration//GEN-END:variables
 }
