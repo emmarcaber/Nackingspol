@@ -38,7 +38,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
         try {
             stmt = DBConnect.getInstance().createStatement();
 
-            String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS Name, ContactNumber, Username, Password FROM user WHERE UserType = 'Cashier'";
+            String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS Name, ContactNumber, Username, Password FROM user WHERE UserType = 'Manager'";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -81,7 +81,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
         btnAddCashier.setBackground(new java.awt.Color(0, 153, 0));
         btnAddCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnAddCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddCashier.setText("ADD CASHIER");
+        btnAddCashier.setText("ADD MANAGER");
         btnAddCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddCashierActionPerformed(evt);
@@ -90,7 +90,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
 
         btnEditCashier.setBackground(new java.awt.Color(255, 255, 0));
         btnEditCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnEditCashier.setText("EDIT CASHIER");
+        btnEditCashier.setText("EDIT MANAGER");
         btnEditCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditCashierActionPerformed(evt);
@@ -100,7 +100,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
         btnDeleteCashier.setBackground(new java.awt.Color(255, 0, 0));
         btnDeleteCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnDeleteCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteCashier.setText("DELETE CASHIER");
+        btnDeleteCashier.setText("DELETE MANAGER");
         btnDeleteCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteCashierActionPerformed(evt);

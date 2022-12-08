@@ -5,6 +5,7 @@
 package views;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -42,7 +43,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         DashName = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        btnEditCashier1 = new javax.swing.JButton();
+        btnLogout = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         Cashier = new javax.swing.JPanel();
         cashierLabel = new javax.swing.JLabel();
@@ -71,10 +72,15 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("ADMINISTRATOR");
 
-        btnEditCashier1.setBackground(new java.awt.Color(255, 255, 0));
-        btnEditCashier1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnEditCashier1.setForeground(new java.awt.Color(25, 118, 211));
-        btnEditCashier1.setText("Logout");
+        btnLogout.setBackground(new java.awt.Color(255, 255, 0));
+        btnLogout.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(25, 118, 211));
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -88,7 +94,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGap(129, 129, 129)
                 .addComponent(jLabel2)
                 .addGap(31, 31, 31)
-                .addComponent(btnEditCashier1)
+                .addComponent(btnLogout)
                 .addGap(101, 101, 101))
         );
         jPanel2Layout.setVerticalGroup(
@@ -102,7 +108,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DashName)
                     .addComponent(jLabel2)
-                    .addComponent(btnEditCashier1))
+                    .addComponent(btnLogout))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -278,12 +284,22 @@ public class AdminDashboard extends javax.swing.JFrame {
         jDesktopPane1.add(Manager).setVisible(true);
     }//GEN-LAST:event_ManagerMouseClicked
 
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+        int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
+        
+        if (answer == 0) {
+            this.dispose();
+            new Login();
+        }
+    }//GEN-LAST:event_btnLogoutActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cashier;
     private javax.swing.JLabel DashName;
     private javax.swing.JPanel Manager;
-    private javax.swing.JButton btnEditCashier1;
+    private javax.swing.JButton btnLogout;
     private javax.swing.JLabel cashierLabel;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
