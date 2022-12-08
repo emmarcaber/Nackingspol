@@ -20,8 +20,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
     
     
     
-    public ManagerDashboard() {
+    public ManagerDashboard(String name) {
         initComponents();
+        labelManagerName.setText(name);
         mainPane.add(new DashboardPanel()).setVisible(true);
         
         this.setVisible(true);
@@ -44,7 +45,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         DashName = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelManagerName = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         Cashier = new javax.swing.JPanel();
@@ -81,9 +82,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("MANAGER");
+        labelManagerName.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        labelManagerName.setForeground(new java.awt.Color(255, 255, 255));
+        labelManagerName.setText("MANAGER");
 
         btnLogout.setBackground(new java.awt.Color(255, 255, 0));
         btnLogout.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -107,7 +108,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(DashName, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(labelManagerName)
                 .addGap(29, 29, 29)
                 .addComponent(btnLogout)
                 .addGap(50, 50, 50))
@@ -122,7 +123,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DashName)
-                    .addComponent(jLabel2)
+                    .addComponent(labelManagerName)
                     .addComponent(btnLogout))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -349,10 +350,10 @@ public class ManagerDashboard extends javax.swing.JFrame {
     public static javax.swing.JPanel Manager;
     private javax.swing.JButton btnLogout;
     public static javax.swing.JLabel cashierLabel;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel labelManagerName;
     private javax.swing.JLabel logo;
     public static javax.swing.JDesktopPane mainPane;
     public static javax.swing.JLabel managerLabel;

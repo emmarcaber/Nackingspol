@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class Login extends javax.swing.JFrame {
 
     String userType = "";
+    String name = "";
 
     Statement stmt = null;
     ResultSet rs = null;
@@ -192,10 +193,10 @@ public class Login extends javax.swing.JFrame {
 
                 if (userType.equals("Cashier")) {
                     this.dispose();
-                    new CashierDashboard();
+                    new CashierDashboard(name);
                 } else if (userType.equals("Manager")) {
                     this.dispose();
-                    new ManagerDashboard();
+                    new ManagerDashboard(name);
                 }
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password!", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -215,6 +216,7 @@ public class Login extends javax.swing.JFrame {
             rs = stmt.executeQuery(sql);
 
             rs.next();
+            this.name = rs.getString("FirstName") + " " + rs.getString("LastName");
             this.userType = rs.getString("UserType");
 
             if (!userType.equals("")) {
