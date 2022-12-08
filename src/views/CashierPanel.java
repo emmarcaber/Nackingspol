@@ -107,6 +107,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         });
 
         tblCashier.setAutoCreateRowSorter(true);
+        tblCashier.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tblCashier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -206,8 +207,6 @@ public class CashierPanel extends javax.swing.JInternalFrame {
                 } else {
                     JOptionPane.showMessageDialog(null, "Cashier not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } else if (answer == 1) {
-                JOptionPane.showMessageDialog(null, "Cashier not deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
 
         } else {

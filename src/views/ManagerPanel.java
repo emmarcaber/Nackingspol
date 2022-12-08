@@ -72,6 +72,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
         });
 
         tblCashier.setAutoCreateRowSorter(true);
+        tblCashier.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         tblCashier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 

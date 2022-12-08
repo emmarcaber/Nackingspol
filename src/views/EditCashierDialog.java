@@ -19,6 +19,8 @@ public class EditCashierDialog extends javax.swing.JDialog {
     private ResultSet rs = null;
     private int cashierID = 0;
 
+    private static String oldPassword = "";
+
     /**
      * Creates new form EditCashierDialog
      */
@@ -42,7 +44,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
             txtLastName.setText(rs.getString("LastName"));
             txtContactNumber.setText(rs.getString("ContactNumber"));
             txtUsername.setText(rs.getString("Username"));
-            txtPassword.setText(rs.getString("Password"));
+            EditCashierDialog.oldPassword = rs.getString("Password");
 
             rs.close();
             stmt.close();
@@ -65,7 +67,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
         jLabel9 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JPasswordField();
+        txtOldPassword = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         btnEdit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
@@ -75,6 +77,8 @@ public class EditCashierDialog extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtConfirmPassword = new javax.swing.JPasswordField();
+        jLabel13 = new javax.swing.JLabel();
+        txtNewPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,7 +92,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
         jLabel9.setText("UserName");
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel11.setText("Password");
+        jLabel11.setText("Old Password");
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setText("First Name");
@@ -116,33 +120,22 @@ public class EditCashierDialog extends javax.swing.JDialog {
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel7.setText("Contact Number");
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
         jLabel1.setText("EDIT CASHIER");
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel12.setText("Confirm Password");
+
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel13.setText("New Password");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(168, 168, 168)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(btnCancel)
-                        .addGap(36, 36, 36)
-                        .addComponent(btnEdit)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -157,26 +150,43 @@ public class EditCashierDialog extends javax.swing.JDialog {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel9)
                                     .addComponent(jLabel11))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(82, 82, 82)
-                                        .addComponent(txtUsername))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtOldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                    .addComponent(txtUsername)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(2, 2, 2)))
-                .addGap(38, 38, 38))
+                                .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(56, 56, 56)
+                                .addComponent(txtNewPassword)))
+                        .addGap(3, 3, 3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(81, 81, 81)
+                                .addComponent(btnCancel)
+                                .addGap(52, 52, 52)
+                                .addComponent(btnEdit))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(152, 152, 152)
+                                .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(37, 37, 37))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(23, 23, 23)
                 .addComponent(jLabel1)
-                .addGap(35, 35, 35)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -195,16 +205,20 @@ public class EditCashierDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancel)
-                    .addComponent(btnEdit))
-                .addContainerGap(38, Short.MAX_VALUE))
+                    .addComponent(btnEdit)
+                    .addComponent(btnCancel))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
@@ -226,8 +240,9 @@ public class EditCashierDialog extends javax.swing.JDialog {
         String lastName = txtLastName.getText();
         String contactNumber = txtContactNumber.getText();
         String userName = txtUsername.getText();
-        String password = new String(txtPassword.getPassword());
+        String newPassword = new String(txtNewPassword.getPassword());
         String confirmPassword = new String(txtConfirmPassword.getPassword());
+        String oldConfirmPassword = new String(txtOldPassword.getPassword());
 
         if (firstName.equals("")) {
             JOptionPane.showMessageDialog(null, "First name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -237,20 +252,24 @@ public class EditCashierDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Contact Number is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (userName.equals("")) {
             JOptionPane.showMessageDialog(null, "Username is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (password.equals("")) {
-            JOptionPane.showMessageDialog(null, "Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (oldConfirmPassword.equals("")) {
+            JOptionPane.showMessageDialog(null, "Old Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!oldPassword.equals(oldConfirmPassword)) {
+            JOptionPane.showMessageDialog(null, "Wrong old password!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (newPassword.equals("")) {
+            JOptionPane.showMessageDialog(null, "New Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (confirmPassword.equals("")) {
             JOptionPane.showMessageDialog(null, "Confirm Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!confirmPassword.equals(password)) {
+        } else if (!confirmPassword.equals(newPassword)) {
             JOptionPane.showMessageDialog(null, "Password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int rowAffected = updateCashierToDB(cashierID, firstName, lastName, contactNumber, userName, password);
+            int rowAffected = updateCashierToDB(cashierID, firstName, lastName, contactNumber, userName, newPassword);
             System.out.println(rowAffected);
             System.out.println(this.cashierID);
             if (rowAffected > 0) {
                 DefaultTableModel tblModel = (DefaultTableModel) CashierPanel.tblCashier.getModel();
 
-                String[] data = {firstName + " " + lastName, contactNumber, userName, password};
+                String[] data = {firstName + " " + lastName, contactNumber, userName, newPassword};
                 tblModel.setValueAt(data[0], CashierPanel.tblCashier.getSelectedRow(), 0);
                 tblModel.setValueAt(data[1], CashierPanel.tblCashier.getSelectedRow(), 1);
                 tblModel.setValueAt(data[2], CashierPanel.tblCashier.getSelectedRow(), 2);
@@ -304,6 +323,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -312,7 +332,8 @@ public class EditCashierDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtContactNumber;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
-    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtNewPassword;
+    private javax.swing.JPasswordField txtOldPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
