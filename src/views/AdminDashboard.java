@@ -66,6 +66,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         DashName.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         DashName.setForeground(new java.awt.Color(255, 255, 255));
         DashName.setText("Nackingspol Water Refilling Station");
+        DashName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DashNameMouseClicked(evt);
+            }
+        });
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/smallLogo.jpg"))); // NOI18N
         logo.setIconTextGap(0);
@@ -122,6 +127,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(25, 118, 211));
 
         Cashier.setBackground(new java.awt.Color(25, 118, 211));
+        Cashier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Cashier.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CashierMouseClicked(evt);
@@ -153,6 +159,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         );
 
         Manager.setBackground(new java.awt.Color(25, 118, 211));
+        Manager.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         Manager.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ManagerMouseClicked(evt);
@@ -309,6 +316,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         mainPane.add(dashboardPanel).setVisible(true);
         
     }//GEN-LAST:event_logoMouseClicked
+
+    private void DashNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashNameMouseClicked
+        // TODO add your handling code here:
+        DashboardPanel dashboardPanel = new DashboardPanel();
+        mainPane.removeAll();
+        mainPane.add(dashboardPanel).setVisible(true);
+    }//GEN-LAST:event_DashNameMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
