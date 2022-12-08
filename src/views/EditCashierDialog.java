@@ -300,7 +300,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
         int updatedRows = 0;
         try {
             String sql = "UPDATE user SET FirstName = ?, LastName = ?, ContactNumber = ?, Username = ?, Password = ? "
-                    + "WHERE UserID = ? AND UserType = 'Manager'";
+                    + "WHERE UserID = ? AND UserType = 'Cashier'";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 

@@ -183,6 +183,11 @@ public class CashierDashboard extends javax.swing.JFrame {
         customerLabel.setForeground(new java.awt.Color(255, 255, 255));
         customerLabel.setText("CUSTOMERS");
         customerLabel.setToolTipText("");
+        customerLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customerLabelMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout CustomerLayout = new javax.swing.GroupLayout(Customer);
         Customer.setLayout(CustomerLayout);
@@ -322,32 +327,45 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         // TODO add your handling code here:
-//        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
-//
-//        Customer.setBackground(DefaultColor);
-//        Order.setBackground(DefaultColor);
-//
-//        customerLabel.setForeground(Color.WHITE);
-//        ordersLabel.setForeground(Color.WHITE);
-//
-//        mainPane.removeAll();
-//        mainPane.add(dashboardPanel).setVisible(true);
+        CashierDashboardPanel dashboardPanel = new CashierDashboardPanel();
+
+        Customer.setBackground(DefaultColor);
+        Order.setBackground(DefaultColor);
+
+        customerLabel.setForeground(Color.WHITE);
+        ordersLabel.setForeground(Color.WHITE);
+
+        mainPane.removeAll();
+        mainPane.add(dashboardPanel).setVisible(true);
 
     }//GEN-LAST:event_logoMouseClicked
 
     private void DashNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashNameMouseClicked
         // TODO add your handling code here:
-//        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
-//
-//        Customer.setBackground(DefaultColor);
-//        Order.setBackground(DefaultColor);
-//
-//        customerLabel.setForeground(Color.WHITE);
-//        ordersLabel.setForeground(Color.WHITE);
-//
-//        mainPane.removeAll();
-//        mainPane.add(dashboardPanel).setVisible(true);
+        CashierDashboardPanel dashboardPanel = new CashierDashboardPanel();
+
+        Customer.setBackground(DefaultColor);
+        Order.setBackground(DefaultColor);
+
+        customerLabel.setForeground(Color.WHITE);
+        ordersLabel.setForeground(Color.WHITE);
+
+        mainPane.removeAll();
+        mainPane.add(dashboardPanel).setVisible(true);
     }//GEN-LAST:event_DashNameMouseClicked
+
+    private void customerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerLabelMouseClicked
+        // TODO add your handling code here:
+        Customer.setBackground(ClickedColor);
+        Order.setBackground(DefaultColor);
+
+        customerLabel.setForeground(Color.BLACK);
+        ordersLabel.setForeground(Color.WHITE);
+        
+        CashierCustomerPanel CashierCustomer = new CashierCustomerPanel();
+        mainPane.removeAll();
+        mainPane.add(CashierCustomer).setVisible(true);
+    }//GEN-LAST:event_customerLabelMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -31,25 +31,24 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
 
-        getCashiersFromDB();
+        getCustomersFromDB();
     }
 
-    public void getCashiersFromDB() {
+    public void getCustomersFromDB() {
         try {
             stmt = DBConnect.getInstance().createStatement();
 
-            String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS Name, ContactNumber, Username, Password FROM user WHERE UserType = 'Cashier'";
+            String sql = "SELECT CONCAT(FirstName, ' ',  LastName) AS 'Name', ContactNumber, CONCAT(Street, ', ', Barangay, ', ', Municity) AS 'Address' FROM customer INNER JOIN address ON customer.AddressID = address.AddressID";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
                 String name = rs.getString("Name");
                 String contactNumber = rs.getString("ContactNumber");
-                String userName = rs.getString("Username");
-                String password = rs.getString("Password");
+                String address = rs.getString("Address");
 
-                String[] data = {name, contactNumber, userName, password};
+                String[] data = {name, contactNumber, address};
 
-                DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
+                DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
                 tblModel.addRow(data);
             }
 
@@ -69,67 +68,68 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAddCashier = new javax.swing.JButton();
-        btnEditCashier = new javax.swing.JButton();
-        btnDeleteCashier = new javax.swing.JButton();
+        btnAddCustomer = new javax.swing.JButton();
+        btnEditCustomer = new javax.swing.JButton();
+        btnDeleteCustomer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCashier = new javax.swing.JTable();
+        tblCustomer = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setVisible(true);
 
-        btnAddCashier.setBackground(new java.awt.Color(0, 153, 0));
-        btnAddCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnAddCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddCashier.setText("ADD CASHIER");
-        btnAddCashier.setFocusable(false);
-        btnAddCashier.addActionListener(new java.awt.event.ActionListener() {
+        btnAddCustomer.setBackground(new java.awt.Color(0, 153, 0));
+        btnAddCustomer.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAddCustomer.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddCustomer.setText("ADD CUSTOMER");
+        btnAddCustomer.setFocusable(false);
+        btnAddCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddCashierActionPerformed(evt);
+                btnAddCustomerActionPerformed(evt);
             }
         });
 
-        btnEditCashier.setBackground(new java.awt.Color(255, 255, 0));
-        btnEditCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnEditCashier.setText("EDIT CASHIER");
-        btnEditCashier.setFocusable(false);
-        btnEditCashier.addActionListener(new java.awt.event.ActionListener() {
+        btnEditCustomer.setBackground(new java.awt.Color(255, 255, 0));
+        btnEditCustomer.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnEditCustomer.setText("EDIT CUSTOMER");
+        btnEditCustomer.setToolTipText("");
+        btnEditCustomer.setFocusable(false);
+        btnEditCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditCashierActionPerformed(evt);
+                btnEditCustomerActionPerformed(evt);
             }
         });
 
-        btnDeleteCashier.setBackground(new java.awt.Color(255, 0, 0));
-        btnDeleteCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnDeleteCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteCashier.setText("DELETE CASHIER");
-        btnDeleteCashier.setFocusable(false);
-        btnDeleteCashier.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteCustomer.setBackground(new java.awt.Color(255, 0, 0));
+        btnDeleteCustomer.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnDeleteCustomer.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteCustomer.setText("DELETE CUSTOMER");
+        btnDeleteCustomer.setFocusable(false);
+        btnDeleteCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteCashierActionPerformed(evt);
+                btnDeleteCustomerActionPerformed(evt);
             }
         });
 
-        tblCashier.setAutoCreateRowSorter(true);
-        tblCashier.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        tblCashier.setModel(new javax.swing.table.DefaultTableModel(
+        tblCustomer.setAutoCreateRowSorter(true);
+        tblCustomer.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Contact Number", "Username", "Password"
+                "Name", "Contact Number", "Address"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblCashier.setMinimumSize(new java.awt.Dimension(50, 0));
-        jScrollPane1.setViewportView(tblCashier);
+        tblCustomer.setMinimumSize(new java.awt.Dimension(50, 0));
+        jScrollPane1.setViewportView(tblCustomer);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -139,11 +139,11 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAddCashier)
+                        .addComponent(btnAddCustomer)
                         .addGap(82, 82, 82)
-                        .addComponent(btnEditCashier)
+                        .addComponent(btnEditCustomer)
                         .addGap(79, 79, 79)
-                        .addComponent(btnDeleteCashier))
+                        .addComponent(btnDeleteCustomer))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(126, 126, 126))
         );
@@ -152,9 +152,9 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddCashier)
-                    .addComponent(btnEditCashier)
-                    .addComponent(btnDeleteCashier))
+                    .addComponent(btnAddCustomer)
+                    .addComponent(btnEditCustomer)
+                    .addComponent(btnDeleteCustomer))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -163,48 +163,48 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCashierActionPerformed
+    private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
         // TODO add your handling code here:
-        new AddCashierDialog(null, true);
-    }//GEN-LAST:event_btnAddCashierActionPerformed
+        new AddCustomerDialog(null, true);
+    }//GEN-LAST:event_btnAddCustomerActionPerformed
 
-    private void btnEditCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCashierActionPerformed
+    private void btnEditCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCustomerActionPerformed
         // TODO add your handling code here:
 
-        DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
+        DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
 
-        if (tblCashier.getSelectedRowCount() == 1) {
-            String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
+        if (tblCustomer.getSelectedRowCount() == 1) {
+            String userName = tblModel.getValueAt(tblCustomer.getSelectedRow(), 2).toString();
             new EditCashierDialog(null, true, getCashierID(userName));
         } else {
-            if (tblCashier.getRowCount() == 0) {
+            if (tblCustomer.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnEditCashierActionPerformed
+    }//GEN-LAST:event_btnEditCustomerActionPerformed
 
 
-    private void btnDeleteCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCashierActionPerformed
+    private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
         // TODO add your handling code here:
 
-        if (tblCashier.getSelectedRowCount() == 1) {
+        if (tblCustomer.getSelectedRowCount() == 1) {
 
-            DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
+            DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
 
-            String name = tblModel.getValueAt(tblCashier.getSelectedRow(), 0).toString();
+            String name = tblModel.getValueAt(tblCustomer.getSelectedRow(), 0).toString();
             int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + name + "?", "Delete", JOptionPane.YES_NO_OPTION);
 
             if (answer == 0) {
-                String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
+                String userName = tblModel.getValueAt(tblCustomer.getSelectedRow(), 2).toString();
 
                 int toDeleteID = getCashierID(userName);
                 int deletedID = deleteCashierFromDB(toDeleteID);
 
                 System.out.println(toDeleteID);
                 if (deletedID > 0) {
-                    tblModel.removeRow(tblCashier.getSelectedRow());
+                    tblModel.removeRow(tblCustomer.getSelectedRow());
 
                     JOptionPane.showMessageDialog(null, "Cashier deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -213,13 +213,13 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
             }
 
         } else {
-            if (tblCashier.getRowCount() == 0) {
+            if (tblCustomer.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnDeleteCashierActionPerformed
+    }//GEN-LAST:event_btnDeleteCustomerActionPerformed
 
     private int getCashierID(String userName) {
         int toDeleteID = 0;
@@ -269,10 +269,10 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddCashier;
-    private javax.swing.JButton btnDeleteCashier;
-    private javax.swing.JButton btnEditCashier;
+    private javax.swing.JButton btnAddCustomer;
+    private javax.swing.JButton btnDeleteCustomer;
+    private javax.swing.JButton btnEditCustomer;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tblCashier;
+    public static javax.swing.JTable tblCustomer;
     // End of variables declaration//GEN-END:variables
 }
