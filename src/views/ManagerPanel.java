@@ -226,7 +226,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
         try {
             stmt = DBConnect.getInstance().createStatement();
 
-            String sql = "SELECT UserID FROM user WHERE Username = '" + userName + "'";
+            String sql = "SELECT UserID FROM user WHERE UserType = 'Manager' AND  Username = '" + userName + "'";
             rs = stmt.executeQuery(sql);
 
             rs.next();
@@ -244,7 +244,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
     private int deleteManagerFromDB(int deleteID) {
         int deletedRows = 0;
         try {
-            String sql = "DELETE FROM user WHERE UserID = ?";
+            String sql = "DELETE FROM user WHERE UserID = ?  AND UserType = 'Manager'";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 

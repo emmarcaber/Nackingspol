@@ -37,6 +37,7 @@ public class EditManagerDialog extends javax.swing.JDialog {
             stmt = DBConnect.getInstance().createStatement();
 
             String sql = "SELECT * FROM user WHERE UserType = 'Manager' AND UserID = " + managerID;
+            System.out.println(sql);
             rs = stmt.executeQuery(sql);
 
             rs.next();
@@ -300,7 +301,7 @@ public class EditManagerDialog extends javax.swing.JDialog {
         int updatedRows = 0;
         try {
             String sql = "UPDATE user SET FirstName = ?, LastName = ?, ContactNumber = ?, Username = ?, Password = ? "
-                    + "WHERE UserID = ?";
+                    + "WHERE UserID = ? AND UserType = 'Manager'";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 

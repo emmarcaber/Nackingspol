@@ -172,6 +172,7 @@ public class Login extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
         formValidation(username, password);
+        
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void formValidation(String username, String password) {
