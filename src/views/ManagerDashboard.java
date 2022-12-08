@@ -270,7 +270,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void CashierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CashierMouseClicked
         // TODO add your handling code here:
-        CashierPanel Cashier = new CashierPanel();
+        AdminCashierPanel Cashier = new AdminCashierPanel();
         mainPane.removeAll();
         mainPane.add(Cashier).setVisible(true);
     }//GEN-LAST:event_CashierMouseClicked
@@ -298,7 +298,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void ManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagerMouseClicked
         // TODO add your handling code here:
-        ManagerPanel Manager = new ManagerPanel();
+        AdminManagerPanel Manager = new AdminManagerPanel();
         mainPane.removeAll();
         mainPane.add(Manager).setVisible(true);
     }//GEN-LAST:event_ManagerMouseClicked

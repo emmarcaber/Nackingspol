@@ -250,7 +250,7 @@ public class AdminDashboardPanel extends javax.swing.JInternalFrame {
         managerLabel.setForeground(Color.WHITE);
         cashierLabel.setForeground(Color.BLACK);
         
-        CashierPanel Cashier = new CashierPanel();
+        AdminCashierPanel Cashier = new AdminCashierPanel();
         mainPane.removeAll();
         mainPane.add(Cashier).setVisible(true);
         
@@ -264,7 +264,7 @@ public class AdminDashboardPanel extends javax.swing.JInternalFrame {
         managerLabel.setForeground(Color.BLACK);
         cashierLabel.setForeground(Color.WHITE);
         
-        ManagerPanel Manager = new ManagerPanel();
+        AdminManagerPanel Manager = new AdminManagerPanel();
         mainPane.removeAll();
         mainPane.add(Manager).setVisible(true);
     }//GEN-LAST:event_managerPanelMouseClicked

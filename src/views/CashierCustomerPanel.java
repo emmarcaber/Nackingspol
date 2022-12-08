@@ -21,6 +21,7 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
     PreparedStatement pstmt = null;
 
     public static HashMap<String, Integer> cashierMap = new HashMap<>();
+    private int addressID = 0;
 
     /**
      * Creates new form TableCashier
@@ -204,8 +205,8 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
         DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
 
         if (tblCustomer.getSelectedRowCount() == 1) {
-            String userName = tblModel.getValueAt(tblCustomer.getSelectedRow(), 2).toString();
-            new EditCashierDialog(null, true, getCashierID(userName));
+            String contactNumber = tblModel.getValueAt(tblCustomer.getSelectedRow(), 1).toString();
+            new EditCustomerDialog(null, true, getCustomerID(contactNumber));
         } else {
             if (tblCustomer.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -239,32 +240,26 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
 
         return toDeleteID;
     }
-
-    private int deleteCashierFromDB(int deleteID) {
-        int deletedRows = 0;
+    
+    private int getCustomerID(String contactNumber) {
+        int customerID = 0;
         try {
-            String sql = "DELETE FROM user WHERE UserID = ?  AND UserType = 'Cashier'";
+            stmt = DBConnect.getInstance().createStatement();
 
-            pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            String sql = "SELECT CustomerID FROM customer WHERE ContactNumber = '" + contactNumber + "'";
+            System.out.println(sql);
+            rs = stmt.executeQuery(sql);
 
-            pstmt.setInt(1, deleteID);
+            rs.next();
+            customerID = rs.getInt("CustomerID");
 
-            int rowAffected = pstmt.executeUpdate();
-            deletedRows = rowAffected;
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
 
-        return deletedRows;
+        return customerID;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

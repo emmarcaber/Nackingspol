@@ -237,7 +237,7 @@ public class AddManagerDialog extends javax.swing.JDialog {
             int insertedCashierID = insertManagerToDB(firstName, lastName, contactNumber, userName, password);
             
             if (insertedCashierID > 0) { 
-                DefaultTableModel tblModel = (DefaultTableModel) ManagerPanel.tblManager.getModel();
+                DefaultTableModel tblModel = (DefaultTableModel) AdminManagerPanel.tblManager.getModel();
                 
                 String [] data = {firstName + " " + lastName, contactNumber, userName, password};
                 tblModel.addRow(data);

@@ -14,7 +14,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Anaclita
  */
-public class ManagerPanel extends javax.swing.JInternalFrame {
+public class AdminManagerPanel extends javax.swing.JInternalFrame {
 
     Statement stmt = null;
     ResultSet rs = null;
@@ -25,7 +25,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
     /**
      * Creates new form TableCashier
      */
-    public ManagerPanel() {
+    public AdminManagerPanel() {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();

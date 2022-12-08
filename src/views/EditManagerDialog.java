@@ -281,13 +281,13 @@ public class EditManagerDialog extends javax.swing.JDialog {
             System.out.println(rowAffected);
             System.out.println(this.managerID);
             if (rowAffected > 0) {
-                DefaultTableModel tblModel = (DefaultTableModel) ManagerPanel.tblManager.getModel();
+                DefaultTableModel tblModel = (DefaultTableModel) AdminManagerPanel.tblManager.getModel();
 
                 String[] data = {firstName + " " + lastName, contactNumber, userName, newPassword};
-                tblModel.setValueAt(data[0], ManagerPanel.tblManager.getSelectedRow(), 0);
-                tblModel.setValueAt(data[1], ManagerPanel.tblManager.getSelectedRow(), 1);
-                tblModel.setValueAt(data[2], ManagerPanel.tblManager.getSelectedRow(), 2);
-                tblModel.setValueAt(data[3], ManagerPanel.tblManager.getSelectedRow(), 3);
+                tblModel.setValueAt(data[0], AdminManagerPanel.tblManager.getSelectedRow(), 0);
+                tblModel.setValueAt(data[1], AdminManagerPanel.tblManager.getSelectedRow(), 1);
+                tblModel.setValueAt(data[2], AdminManagerPanel.tblManager.getSelectedRow(), 2);
+                tblModel.setValueAt(data[3], AdminManagerPanel.tblManager.getSelectedRow(), 3);
 
                 JOptionPane.showMessageDialog(null, "Manager updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
