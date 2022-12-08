@@ -4,26 +4,53 @@
  */
 package views;
 
-import javax.swing.JOptionPane;
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Anaclita
  */
-public class AddManagerDialog extends javax.swing.JDialog {
+public class EditManagerDialog extends javax.swing.JDialog {
 
-    ResultSet rs = null;
-    PreparedStatement pstmt = null;
+    private Statement stmt = null;
+    private PreparedStatement pstmt = null;
+    private ResultSet rs = null;
+    private int managerID = 0;
+
+    private static String oldPassword = "";
 
     /**
-     * Creates new form AddCashierDialog
+     * Creates new form EditCashierDialog
      */
-    public AddManagerDialog(java.awt.Frame parent, boolean modal) {
+    public EditManagerDialog(java.awt.Frame parent, boolean modal, int managerID) {
         super(parent, modal);
         initComponents();
+        this.managerID = managerID;
+        loadToTextFields(managerID);
         this.setVisible(true);
+    }
+
+    private void loadToTextFields(int managerID) {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT * FROM user WHERE UserType = 'Manager' AND UserID = " + managerID;
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            txtFirstName.setText(rs.getString("FirstName"));
+            txtLastName.setText(rs.getString("LastName"));
+            txtContactNumber.setText(rs.getString("ContactNumber"));
+            txtUsername.setText(rs.getString("Username"));
+            EditManagerDialog.oldPassword = rs.getString("Password");
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -35,56 +62,55 @@ public class AddManagerDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        txtPassword = new javax.swing.JPasswordField();
-        btnAdd = new javax.swing.JButton();
-        btnCancel = new javax.swing.JButton();
-        txtFirstName = new javax.swing.JTextField();
-        txtLastName = new javax.swing.JTextField();
         txtContactNumber = new javax.swing.JTextField();
         txtUsername = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtOldPassword = new javax.swing.JPasswordField();
+        jLabel4 = new javax.swing.JLabel();
+        btnEdit = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
+        txtFirstName = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        txtLastName = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         txtConfirmPassword = new javax.swing.JPasswordField();
+        jLabel13 = new javax.swing.JLabel();
+        txtNewPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
-        jLabel1.setText("ADD MANAGER");
+        txtContactNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtContactNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtContactNumberActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel2.setText("First Name");
-
-        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel4.setText("Last Name");
-
-        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel7.setText("Contact Number");
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel9.setText("Username");
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel11.setText("Password");
+        jLabel11.setText("Old Password");
 
-        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setText("First Name");
 
-        btnAdd.setBackground(new java.awt.Color(0, 153, 0));
-        btnAdd.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
-        btnAdd.setText("ADD");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        txtOldPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+
+        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel4.setText("Last Name");
+
+        btnEdit.setBackground(new java.awt.Color(255, 255, 0));
+        btnEdit.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnEdit.setText("EDIT");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnEditActionPerformed(evt);
             }
         });
 
@@ -98,21 +124,23 @@ public class AddManagerDialog extends javax.swing.JDialog {
 
         txtFirstName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel7.setText("Contact Number");
+
         txtLastName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
-        txtContactNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-
-        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
+        jLabel1.setText("EDIT MANAGER");
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel12.setText("Confirm Password");
 
         txtConfirmPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtConfirmPasswordActionPerformed(evt);
-            }
-        });
+
+        jLabel13.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel13.setText("New Password");
+
+        txtNewPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,10 +149,6 @@ public class AddManagerDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -141,32 +165,41 @@ public class AddManagerDialog extends javax.swing.JDialog {
                                     .addComponent(jLabel11))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                                    .addComponent(txtOldPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
                                     .addComponent(txtUsername)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                                .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(2, 2, 2)))
-                .addGap(38, 38, 38))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel13)
+                                .addGap(56, 56, 56)
+                                .addComponent(txtNewPassword)))
+                        .addGap(3, 3, 3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(83, 83, 83)
+                                .addComponent(btnCancel)
+                                .addGap(53, 53, 53)
+                                .addComponent(btnEdit))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(152, 152, 152)
+                                .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(37, 37, 37))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(135, 135, 135))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnCancel)
-                        .addGap(51, 51, 51)
-                        .addComponent(btnAdd)
-                        .addGap(131, 131, 131))))
+                .addComponent(jLabel1)
+                .addGap(132, 132, 132))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addGap(34, 34, 34)
+                .addGap(39, 39, 39)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -185,39 +218,44 @@ public class AddManagerDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtOldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdd)
+                    .addComponent(btnEdit)
                     .addComponent(btnCancel))
-                .addGap(30, 30, 30))
+                .addGap(24, 24, 24))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
+    private void txtContactNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContactNumberActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordActionPerformed
+    }//GEN-LAST:event_txtContactNumberActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         String firstName = txtFirstName.getText();
         String lastName = txtLastName.getText();
         String contactNumber = txtContactNumber.getText();
         String userName = txtUsername.getText();
-        String password = new String(txtPassword.getPassword());
+        String newPassword = new String(txtNewPassword.getPassword());
         String confirmPassword = new String(txtConfirmPassword.getPassword());
+        String oldConfirmPassword = new String(txtOldPassword.getPassword());
 
         if (firstName.equals("")) {
             JOptionPane.showMessageDialog(null, "First name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -227,52 +265,55 @@ public class AddManagerDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Contact Number is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (userName.equals("")) {
             JOptionPane.showMessageDialog(null, "Username is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (password.equals("")) {
-            JOptionPane.showMessageDialog(null, "Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (oldConfirmPassword.equals("")) {
+            JOptionPane.showMessageDialog(null, "Old Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!oldPassword.equals(oldConfirmPassword)) {
+            JOptionPane.showMessageDialog(null, "Wrong old password!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (newPassword.equals("")) {
+            JOptionPane.showMessageDialog(null, "New Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (confirmPassword.equals("")) {
             JOptionPane.showMessageDialog(null, "Confirm Password is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!confirmPassword.equals(password)) {
+        } else if (!confirmPassword.equals(newPassword)) {
             JOptionPane.showMessageDialog(null, "Password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int insertedCashierID = insertManagerToDB(firstName, lastName, contactNumber, userName, password);
-            
-            if (insertedCashierID > 0) { 
+            int rowAffected = updateManagerToDB(managerID, firstName, lastName, contactNumber, userName, newPassword);
+            System.out.println(rowAffected);
+            System.out.println(this.managerID);
+            if (rowAffected > 0) {
                 DefaultTableModel tblModel = (DefaultTableModel) ManagerPanel.tblManager.getModel();
-                
-                String [] data = {firstName + " " + lastName, contactNumber, userName, password};
-                tblModel.addRow(data);
-                
-                JOptionPane.showMessageDialog(null, "Manager added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose(); 
+
+                String[] data = {firstName + " " + lastName, contactNumber, userName, newPassword};
+                tblModel.setValueAt(data[0], ManagerPanel.tblManager.getSelectedRow(), 0);
+                tblModel.setValueAt(data[1], ManagerPanel.tblManager.getSelectedRow(), 1);
+                tblModel.setValueAt(data[2], ManagerPanel.tblManager.getSelectedRow(), 2);
+                tblModel.setValueAt(data[3], ManagerPanel.tblManager.getSelectedRow(), 3);
+
+                JOptionPane.showMessageDialog(null, "Manager updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Manager not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Manager not updated successfully!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnAddActionPerformed
+    }//GEN-LAST:event_btnEditActionPerformed
 
-    private int insertManagerToDB(String firstName, String lastName, String contactNumber, String userName, String password) {
-        int userID = 0;
+    private int updateManagerToDB(int cashierID, String firstName, String lastName, String contactNumber, String userName, String password) {
+        int updatedRows = 0;
         try {
-            String sql = "INSERT INTO user(UserType, FirstName, LastName, Username, Password, ContactNumber) "
-                    + "VALUES('Manager', ?, ?, ?, ?, ?)";
+            String sql = "UPDATE user SET FirstName = ?, LastName = ?, ContactNumber = ?, Username = ?, Password = ? "
+                    + "WHERE UserID = ?";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             pstmt.setString(1, firstName);
             pstmt.setString(2, lastName);
-            pstmt.setString(3, userName);
-            pstmt.setString(4, password);
-            pstmt.setString(5, contactNumber);
+            pstmt.setString(3, contactNumber);
+            pstmt.setString(4, userName);
+            pstmt.setString(5, password);
+            pstmt.setInt(6, cashierID);
 
             int rowAffected = pstmt.executeUpdate();
-            if (rowAffected == 1) {
-                // get candidate id
-                rs = pstmt.getGeneratedKeys();
-                if (rs.next()) {
-                    userID = rs.getInt(1);
-                }
+            updatedRows = rowAffected;
 
-            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -285,23 +326,17 @@ public class AddManagerDialog extends javax.swing.JDialog {
             }
         }
 
-        return userID;
+        return updatedRows;
     }
 
-    private void txtConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtConfirmPasswordActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
@@ -310,7 +345,8 @@ public class AddManagerDialog extends javax.swing.JDialog {
     private javax.swing.JTextField txtContactNumber;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;
-    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JPasswordField txtNewPassword;
+    private javax.swing.JPasswordField txtOldPassword;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

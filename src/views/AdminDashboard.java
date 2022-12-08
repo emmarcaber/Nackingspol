@@ -41,7 +41,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         DashName = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        logo = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -49,7 +49,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         cashierLabel = new javax.swing.JLabel();
         Manager = new javax.swing.JPanel();
         managerLabel = new javax.swing.JLabel();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        mainPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -65,8 +65,13 @@ public class AdminDashboard extends javax.swing.JFrame {
         DashName.setForeground(new java.awt.Color(255, 255, 255));
         DashName.setText("Nackingspol Water Refilling Station");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/smallLogo.jpg"))); // NOI18N
-        jLabel1.setIconTextGap(0);
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/smallLogo.jpg"))); // NOI18N
+        logo.setIconTextGap(0);
+        logo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                logoMouseClicked(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -88,20 +93,20 @@ public class AdminDashboard extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addComponent(logo)
+                .addGap(35, 35, 35)
                 .addComponent(DashName, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(129, 129, 129)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btnLogout)
-                .addGap(101, 101, 101))
+                .addGap(24, 24, 24))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(logo)
                 .addGap(65, 65, 65))
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(37, 37, 37)
@@ -200,16 +205,17 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addContainerGap(591, Short.MAX_VALUE))
         );
 
-        jDesktopPane1.setPreferredSize(new java.awt.Dimension(1100, 491));
+        mainPane.setBackground(new java.awt.Color(255, 255, 255));
+        mainPane.setPreferredSize(new java.awt.Dimension(1100, 491));
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout mainPaneLayout = new javax.swing.GroupLayout(mainPane);
+        mainPane.setLayout(mainPaneLayout);
+        mainPaneLayout.setHorizontalGroup(
+            mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 886, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        mainPaneLayout.setVerticalGroup(
+            mainPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 770, Short.MAX_VALUE)
         );
 
@@ -220,9 +226,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 132, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -235,7 +241,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
+                                .addComponent(mainPane, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -252,8 +258,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void CashierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CashierMouseClicked
         // TODO add your handling code here:
         CashierPanel Cashier = new CashierPanel();
-        jDesktopPane1.removeAll();
-        jDesktopPane1.add(Cashier).setVisible(true);
+        mainPane.removeAll();
+        mainPane.add(Cashier).setVisible(true);
     }//GEN-LAST:event_CashierMouseClicked
 
     private void CashierMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CashierMousePressed
@@ -280,8 +286,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void ManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagerMouseClicked
         // TODO add your handling code here:
         ManagerPanel Manager = new ManagerPanel();
-        jDesktopPane1.removeAll();
-        jDesktopPane1.add(Manager).setVisible(true);
+        mainPane.removeAll();
+        mainPane.add(Manager).setVisible(true);
     }//GEN-LAST:event_ManagerMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -294,6 +300,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnLogoutActionPerformed
 
+    private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
+        // TODO add your handling code here:
+        mainPane.removeAll();
+    }//GEN-LAST:event_logoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Cashier;
@@ -301,12 +312,12 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Manager;
     private javax.swing.JButton btnLogout;
     private javax.swing.JLabel cashierLabel;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel logo;
+    private javax.swing.JDesktopPane mainPane;
     private javax.swing.JLabel managerLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -82,6 +82,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         btnAddCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnAddCashier.setForeground(new java.awt.Color(255, 255, 255));
         btnAddCashier.setText("ADD CASHIER");
+        btnAddCashier.setFocusable(false);
         btnAddCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddCashierActionPerformed(evt);
@@ -91,6 +92,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         btnEditCashier.setBackground(new java.awt.Color(255, 255, 0));
         btnEditCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnEditCashier.setText("EDIT CASHIER");
+        btnEditCashier.setFocusable(false);
         btnEditCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditCashierActionPerformed(evt);
@@ -101,6 +103,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         btnDeleteCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnDeleteCashier.setForeground(new java.awt.Color(255, 255, 255));
         btnDeleteCashier.setText("DELETE CASHIER");
+        btnDeleteCashier.setFocusable(false);
         btnDeleteCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteCashierActionPerformed(evt);
