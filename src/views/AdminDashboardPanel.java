@@ -20,7 +20,7 @@ import static views.AdminDashboard.managerLabel;
  *
  * @author Anaclita
  */
-public class DashboardPanel extends javax.swing.JInternalFrame {
+public class AdminDashboardPanel extends javax.swing.JInternalFrame {
 
     Statement stmt = null;
     ResultSet rs = null;
@@ -33,7 +33,7 @@ public class DashboardPanel extends javax.swing.JInternalFrame {
     /**
      * Creates new form TableCashier
      */
-    public DashboardPanel() {
+    public AdminDashboardPanel() {
         initComponents();
         txtTotalCashier.setText(String.valueOf(getTotalCashier()));
         txtTotalManager.setText(String.valueOf(getTotalManager()));

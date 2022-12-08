@@ -22,7 +22,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     
     public AdminDashboard() {
         initComponents();
-        mainPane.add(new DashboardPanel()).setVisible(true);
+        mainPane.add(new AdminDashboardPanel()).setVisible(true);
         
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -315,7 +315,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         // TODO add your handling code here:
-        DashboardPanel dashboardPanel = new DashboardPanel();
+        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
         
         Manager.setBackground(DefaultColor);
         Cashier.setBackground(DefaultColor);
@@ -331,7 +331,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void DashNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashNameMouseClicked
         // TODO add your handling code here:
-        DashboardPanel dashboardPanel = new DashboardPanel();
+        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
         
         Manager.setBackground(DefaultColor);
         Cashier.setBackground(DefaultColor);

@@ -198,6 +198,7 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();
                     new ManagerDashboard(name);
                 }
+                
             } else {
                 JOptionPane.showMessageDialog(this, "Invalid username or password!", "ERROR", JOptionPane.ERROR_MESSAGE);
             }

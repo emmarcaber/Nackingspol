@@ -16,20 +16,18 @@ public class CashierDashboard extends javax.swing.JFrame {
     /**
      * Creates new form AdminDashboard
      */
-    Color DefaultColor,ClickedColor;
-    
-    
-    
+    Color DefaultColor, ClickedColor;
+
     public CashierDashboard(String name) {
         initComponents();
-        labelCashierName.setText(name);
-        mainPane.add(new DashboardPanel()).setVisible(true);
-        
+        labelCashierName2.setText(name);
+        mainPane.add(new AdminDashboardPanel()).setVisible(true);
+
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        
-        DefaultColor=new Color(25,118,211);
-        ClickedColor=new Color (255,255,255);
+
+        DefaultColor = new Color(25, 118, 211);
+        ClickedColor = new Color(255, 255, 255);
     }
 
     /**
@@ -45,8 +43,9 @@ public class CashierDashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         DashName = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
-        labelCashierName = new javax.swing.JLabel();
+        labelCashierName2 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
+        labelCashierName = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Order = new javax.swing.JPanel();
         ordersLabel = new javax.swing.JLabel();
@@ -82,9 +81,9 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        labelCashierName.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        labelCashierName.setForeground(new java.awt.Color(255, 255, 255));
-        labelCashierName.setText("CASHIER");
+        labelCashierName2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        labelCashierName2.setForeground(new java.awt.Color(255, 255, 255));
+        labelCashierName2.setText("| CASHIER");
 
         btnLogout.setBackground(new java.awt.Color(255, 255, 0));
         btnLogout.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -98,6 +97,10 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
+        labelCashierName.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        labelCashierName.setForeground(new java.awt.Color(255, 255, 255));
+        labelCashierName.setText("CASHIER");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -109,6 +112,8 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addComponent(DashName, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(labelCashierName)
+                .addGap(39, 39, 39)
+                .addComponent(labelCashierName2)
                 .addGap(29, 29, 29)
                 .addComponent(btnLogout)
                 .addGap(50, 50, 50))
@@ -123,8 +128,9 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DashName)
-                    .addComponent(labelCashierName)
-                    .addComponent(btnLogout))
+                    .addComponent(labelCashierName2)
+                    .addComponent(btnLogout)
+                    .addComponent(labelCashierName))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -271,43 +277,43 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     private void OrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderMouseClicked
         // TODO add your handling code here:
-        CashierPanel Cashier = new CashierPanel();
+        CashierOrderPanel CashierOrder = new CashierOrderPanel();
         mainPane.removeAll();
-        mainPane.add(Cashier).setVisible(true);
+        mainPane.add(CashierOrder).setVisible(true);
     }//GEN-LAST:event_OrderMouseClicked
 
     private void OrderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderMousePressed
         // TODO add your handling code here:
         Order.setBackground(ClickedColor);
         Customer.setBackground(DefaultColor);
-        
+
         ordersLabel.setForeground(Color.BLACK);
         customerLabel.setForeground(Color.WHITE);
-        
+
     }//GEN-LAST:event_OrderMousePressed
 
     private void CustomerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerMousePressed
         // TODO add your handling code here:
-       
+
         Customer.setBackground(ClickedColor);
         Order.setBackground(DefaultColor);
-        
+
         customerLabel.setForeground(Color.BLACK);
         ordersLabel.setForeground(Color.WHITE);
-        
+
     }//GEN-LAST:event_CustomerMousePressed
 
     private void CustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerMouseClicked
         // TODO add your handling code here:
-        ManagerPanel Manager = new ManagerPanel();
+        CashierCustomerPanel CashierCustomer = new CashierCustomerPanel();
         mainPane.removeAll();
-        mainPane.add(Manager).setVisible(true);
+        mainPane.add(CashierCustomer).setVisible(true);
     }//GEN-LAST:event_CustomerMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
-        
+
         if (answer == 0) {
             this.dispose();
             new Login();
@@ -316,32 +322,31 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         // TODO add your handling code here:
-        DashboardPanel dashboardPanel = new DashboardPanel();
-        
-        Customer.setBackground(DefaultColor);
-        Order.setBackground(DefaultColor);
-        
-        customerLabel.setForeground(Color.WHITE);
-        ordersLabel.setForeground(Color.WHITE);
-        
-        
-        mainPane.removeAll();
-        mainPane.add(dashboardPanel).setVisible(true);
-        
+//        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
+//
+//        Customer.setBackground(DefaultColor);
+//        Order.setBackground(DefaultColor);
+//
+//        customerLabel.setForeground(Color.WHITE);
+//        ordersLabel.setForeground(Color.WHITE);
+//
+//        mainPane.removeAll();
+//        mainPane.add(dashboardPanel).setVisible(true);
+
     }//GEN-LAST:event_logoMouseClicked
 
     private void DashNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashNameMouseClicked
         // TODO add your handling code here:
-        DashboardPanel dashboardPanel = new DashboardPanel();
-        
-        Customer.setBackground(DefaultColor);
-        Order.setBackground(DefaultColor);
-        
-        customerLabel.setForeground(Color.WHITE);
-        ordersLabel.setForeground(Color.WHITE);
-        
-        mainPane.removeAll();
-        mainPane.add(dashboardPanel).setVisible(true);
+//        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
+//
+//        Customer.setBackground(DefaultColor);
+//        Order.setBackground(DefaultColor);
+//
+//        customerLabel.setForeground(Color.WHITE);
+//        ordersLabel.setForeground(Color.WHITE);
+//
+//        mainPane.removeAll();
+//        mainPane.add(dashboardPanel).setVisible(true);
     }//GEN-LAST:event_DashNameMouseClicked
 
 
@@ -355,6 +360,7 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelCashierName;
+    private javax.swing.JLabel labelCashierName2;
     private javax.swing.JLabel logo;
     public static javax.swing.JDesktopPane mainPane;
     public static javax.swing.JLabel ordersLabel;
