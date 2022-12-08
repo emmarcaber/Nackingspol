@@ -34,45 +34,16 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEditCashier = new javax.swing.JButton();
-        btnDeleteCashier = new javax.swing.JButton();
-        btnAddCashier = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCashier = new javax.swing.JTable();
+        btnAddManager = new javax.swing.JButton();
+        btnEditCashier = new javax.swing.JButton();
+        btnDeleteCashier = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        btnEditCashier.setBackground(new java.awt.Color(255, 255, 0));
-        btnEditCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnEditCashier.setText("EDIT");
-        btnEditCashier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditCashierActionPerformed(evt);
-            }
-        });
-
-        btnDeleteCashier.setBackground(new java.awt.Color(255, 0, 0));
-        btnDeleteCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnDeleteCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteCashier.setText("DELETE");
-        btnDeleteCashier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteCashierActionPerformed(evt);
-            }
-        });
-
-        btnAddCashier.setBackground(new java.awt.Color(0, 153, 0));
-        btnAddCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnAddCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddCashier.setText("ADD");
-        btnAddCashier.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddCashierActionPerformed(evt);
-            }
-        });
-
         tblCashier.setAutoCreateRowSorter(true);
-        tblCashier.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tblCashier.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tblCashier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -91,6 +62,35 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tblCashier);
 
+        btnAddManager.setBackground(new java.awt.Color(0, 153, 0));
+        btnAddManager.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAddManager.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddManager.setText("ADD MANAGER");
+        btnAddManager.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddManagerActionPerformed(evt);
+            }
+        });
+
+        btnEditCashier.setBackground(new java.awt.Color(255, 255, 0));
+        btnEditCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnEditCashier.setText("EDIT MANAGER");
+        btnEditCashier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditCashierActionPerformed(evt);
+            }
+        });
+
+        btnDeleteCashier.setBackground(new java.awt.Color(255, 0, 0));
+        btnDeleteCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnDeleteCashier.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteCashier.setText("DELETE MANAGER");
+        btnDeleteCashier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteCashierActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,22 +99,20 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnAddCashier)
-                        .addGap(74, 74, 74)
+                        .addComponent(btnAddManager)
+                        .addGap(102, 102, 102)
                         .addComponent(btnEditCashier)
-                        .addGap(68, 68, 68)
-                        .addComponent(btnDeleteCashier)
-                        .addGap(70, 70, 70))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 966, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(96, 96, 96)
+                        .addComponent(btnDeleteCashier))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 966, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddCashier)
+                    .addComponent(btnAddManager)
                     .addComponent(btnEditCashier)
                     .addComponent(btnDeleteCashier))
                 .addGap(18, 18, 18)
@@ -125,6 +123,11 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddManagerActionPerformed
+        // TODO add your handling code here:
+        new AddCashierDialog(null, true);
+    }//GEN-LAST:event_btnAddManagerActionPerformed
+
     private void btnEditCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCashierActionPerformed
         // TODO add your handling code here:
 
@@ -132,6 +135,7 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
 
         if (tblCashier.getSelectedRowCount() == 1) {
             String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
+//            new EditCashierDialog(null, true, getCashierID(userName));
         } else {
             if (tblCashier.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -144,17 +148,11 @@ public class ManagerPanel extends javax.swing.JInternalFrame {
     private void btnDeleteCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCashierActionPerformed
         // TODO add your handling code here:
 
-        
     }//GEN-LAST:event_btnDeleteCashierActionPerformed
-
-    private void btnAddCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCashierActionPerformed
-        // TODO add your handling code here:
-        new AddCashierDialog(null, true);
-    }//GEN-LAST:event_btnAddCashierActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddCashier;
+    private javax.swing.JButton btnAddManager;
     private javax.swing.JButton btnDeleteCashier;
     private javax.swing.JButton btnEditCashier;
     private javax.swing.JScrollPane jScrollPane1;

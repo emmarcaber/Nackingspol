@@ -42,9 +42,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         DashName = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Cashier = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        cashierLabel = new javax.swing.JLabel();
         Manager = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        managerLabel = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -64,7 +64,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(DashName, javax.swing.GroupLayout.DEFAULT_SIZE, 1188, Short.MAX_VALUE)
+                .addComponent(DashName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -72,7 +72,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(45, Short.MAX_VALUE)
                 .addComponent(DashName)
-                .addGap(48, 48, 48))
+                .addGap(42, 42, 42))
         );
 
         jPanel3.setBackground(new java.awt.Color(25, 118, 211));
@@ -87,8 +87,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        jLabel1.setText("Cashier");
+        cashierLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        cashierLabel.setForeground(new java.awt.Color(255, 255, 255));
+        cashierLabel.setText("CASHIER");
 
         javax.swing.GroupLayout CashierLayout = new javax.swing.GroupLayout(Cashier);
         Cashier.setLayout(CashierLayout);
@@ -96,14 +97,14 @@ public class AdminDashboard extends javax.swing.JFrame {
             CashierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CashierLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(jLabel1)
+                .addComponent(cashierLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         CashierLayout.setVerticalGroup(
             CashierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CashierLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(jLabel1)
+                .addComponent(cashierLabel)
                 .addGap(18, 18, 18))
         );
 
@@ -117,8 +118,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        jLabel2.setText("Manager");
+        managerLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        managerLabel.setForeground(new java.awt.Color(255, 255, 255));
+        managerLabel.setText("MANAGER");
 
         javax.swing.GroupLayout ManagerLayout = new javax.swing.GroupLayout(Manager);
         Manager.setLayout(ManagerLayout);
@@ -126,14 +128,14 @@ public class AdminDashboard extends javax.swing.JFrame {
             ManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ManagerLayout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addComponent(jLabel2)
+                .addComponent(managerLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         ManagerLayout.setVerticalGroup(
             ManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ManagerLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jLabel2)
+                .addComponent(managerLabel)
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -158,7 +160,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addComponent(Cashier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
                 .addComponent(Manager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(347, Short.MAX_VALUE))
+                .addContainerGap(354, Short.MAX_VALUE))
         );
 
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(1009, 491));
@@ -167,11 +169,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1064, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 526, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -179,12 +181,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1040, Short.MAX_VALUE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -194,12 +196,12 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)))
+                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -218,6 +220,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         Cashier.setBackground(ClickedColor);
         Manager.setBackground(DefaultColor);
         
+        cashierLabel.setForeground(Color.BLACK);
+        managerLabel.setForeground(Color.WHITE);
+        
         DashName.setText("Cashier");
     }//GEN-LAST:event_CashierMousePressed
 
@@ -226,6 +231,9 @@ public class AdminDashboard extends javax.swing.JFrame {
        
         Manager.setBackground(ClickedColor);
         Cashier.setBackground(DefaultColor);
+        
+        managerLabel.setForeground(Color.BLACK);
+        cashierLabel.setForeground(Color.WHITE);
         
         DashName.setText("Manager");
     }//GEN-LAST:event_ManagerMousePressed
@@ -276,11 +284,11 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel Cashier;
     private javax.swing.JLabel DashName;
     private javax.swing.JPanel Manager;
+    private javax.swing.JLabel cashierLabel;
     private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel managerLabel;
     // End of variables declaration//GEN-END:variables
 }

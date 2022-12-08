@@ -80,7 +80,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         btnAddCashier.setBackground(new java.awt.Color(0, 153, 0));
         btnAddCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnAddCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddCashier.setText("ADD");
+        btnAddCashier.setText("ADD CASHIER");
         btnAddCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddCashierActionPerformed(evt);
@@ -89,7 +89,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
 
         btnEditCashier.setBackground(new java.awt.Color(255, 255, 0));
         btnEditCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnEditCashier.setText("EDIT");
+        btnEditCashier.setText("EDIT CASHIER");
         btnEditCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditCashierActionPerformed(evt);
@@ -99,7 +99,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         btnDeleteCashier.setBackground(new java.awt.Color(255, 0, 0));
         btnDeleteCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnDeleteCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteCashier.setText("DELETE");
+        btnDeleteCashier.setText("DELETE CASHIER");
         btnDeleteCashier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteCashierActionPerformed(evt);
@@ -107,7 +107,7 @@ public class CashierPanel extends javax.swing.JInternalFrame {
         });
 
         tblCashier.setAutoCreateRowSorter(true);
-        tblCashier.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        tblCashier.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         tblCashier.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -135,14 +135,12 @@ public class CashierPanel extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnAddCashier)
-                        .addGap(74, 74, 74)
+                        .addGap(102, 102, 102)
                         .addComponent(btnEditCashier)
-                        .addGap(68, 68, 68)
-                        .addComponent(btnDeleteCashier)
-                        .addGap(70, 70, 70))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 966, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addGap(96, 96, 96)
+                        .addComponent(btnDeleteCashier))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 966, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
