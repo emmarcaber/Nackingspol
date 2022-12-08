@@ -17,6 +17,11 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
+    String userType = "";
+
+    Statement stmt = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form Login
      */
@@ -172,20 +177,57 @@ public class Login extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
         formValidation(username, password);
-        
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void formValidation(String username, String password) {
 
         if (username.equals("") || password.equals("")) {
             JOptionPane.showMessageDialog(this, "Empty data!", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else if (username.equals("admin") && password.equals("password")) {
+        } else if (username.equals("nackingspol") && password.equals("anaclita")) {
             this.dispose();
             new AdminDashboard();
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (isUser(username, password)) {
+
+                if (userType.equals("Cashier")) {
+                    this.dispose();
+                    new CashierDashboard();
+                } else if (userType.equals("Manager")) {
+                    this.dispose();
+                    new ManagerDashboard();
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid username or password!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        
+
+    }
+
+    private boolean isUser(String username, String password) {
+        boolean isUser = false;
+        try {
+
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT * FROM user WHERE Username = '" + username
+                    + "' AND Password = '" + password + "'";
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            this.userType = rs.getString("UserType");
+
+            if (!userType.equals("")) {
+                isUser = true;
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return isUser;
     }
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
