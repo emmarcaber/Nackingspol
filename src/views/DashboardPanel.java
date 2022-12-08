@@ -4,12 +4,17 @@
  */
 package views;
 
+import java.awt.Color;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.sql.*;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static views.AdminDashboard.Cashier;
+import static views.AdminDashboard.Manager;
+import static views.AdminDashboard.cashierLabel;
 import static views.AdminDashboard.mainPane;
+import static views.AdminDashboard.managerLabel;
 
 /**
  *
@@ -20,6 +25,8 @@ public class DashboardPanel extends javax.swing.JInternalFrame {
     Statement stmt = null;
     ResultSet rs = null;
     PreparedStatement pstmt = null;
+    
+    Color DefaultColor,ClickedColor;
 
     public static HashMap<String, Integer> cashierMap = new HashMap<>();
 
@@ -30,8 +37,13 @@ public class DashboardPanel extends javax.swing.JInternalFrame {
         initComponents();
         txtTotalCashier.setText(String.valueOf(getTotalCashier()));
         txtTotalManager.setText(String.valueOf(getTotalManager()));
+        
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
+        
+        DefaultColor=new Color(25,118,211);
+        ClickedColor=new Color (255,255,255);
+        
         ui.setNorthPane(null);
 
         getCashiersFromDB();
@@ -232,16 +244,29 @@ public class DashboardPanel extends javax.swing.JInternalFrame {
 
     private void cashierPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cashierPanelMouseClicked
         // TODO add your handling code here:
-        ManagerPanel Manager = new ManagerPanel();
+        Manager.setBackground(DefaultColor);
+        Cashier.setBackground(ClickedColor);
+        
+        managerLabel.setForeground(Color.WHITE);
+        cashierLabel.setForeground(Color.BLACK);
+        
+        CashierPanel Cashier = new CashierPanel();
         mainPane.removeAll();
-        mainPane.add(Manager).setVisible(true);
+        mainPane.add(Cashier).setVisible(true);
+        
     }//GEN-LAST:event_cashierPanelMouseClicked
 
     private void managerPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_managerPanelMouseClicked
         // TODO add your handling code here:
-        CashierPanel Cashier = new CashierPanel();
+        Manager.setBackground(ClickedColor);
+        Cashier.setBackground(DefaultColor);
+        
+        managerLabel.setForeground(Color.BLACK);
+        cashierLabel.setForeground(Color.WHITE);
+        
+        ManagerPanel Manager = new ManagerPanel();
         mainPane.removeAll();
-        mainPane.add(Cashier).setVisible(true);
+        mainPane.add(Manager).setVisible(true);
     }//GEN-LAST:event_managerPanelMouseClicked
 
 

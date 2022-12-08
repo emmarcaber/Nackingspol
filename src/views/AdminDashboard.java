@@ -66,6 +66,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         DashName.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
         DashName.setForeground(new java.awt.Color(255, 255, 255));
         DashName.setText("Nackingspol Water Refilling Station");
+        DashName.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         DashName.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 DashNameMouseClicked(evt);
@@ -73,6 +74,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
 
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/smallLogo.jpg"))); // NOI18N
+        logo.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         logo.setIconTextGap(0);
         logo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -88,6 +90,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnLogout.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(25, 118, 211));
         btnLogout.setText("LOGOUT");
+        btnLogout.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnLogout.setFocusable(false);
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -185,9 +189,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         ManagerLayout.setVerticalGroup(
             ManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ManagerLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(managerLabel)
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -312,6 +316,14 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         // TODO add your handling code here:
         DashboardPanel dashboardPanel = new DashboardPanel();
+        
+        Manager.setBackground(DefaultColor);
+        Cashier.setBackground(DefaultColor);
+        
+        managerLabel.setForeground(Color.WHITE);
+        cashierLabel.setForeground(Color.WHITE);
+        
+        
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
         
@@ -320,23 +332,30 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void DashNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashNameMouseClicked
         // TODO add your handling code here:
         DashboardPanel dashboardPanel = new DashboardPanel();
+        
+        Manager.setBackground(DefaultColor);
+        Cashier.setBackground(DefaultColor);
+        
+        managerLabel.setForeground(Color.WHITE);
+        cashierLabel.setForeground(Color.WHITE);
+        
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
     }//GEN-LAST:event_DashNameMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel Cashier;
+    public static javax.swing.JPanel Cashier;
     private javax.swing.JLabel DashName;
-    private javax.swing.JPanel Manager;
+    public static javax.swing.JPanel Manager;
     private javax.swing.JButton btnLogout;
-    private javax.swing.JLabel cashierLabel;
+    public static javax.swing.JLabel cashierLabel;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
     public static javax.swing.JDesktopPane mainPane;
-    private javax.swing.JLabel managerLabel;
+    public static javax.swing.JLabel managerLabel;
     // End of variables declaration//GEN-END:variables
 }
