@@ -22,6 +22,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     
     public AdminDashboard() {
         initComponents();
+        mainPane.add(new DashboardPanel()).setVisible(true);
+        
         this.setVisible(true);
         this.setLocationRelativeTo(null);
         
@@ -80,7 +82,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnLogout.setBackground(new java.awt.Color(255, 255, 0));
         btnLogout.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(25, 118, 211));
-        btnLogout.setText("Logout");
+        btnLogout.setText("LOGOUT");
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -302,9 +304,9 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         // TODO add your handling code here:
-        Dashboard Dashboard = new Dashboard();
+        DashboardPanel dashboardPanel = new DashboardPanel();
         mainPane.removeAll();
-        mainPane.add(Dashboard).setVisible(true);
+        mainPane.add(dashboardPanel).setVisible(true);
         
     }//GEN-LAST:event_logoMouseClicked
 
@@ -320,7 +322,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel logo;
-    private javax.swing.JDesktopPane mainPane;
+    public static javax.swing.JDesktopPane mainPane;
     private javax.swing.JLabel managerLabel;
     // End of variables declaration//GEN-END:variables
 }
