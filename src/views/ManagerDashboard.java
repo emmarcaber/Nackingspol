@@ -47,11 +47,14 @@ public class ManagerDashboard extends javax.swing.JFrame {
         logo = new javax.swing.JLabel();
         labelManagerName = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
+        labelManagerName1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Cashier = new javax.swing.JPanel();
         cashierLabel = new javax.swing.JLabel();
         Manager = new javax.swing.JPanel();
         managerLabel = new javax.swing.JLabel();
+        Manager1 = new javax.swing.JPanel();
+        managerLabel1 = new javax.swing.JLabel();
         mainPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,6 +101,10 @@ public class ManagerDashboard extends javax.swing.JFrame {
             }
         });
 
+        labelManagerName1.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        labelManagerName1.setForeground(new java.awt.Color(255, 255, 255));
+        labelManagerName1.setText("MANAGER");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -108,6 +115,8 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(DashName, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labelManagerName1)
+                .addGap(18, 18, 18)
                 .addComponent(labelManagerName)
                 .addGap(29, 29, 29)
                 .addComponent(btnLogout)
@@ -124,7 +133,8 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DashName)
                     .addComponent(labelManagerName)
-                    .addComponent(btnLogout))
+                    .addComponent(btnLogout)
+                    .addComponent(labelManagerName1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -143,7 +153,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         cashierLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         cashierLabel.setForeground(new java.awt.Color(255, 255, 255));
-        cashierLabel.setText("CASHIER");
+        cashierLabel.setText("ORDERS");
 
         javax.swing.GroupLayout CashierLayout = new javax.swing.GroupLayout(Cashier);
         Cashier.setLayout(CashierLayout);
@@ -175,7 +185,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         managerLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
         managerLabel.setForeground(new java.awt.Color(255, 255, 255));
-        managerLabel.setText("MANAGER");
+        managerLabel.setText("CUSTOMER");
 
         javax.swing.GroupLayout ManagerLayout = new javax.swing.GroupLayout(Manager);
         Manager.setLayout(ManagerLayout);
@@ -194,6 +204,38 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+        Manager1.setBackground(new java.awt.Color(25, 118, 211));
+        Manager1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Manager1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Manager1MouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                Manager1MousePressed(evt);
+            }
+        });
+
+        managerLabel1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        managerLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        managerLabel1.setText("PRODUCTS");
+
+        javax.swing.GroupLayout Manager1Layout = new javax.swing.GroupLayout(Manager1);
+        Manager1.setLayout(Manager1Layout);
+        Manager1Layout.setHorizontalGroup(
+            Manager1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Manager1Layout.createSequentialGroup()
+                .addGap(61, 61, 61)
+                .addComponent(managerLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        Manager1Layout.setVerticalGroup(
+            Manager1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Manager1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(managerLabel1)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -205,7 +247,10 @@ public class ManagerDashboard extends javax.swing.JFrame {
                         .addComponent(Cashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Manager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(Manager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Manager1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -213,9 +258,11 @@ public class ManagerDashboard extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addComponent(Cashier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(Manager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(591, Short.MAX_VALUE))
+                .addGap(31, 31, 31)
+                .addComponent(Manager1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(514, Short.MAX_VALUE))
         );
 
         mainPane.setBackground(new java.awt.Color(255, 255, 255));
@@ -298,9 +345,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void ManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagerMouseClicked
         // TODO add your handling code here:
-        AdminManagerPanel Manager = new AdminManagerPanel();
+        ManagerCustomerPanel ManagerCustomer = new ManagerCustomerPanel();
         mainPane.removeAll();
-        mainPane.add(Manager).setVisible(true);
+        mainPane.add(ManagerCustomer).setVisible(true);
     }//GEN-LAST:event_ManagerMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -343,19 +390,30 @@ public class ManagerDashboard extends javax.swing.JFrame {
         mainPane.add(dashboardPanel).setVisible(true);
     }//GEN-LAST:event_DashNameMouseClicked
 
+    private void Manager1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Manager1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Manager1MouseClicked
+
+    private void Manager1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Manager1MousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Manager1MousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel Cashier;
     private javax.swing.JLabel DashName;
     public static javax.swing.JPanel Manager;
+    public static javax.swing.JPanel Manager1;
     private javax.swing.JButton btnLogout;
     public static javax.swing.JLabel cashierLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelManagerName;
+    private javax.swing.JLabel labelManagerName1;
     private javax.swing.JLabel logo;
     public static javax.swing.JDesktopPane mainPane;
     public static javax.swing.JLabel managerLabel;
+    public static javax.swing.JLabel managerLabel1;
     // End of variables declaration//GEN-END:variables
 }
