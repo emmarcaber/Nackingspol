@@ -253,10 +253,12 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             int insertedCustomerID = insertCustomerToDB(firstName, lastName, contactNumber, insertedAddressID);
             
             if (insertedCustomerID > 0) { 
-                DefaultTableModel tblModel = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
+                DefaultTableModel tblModelCashier = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
+                DefaultTableModel tblModelManager = (DefaultTableModel) ManagerCustomerPanel.tblCustomer.getModel();
                 
                 String [] data = {firstName + " " + lastName, contactNumber, address};
-                tblModel.addRow(data);
+                tblModelCashier.addRow(data);
+                tblModelManager.addRow(data);
                 
                 JOptionPane.showMessageDialog(null, "Customer added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose(); 
