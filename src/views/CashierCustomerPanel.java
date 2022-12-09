@@ -73,10 +73,8 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
         btnEditCustomer = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomer = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtSearchCustomer = new javax.swing.JTextField();
+        btnSearchCustomer = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setVisible(true);
@@ -124,25 +122,24 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
         tblCustomer.setMinimumSize(new java.awt.Dimension(50, 0));
         jScrollPane1.setViewportView(tblCustomer);
 
-        jComboBox1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose City/Municipality", "Iriga City", "Baao" }));
-
-        jComboBox2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Barangay" }));
-        jComboBox2.setPreferredSize(new java.awt.Dimension(211, 25));
-
-        jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        jTextField1.setPreferredSize(new java.awt.Dimension(211, 25));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtSearchCustomer.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtSearchCustomer.setPreferredSize(new java.awt.Dimension(211, 25));
+        txtSearchCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtSearchCustomerActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 102, 255));
-        jButton1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("SEARCH CUSTOMER");
+        btnSearchCustomer.setBackground(new java.awt.Color(0, 102, 255));
+        btnSearchCustomer.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnSearchCustomer.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearchCustomer.setText("SEARCH CUSTOMER");
+        btnSearchCustomer.setFocusable(false);
+        btnSearchCustomer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchCustomerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,41 +151,32 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(509, 509, 509)
-                        .addComponent(btnAddCustomer)
-                        .addGap(58, 58, 58)
-                        .addComponent(btnEditCustomer))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(187, 187, 187)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(365, 365, 365)
-                        .addComponent(jButton1)))
+                        .addGap(97, 97, 97)
+                        .addComponent(txtSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearchCustomer)))
                 .addContainerGap(162, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAddCustomer)
+                .addGap(49, 49, 49)
+                .addComponent(btnEditCustomer)
+                .addGap(191, 191, 191))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                    .addComponent(txtSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearchCustomer))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCustomer)
                     .addComponent(btnEditCustomer))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -216,10 +204,58 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditCustomerActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchCustomerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtSearchCustomerActionPerformed
 
+    private void btnSearchCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchCustomerActionPerformed
+        // TODO add your handling code here:
+
+        String toSearch = txtSearchCustomer.getText();
+
+        if (toSearch.equals("")) {
+            removeAllRowsTableCustomer();
+            getCustomersFromDB();
+        } else {
+            DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
+
+            removeAllRowsTableCustomer();
+
+            try {
+                stmt = DBConnect.getInstance().createStatement();
+
+                String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS 'Name', ContactNumber, CONCAT(Street, ', ', Barangay, ', ', Municity) AS 'Address' FROM Customer INNER JOIN Address ON Customer.AddressID = Address.AddressID WHERE LastName LIKE '"
+                        + toSearch + "%'";
+
+                rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    String name = rs.getString("Name");
+                    String contactNumber = rs.getString("ContactNumber");
+                    String address = rs.getString("Address");
+
+                    String[] data = {name, contactNumber, address};
+
+                    tblModel.addRow(data);
+                }
+
+                rs.close();
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnSearchCustomerActionPerformed
+
+    private void removeAllRowsTableCustomer() {
+        DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
+
+        int rowsToRemove = tblModel.getRowCount();
+        //remove rows from the bottom one by one
+        for (int i = rowsToRemove - 1; i >= 0; i--) {
+            tblModel.removeRow(i);
+        }
+    }
 
     private int getCashierID(String userName) {
         int toDeleteID = 0;
@@ -240,7 +276,7 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
 
         return toDeleteID;
     }
-    
+
     private int getCustomerID(String contactNumber) {
         int customerID = 0;
         try {
@@ -265,11 +301,9 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddCustomer;
     private javax.swing.JButton btnEditCustomer;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
+    private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     public static javax.swing.JTable tblCustomer;
+    private javax.swing.JTextField txtSearchCustomer;
     // End of variables declaration//GEN-END:variables
 }

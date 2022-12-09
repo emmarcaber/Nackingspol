@@ -20,6 +20,10 @@ public class EditCustomerDialog extends javax.swing.JDialog {
     PreparedStatement pstmt = null;
     
     private int customerID = 0;
+    private String oldMunicity = "";
+    private String oldBarangay = "";
+    private String oldStreet = "";
+    private String oldContactNumber = "";
 
     /**
      * Creates new form AddCashierDialog
@@ -57,6 +61,14 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             txtFirstName.setText(rs.getString("FirstName"));
             txtLastName.setText(rs.getString("LastName"));
             txtContactNumber.setText(rs.getString("ContactNumber"));
+            cbMunicity.setSelectedItem(rs.getString("Municity"));
+            cbBarangay.setSelectedItem(rs.getString("Barangay"));
+            txtStreet.setText(rs.getString("Street"));
+            
+            this.oldMunicity = rs.getString("Municity");
+            this.oldBarangay = rs.getString("Barangay");
+            this.oldStreet = rs.getString("Street");
+            this.oldContactNumber = rs.getString("ContactNumber");
 
             rs.close();
             stmt.close();
@@ -279,24 +291,62 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please select a barangay!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (street.equals("")) {
             JOptionPane.showMessageDialog(null, "Street is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            int insertedAddressID = insertAddressToDB(street, barangay, municity);
-            int insertedCustomerID = insertCustomerToDB(firstName, lastName, contactNumber, insertedAddressID);
+        } else if (contactNumber.equals(oldContactNumber) && municity.equals(oldMunicity) && barangay.equals(oldBarangay) && street.equals(oldStreet)) {
+            JOptionPane.showMessageDialog(null, "You have not changed any value!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
+            int isFoundAddressID = findAddressID(street, municity, barangay);
+            int insertedAddressID = 0;
             
-            if (insertedCustomerID > 0) { 
+            if (isFoundAddressID == 0) {
+                insertedAddressID = insertAddressToDB(street, barangay, municity);
+            } else {
+                insertedAddressID = isFoundAddressID;
+            }
+            
+            int rowAffected = updateCustomerToDB(firstName, lastName, contactNumber, insertedAddressID);
+            
+            if (rowAffected > 0) { 
                 DefaultTableModel tblModel = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
                 
-                String [] data = {firstName + " " + lastName, contactNumber, address};
-                tblModel.addRow(data);
+                String[] data = {firstName + " " + lastName, contactNumber, street + ", " + barangay + ", " + municity};
+                tblModel.setValueAt(data[0], CashierCustomerPanel.tblCustomer.getSelectedRow(), 0);
+                tblModel.setValueAt(data[1], CashierCustomerPanel.tblCustomer.getSelectedRow(), 1);
+                tblModel.setValueAt(data[2], CashierCustomerPanel.tblCustomer.getSelectedRow(), 2);
                 
-                JOptionPane.showMessageDialog(null, "Customer added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Customer edited successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose(); 
             } else {
-                JOptionPane.showMessageDialog(null, "Customer not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Customer not edited successfully!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
+    private int findAddressID(String street, String municity, String barangay) {
+         int addressID = 0;
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT AddressID FROM address WHERE " +
+                    "Street = '" + street + "'" +
+                    " AND Barangay = '" + barangay + "'" +
+                    " AND Municity = '" + municity + "'"
+                    ;
+            
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            addressID = rs.getInt("AddressID");
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return addressID;
+    }
+    
     private int insertAddressToDB(String street, String barangay, String municity) {
         int insertedAddressID = 0;
 
@@ -334,7 +384,6 @@ public class EditCustomerDialog extends javax.swing.JDialog {
         return insertedAddressID;
     }
 
-
     private void cbMunicityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMunicityActionPerformed
         // TODO add your handling code here:
         String selectedMunicity = cbMunicity.getSelectedItem().toString();
@@ -360,11 +409,11 @@ public class EditCustomerDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_cbMunicityActionPerformed
 
-    private int insertCustomerToDB(String firstName, String lastName, String contactNumber, int addressID) {
-        int insertedCustomerID = 0;
+    private int updateCustomerToDB(String firstName, String lastName, String contactNumber, int addressID) {
+        int updatedRows = 0;
         try {
-            String sql = "INSERT INTO customer(FirstName, LastName, ContactNumber, AddressID) "
-                    + "VALUES(?, ?, ?, ?)";
+            String sql = "UPDATE customer SET FirstName = ?, LastName = ?, ContactNumber = ?, AddressID = ? "
+                    + "WHERE CustomerID = ?";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -372,16 +421,11 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             pstmt.setString(2, lastName);
             pstmt.setString(3, contactNumber);
             pstmt.setInt(4, addressID);
+            pstmt.setInt(5, this.customerID);
 
             int rowAffected = pstmt.executeUpdate();
-            if (rowAffected == 1) {
-                // get candidate id
-                rs = pstmt.getGeneratedKeys();
-                if (rs.next()) {
-                    insertedCustomerID = rs.getInt(1);
-                }
+            updatedRows = rowAffected;
 
-            }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } finally {
@@ -394,7 +438,7 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             }
         }
 
-        return insertedCustomerID;
+        return updatedRows;
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -277,8 +277,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int rowAffected = updateCashierToDB(cashierID, firstName, lastName, contactNumber, userName, newPassword);
-            System.out.println(rowAffected);
-            System.out.println(this.cashierID);
+            
             if (rowAffected > 0) {
                 DefaultTableModel tblModel = (DefaultTableModel) AdminCashierPanel.tblCashier.getModel();
 
