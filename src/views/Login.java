@@ -17,6 +17,12 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
+    String userType = "";
+    String name = "";
+
+    Statement stmt = null;
+    ResultSet rs = null;
+
     /**
      * Creates new form Login
      */
@@ -80,10 +86,11 @@ public class Login extends javax.swing.JFrame {
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_key_20px_1.png"))); // NOI18N
 
-        btnLogin.setBackground(new java.awt.Color(204, 204, 204));
+        btnLogin.setBackground(new java.awt.Color(204, 255, 255));
         btnLogin.setFont(new java.awt.Font("Poppins Light", 1, 14)); // NOI18N
         btnLogin.setForeground(new java.awt.Color(25, 118, 211));
         btnLogin.setText("LOGIN");
+        btnLogin.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnLogin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,7 +149,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jLabel3)
-                .addGap(27, 27, 27)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,9 +162,9 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(29, 29, 29)
+                .addGap(39, 39, 39)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(93, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 360, 410));
@@ -171,19 +178,59 @@ public class Login extends javax.swing.JFrame {
         String username = txtUsername.getText();
         String password = new String(txtPassword.getPassword());
         formValidation(username, password);
+
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void formValidation(String username, String password) {
 
         if (username.equals("") || password.equals("")) {
             JOptionPane.showMessageDialog(this, "Empty data!", "ERROR", JOptionPane.ERROR_MESSAGE);
-        } else if (username.equals("admin") && password.equals("password")) {
+        } else if (username.equals("nackingspol") && password.equals("anaclita")) {
             this.dispose();
             new AdminDashboard();
         } else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            if (isUser(username, password)) {
+
+                if (userType.equals("Cashier")) {
+                    this.dispose();
+                    new CashierDashboard(name);
+                } else if (userType.equals("Manager")) {
+                    this.dispose();
+                    new ManagerDashboard(name);
+                }
+                
+            } else {
+                JOptionPane.showMessageDialog(this, "Invalid username or password!", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        
+
+    }
+
+    private boolean isUser(String username, String password) {
+        boolean isUser = false;
+        try {
+
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT * FROM user WHERE Username = '" + username
+                    + "' AND Password = '" + password + "'";
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            this.name = rs.getString("FirstName") + " " + rs.getString("LastName");
+            this.userType = rs.getString("UserType");
+
+            if (!userType.equals("")) {
+                isUser = true;
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return isUser;
     }
 
     private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed

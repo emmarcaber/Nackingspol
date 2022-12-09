@@ -11,24 +11,23 @@ import javax.swing.JOptionPane;
  *
  * @author Anaclita
  */
-public class AdminDashboard extends javax.swing.JFrame {
+public class CashierDashboard extends javax.swing.JFrame {
 
     /**
      * Creates new form AdminDashboard
      */
-    Color DefaultColor,ClickedColor;
-    
-    
-    
-    public AdminDashboard() {
+    Color DefaultColor, ClickedColor;
+
+    public CashierDashboard(String name) {
         initComponents();
+        labelCashierName2.setText(name);
         mainPane.add(new AdminDashboardPanel()).setVisible(true);
-        
+
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        
-        DefaultColor=new Color(25,118,211);
-        ClickedColor=new Color (255,255,255);
+
+        DefaultColor = new Color(25, 118, 211);
+        ClickedColor = new Color(255, 255, 255);
     }
 
     /**
@@ -44,18 +43,18 @@ public class AdminDashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         DashName = new javax.swing.JLabel();
         logo = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        labelCashierName2 = new javax.swing.JLabel();
         btnLogout = new javax.swing.JButton();
+        labelCashierName = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        Cashier = new javax.swing.JPanel();
-        cashierLabel = new javax.swing.JLabel();
-        Manager = new javax.swing.JPanel();
-        managerLabel = new javax.swing.JLabel();
+        Order = new javax.swing.JPanel();
+        ordersLabel = new javax.swing.JLabel();
+        Customer = new javax.swing.JPanel();
+        customerLabel = new javax.swing.JLabel();
         mainPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
-        setPreferredSize(new java.awt.Dimension(1200, 882));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -82,9 +81,9 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ADMINISTRATOR");
+        labelCashierName2.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        labelCashierName2.setForeground(new java.awt.Color(255, 255, 255));
+        labelCashierName2.setText("| CASHIER");
 
         btnLogout.setBackground(new java.awt.Color(255, 255, 0));
         btnLogout.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -98,6 +97,10 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
 
+        labelCashierName.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
+        labelCashierName.setForeground(new java.awt.Color(255, 255, 255));
+        labelCashierName.setText("CASHIER");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -108,7 +111,9 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addComponent(DashName, javax.swing.GroupLayout.PREFERRED_SIZE, 652, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
+                .addComponent(labelCashierName)
+                .addGap(39, 39, 39)
+                .addComponent(labelCashierName2)
                 .addGap(29, 29, 29)
                 .addComponent(btnLogout)
                 .addGap(50, 50, 50))
@@ -123,75 +128,82 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(DashName)
-                    .addComponent(jLabel2)
-                    .addComponent(btnLogout))
+                    .addComponent(labelCashierName2)
+                    .addComponent(btnLogout)
+                    .addComponent(labelCashierName))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(25, 118, 211));
 
-        Cashier.setBackground(new java.awt.Color(25, 118, 211));
-        Cashier.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Cashier.addMouseListener(new java.awt.event.MouseAdapter() {
+        Order.setBackground(new java.awt.Color(25, 118, 211));
+        Order.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Order.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CashierMouseClicked(evt);
+                OrderMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                CashierMousePressed(evt);
+                OrderMousePressed(evt);
             }
         });
 
-        cashierLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        cashierLabel.setForeground(new java.awt.Color(255, 255, 255));
-        cashierLabel.setText("CASHIER");
+        ordersLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        ordersLabel.setForeground(new java.awt.Color(255, 255, 255));
+        ordersLabel.setText("ORDERS");
 
-        javax.swing.GroupLayout CashierLayout = new javax.swing.GroupLayout(Cashier);
-        Cashier.setLayout(CashierLayout);
-        CashierLayout.setHorizontalGroup(
-            CashierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CashierLayout.createSequentialGroup()
+        javax.swing.GroupLayout OrderLayout = new javax.swing.GroupLayout(Order);
+        Order.setLayout(OrderLayout);
+        OrderLayout.setHorizontalGroup(
+            OrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(OrderLayout.createSequentialGroup()
                 .addGap(58, 58, 58)
-                .addComponent(cashierLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(ordersLabel)
+                .addContainerGap(30, Short.MAX_VALUE))
         );
-        CashierLayout.setVerticalGroup(
-            CashierLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CashierLayout.createSequentialGroup()
+        OrderLayout.setVerticalGroup(
+            OrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrderLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(cashierLabel)
+                .addComponent(ordersLabel)
                 .addGap(18, 18, 18))
         );
 
-        Manager.setBackground(new java.awt.Color(25, 118, 211));
-        Manager.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Manager.addMouseListener(new java.awt.event.MouseAdapter() {
+        Customer.setBackground(new java.awt.Color(25, 118, 211));
+        Customer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Customer.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ManagerMouseClicked(evt);
+                CustomerMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                ManagerMousePressed(evt);
+                CustomerMousePressed(evt);
             }
         });
 
-        managerLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        managerLabel.setForeground(new java.awt.Color(255, 255, 255));
-        managerLabel.setText("MANAGER");
+        customerLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        customerLabel.setForeground(new java.awt.Color(255, 255, 255));
+        customerLabel.setText("CUSTOMERS");
+        customerLabel.setToolTipText("");
+        customerLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                customerLabelMouseClicked(evt);
+            }
+        });
 
-        javax.swing.GroupLayout ManagerLayout = new javax.swing.GroupLayout(Manager);
-        Manager.setLayout(ManagerLayout);
-        ManagerLayout.setHorizontalGroup(
-            ManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ManagerLayout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addComponent(managerLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        javax.swing.GroupLayout CustomerLayout = new javax.swing.GroupLayout(Customer);
+        Customer.setLayout(CustomerLayout);
+        CustomerLayout.setHorizontalGroup(
+            CustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomerLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(customerLabel)
+                .addGap(26, 26, 26))
         );
-        ManagerLayout.setVerticalGroup(
-            ManagerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(ManagerLayout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(managerLabel)
-                .addContainerGap(20, Short.MAX_VALUE))
+        CustomerLayout.setVerticalGroup(
+            CustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomerLayout.createSequentialGroup()
+                .addContainerGap(20, Short.MAX_VALUE)
+                .addComponent(customerLabel)
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -202,19 +214,19 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(Cashier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Order, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Manager, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(Customer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(Cashier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Order, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(Manager, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Customer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(591, Short.MAX_VALUE))
         );
 
@@ -241,7 +253,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -268,45 +280,45 @@ public class AdminDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void CashierMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CashierMouseClicked
+    private void OrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderMouseClicked
         // TODO add your handling code here:
-        AdminCashierPanel Cashier = new AdminCashierPanel();
+        CashierOrderPanel CashierOrder = new CashierOrderPanel();
         mainPane.removeAll();
-        mainPane.add(Cashier).setVisible(true);
-    }//GEN-LAST:event_CashierMouseClicked
+        mainPane.add(CashierOrder).setVisible(true);
+    }//GEN-LAST:event_OrderMouseClicked
 
-    private void CashierMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CashierMousePressed
+    private void OrderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderMousePressed
         // TODO add your handling code here:
-        Cashier.setBackground(ClickedColor);
-        Manager.setBackground(DefaultColor);
-        
-        cashierLabel.setForeground(Color.BLACK);
-        managerLabel.setForeground(Color.WHITE);
-        
-    }//GEN-LAST:event_CashierMousePressed
+        Order.setBackground(ClickedColor);
+        Customer.setBackground(DefaultColor);
 
-    private void ManagerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagerMousePressed
-        // TODO add your handling code here:
-       
-        Manager.setBackground(ClickedColor);
-        Cashier.setBackground(DefaultColor);
-        
-        managerLabel.setForeground(Color.BLACK);
-        cashierLabel.setForeground(Color.WHITE);
-        
-    }//GEN-LAST:event_ManagerMousePressed
+        ordersLabel.setForeground(Color.BLACK);
+        customerLabel.setForeground(Color.WHITE);
 
-    private void ManagerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ManagerMouseClicked
+    }//GEN-LAST:event_OrderMousePressed
+
+    private void CustomerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerMousePressed
         // TODO add your handling code here:
-        AdminManagerPanel Manager = new AdminManagerPanel();
+
+        Customer.setBackground(ClickedColor);
+        Order.setBackground(DefaultColor);
+
+        customerLabel.setForeground(Color.BLACK);
+        ordersLabel.setForeground(Color.WHITE);
+
+    }//GEN-LAST:event_CustomerMousePressed
+
+    private void CustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerMouseClicked
+        // TODO add your handling code here:
+        CashierCustomerPanel CashierCustomer = new CashierCustomerPanel();
         mainPane.removeAll();
-        mainPane.add(Manager).setVisible(true);
-    }//GEN-LAST:event_ManagerMouseClicked
+        mainPane.add(CashierCustomer).setVisible(true);
+    }//GEN-LAST:event_CustomerMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
         int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?", "Logout", JOptionPane.YES_NO_OPTION);
-        
+
         if (answer == 0) {
             this.dispose();
             new Login();
@@ -315,47 +327,60 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         // TODO add your handling code here:
-        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
-        
-        Manager.setBackground(DefaultColor);
-        Cashier.setBackground(DefaultColor);
-        
-        managerLabel.setForeground(Color.WHITE);
-        cashierLabel.setForeground(Color.WHITE);
-        
-        
+        CashierDashboardPanel dashboardPanel = new CashierDashboardPanel();
+
+        Customer.setBackground(DefaultColor);
+        Order.setBackground(DefaultColor);
+
+        customerLabel.setForeground(Color.WHITE);
+        ordersLabel.setForeground(Color.WHITE);
+
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
-        
+
     }//GEN-LAST:event_logoMouseClicked
 
     private void DashNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashNameMouseClicked
         // TODO add your handling code here:
-        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
-        
-        Manager.setBackground(DefaultColor);
-        Cashier.setBackground(DefaultColor);
-        
-        managerLabel.setForeground(Color.WHITE);
-        cashierLabel.setForeground(Color.WHITE);
-        
+        CashierDashboardPanel dashboardPanel = new CashierDashboardPanel();
+
+        Customer.setBackground(DefaultColor);
+        Order.setBackground(DefaultColor);
+
+        customerLabel.setForeground(Color.WHITE);
+        ordersLabel.setForeground(Color.WHITE);
+
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
     }//GEN-LAST:event_DashNameMouseClicked
 
+    private void customerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerLabelMouseClicked
+        // TODO add your handling code here:
+        Customer.setBackground(ClickedColor);
+        Order.setBackground(DefaultColor);
+
+        customerLabel.setForeground(Color.BLACK);
+        ordersLabel.setForeground(Color.WHITE);
+        
+        CashierCustomerPanel CashierCustomer = new CashierCustomerPanel();
+        mainPane.removeAll();
+        mainPane.add(CashierCustomer).setVisible(true);
+    }//GEN-LAST:event_customerLabelMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JPanel Cashier;
+    public static javax.swing.JPanel Customer;
     private javax.swing.JLabel DashName;
-    public static javax.swing.JPanel Manager;
+    public static javax.swing.JPanel Order;
     private javax.swing.JButton btnLogout;
-    public static javax.swing.JLabel cashierLabel;
-    private javax.swing.JLabel jLabel2;
+    public static javax.swing.JLabel customerLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JLabel labelCashierName;
+    private javax.swing.JLabel labelCashierName2;
     private javax.swing.JLabel logo;
     public static javax.swing.JDesktopPane mainPane;
-    public static javax.swing.JLabel managerLabel;
+    public static javax.swing.JLabel ordersLabel;
     // End of variables declaration//GEN-END:variables
 }
