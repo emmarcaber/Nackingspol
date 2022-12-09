@@ -18,8 +18,9 @@ public class EditCustomerDialog extends javax.swing.JDialog {
     Statement stmt = null;
     ResultSet rs = null;
     PreparedStatement pstmt = null;
-    
+
     private int customerID = 0;
+    private String userType = "";
     private String oldMunicity = "";
     private String oldBarangay = "";
     private String oldStreet = "";
@@ -28,15 +29,16 @@ public class EditCustomerDialog extends javax.swing.JDialog {
     /**
      * Creates new form AddCashierDialog
      */
-    public EditCustomerDialog(java.awt.Frame parent, boolean modal, int customerID) {
+    public EditCustomerDialog(java.awt.Frame parent, boolean modal, int customerID, String userType) {
         super(parent, modal);
         initComponents();
 
         this.customerID = customerID;
+        this.userType = userType;
         loadToComponents(customerID);
-        
+
         disabledFields();
-        
+
         if (cbMunicity.getSelectedIndex() == 0) {
             cbBarangay.setEnabled(false);
             txtStreet.setEnabled(false);
@@ -44,12 +46,12 @@ public class EditCustomerDialog extends javax.swing.JDialog {
 
         this.setVisible(true);
     }
-    
+
     private void disabledFields() {
         txtFirstName.setEnabled(false);
         txtLastName.setEnabled(false);
     }
-    
+
     private void loadToComponents(int customerID) {
         try {
             stmt = DBConnect.getInstance().createStatement();
@@ -64,7 +66,7 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             cbMunicity.setSelectedItem(rs.getString("Municity"));
             cbBarangay.setSelectedItem(rs.getString("Barangay"));
             txtStreet.setText(rs.getString("Street"));
-            
+
             this.oldMunicity = rs.getString("Municity");
             this.oldBarangay = rs.getString("Barangay");
             this.oldStreet = rs.getString("Street");
@@ -276,7 +278,7 @@ public class EditCustomerDialog extends javax.swing.JDialog {
         String municity = cbMunicity.getSelectedItem().toString();
         String barangay = cbBarangay.getSelectedItem().toString();
         String street = txtStreet.getText();
-        
+
         String address = street + ", " + barangay + ", " + municity;
 
         if (firstName.equals("")) {
@@ -293,29 +295,38 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Street is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (contactNumber.equals(oldContactNumber) && municity.equals(oldMunicity) && barangay.equals(oldBarangay) && street.equals(oldStreet)) {
             JOptionPane.showMessageDialog(null, "You have not changed any value!", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-        else {
+        } else {
             int isFoundAddressID = findAddressID(street, municity, barangay);
             int insertedAddressID = 0;
-            
+
             if (isFoundAddressID == 0) {
                 insertedAddressID = insertAddressToDB(street, barangay, municity);
             } else {
                 insertedAddressID = isFoundAddressID;
             }
-            
+
             int rowAffected = updateCustomerToDB(firstName, lastName, contactNumber, insertedAddressID);
-            
-            if (rowAffected > 0) { 
-                DefaultTableModel tblModel = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
-                
+
+            if (rowAffected > 0) {
+                DefaultTableModel tblModel = null;
+                int selectedRow = 0;
+
+                if (this.userType.equals("Cashier")) {
+                    tblModel = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
+                    selectedRow = CashierCustomerPanel.tblCustomer.getSelectedRow();
+                } else if (this.userType.equals("Manager")) {
+                    tblModel = (DefaultTableModel) ManagerCustomerPanel.tblCustomer.getModel();
+                    selectedRow = ManagerCustomerPanel.tblCustomer.getSelectedRow();
+                }
+
                 String[] data = {firstName + " " + lastName, contactNumber, street + ", " + barangay + ", " + municity};
-                tblModel.setValueAt(data[0], CashierCustomerPanel.tblCustomer.getSelectedRow(), 0);
-                tblModel.setValueAt(data[1], CashierCustomerPanel.tblCustomer.getSelectedRow(), 1);
-                tblModel.setValueAt(data[2], CashierCustomerPanel.tblCustomer.getSelectedRow(), 2);
-                
+
+                tblModel.setValueAt(data[0], selectedRow, 0);
+                tblModel.setValueAt(data[1], selectedRow, 1);
+                tblModel.setValueAt(data[2], selectedRow, 2);
+
                 JOptionPane.showMessageDialog(null, "Customer edited successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose(); 
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Customer not edited successfully!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -323,16 +334,15 @@ public class EditCustomerDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_btnAddActionPerformed
 
     private int findAddressID(String street, String municity, String barangay) {
-         int addressID = 0;
+        int addressID = 0;
         try {
             stmt = DBConnect.getInstance().createStatement();
 
-            String sql = "SELECT AddressID FROM address WHERE " +
-                    "Street = '" + street + "'" +
-                    " AND Barangay = '" + barangay + "'" +
-                    " AND Municity = '" + municity + "'"
-                    ;
-            
+            String sql = "SELECT AddressID FROM address WHERE "
+                    + "Street = '" + street + "'"
+                    + " AND Barangay = '" + barangay + "'"
+                    + " AND Municity = '" + municity + "'";
+
             rs = stmt.executeQuery(sql);
 
             rs.next();
@@ -346,7 +356,7 @@ public class EditCustomerDialog extends javax.swing.JDialog {
 
         return addressID;
     }
-    
+
     private int insertAddressToDB(String street, String barangay, String municity) {
         int insertedAddressID = 0;
 
@@ -440,7 +450,7 @@ public class EditCustomerDialog extends javax.swing.JDialog {
 
         return updatedRows;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;

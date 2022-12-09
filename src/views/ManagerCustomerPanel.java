@@ -314,7 +314,7 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
 
         if (tblCustomer.getSelectedRowCount() == 1) {
             String contactNumber = tblModel.getValueAt(tblCustomer.getSelectedRow(), 1).toString();
-            new EditCustomerDialog(null, true, getCustomerID(contactNumber));
+            new EditCustomerDialog(null, true, getCustomerID(contactNumber), "Manager");
         } else {
             if (tblCustomer.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
