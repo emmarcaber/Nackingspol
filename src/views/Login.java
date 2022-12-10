@@ -187,15 +187,18 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Empty data!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else if (username.equals("nackingspol") && password.equals("anaclita")) {
             this.dispose();
+            System.out.println("ADMINISTRATOR Login");
             new AdminDashboard();
         } else {
             if (isUser(username, password)) {
 
                 if (userType.equals("Cashier")) {
                     this.dispose();
+                    System.out.println("CASHIER " + username + " Login");
                     new CashierDashboard(name);
                 } else if (userType.equals("Manager")) {
                     this.dispose();
+                    System.out.println("Manager " + username + " Login");
                     new ManagerDashboard(name);
                 }
                 
