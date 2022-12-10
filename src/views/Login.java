@@ -198,7 +198,7 @@ public class Login extends javax.swing.JFrame {
                     new CashierDashboard(name);
                 } else if (userType.equals("Manager")) {
                     this.dispose();
-                    System.out.println("Manager " + username + " Login");
+                    System.out.println("MANAGER " + username + " Login");
                     new ManagerDashboard(name);
                 }
                 
