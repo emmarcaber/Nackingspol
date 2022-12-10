@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 public class AddProductDialog extends javax.swing.JDialog {
 
     ResultSet rs = null;
+    Statement stmt = null;
     PreparedStatement pstmt = null;
 
     /**
@@ -45,7 +46,7 @@ public class AddProductDialog extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        txtFirstName = new javax.swing.JTextField();
+        txtPrice = new javax.swing.JTextField();
         cbContainerType = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -78,8 +79,8 @@ public class AddProductDialog extends javax.swing.JDialog {
             }
         });
 
-        txtFirstName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtFirstName.setText(".00");
+        txtPrice.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPrice.setText(".00");
 
         cbContainerType.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbContainerType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Container Type", "Water Jug", "Water Gallon", "10L" }));
@@ -121,7 +122,7 @@ public class AddProductDialog extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(rbMineral))
                             .addComponent(cbContainerType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtFirstName)))
+                            .addComponent(txtPrice)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addComponent(jLabel1)))
@@ -144,7 +145,7 @@ public class AddProductDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
@@ -163,65 +164,88 @@ public class AddProductDialog extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-//        String firstName = txtFirstName.getText();
-//        String lastName = txtLastName.getText();
-//        String contactNumber = txtContactNumber.getText();
-//        String municity = cbMunicity.getSelectedItem().toString();
-//        String barangay = cbBarangay.getSelectedItem().toString();
-//
-//        String address = street + ", " + barangay + ", " + municity;
-//
-//        if (firstName.equals("")) {
-//            JOptionPane.showMessageDialog(null, "First name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else if (lastName.equals("")) {
-//            JOptionPane.showMessageDialog(null, "Last name is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else if (contactNumber.equals("")) {
-//            JOptionPane.showMessageDialog(null, "Contact Number is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else if (municity.equals("Choose City/Municipality")) {
-//            JOptionPane.showMessageDialog(null, "Please select a city or municipality!", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else if (barangay.equals("Choose Barangay")) {
-//            JOptionPane.showMessageDialog(null, "Please select a barangay!", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else if (street.equals("")) {
-//            JOptionPane.showMessageDialog(null, "Street is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else {
-//            int insertedAddressID = insertAddressToDB(street, barangay, municity);
-//            int insertedCustomerID = insertCustomerToDB(firstName, lastName, contactNumber, insertedAddressID);
-//
-//            if (insertedCustomerID > 0) {
-//                DefaultTableModel tblModelCashier = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
-//                DefaultTableModel tblModelManager = (DefaultTableModel) ManagerCustomerPanel.tblCustomer.getModel();
-//
-//                String[] data = {firstName + " " + lastName, contactNumber, address};
-//                tblModelCashier.addRow(data);
-//                tblModelManager.addRow(data);
-//
-//                JOptionPane.showMessageDialog(null, "Customer added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-//                this.dispose();
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Customer not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
+        String selectedContainerType = cbContainerType.getSelectedItem().toString();
+        String selectedWaterType = "";
+
+        if (rbAlkaline.isSelected()) {
+            selectedWaterType = "Alkaline";
+        } else if (rbMineral.isSelected()) {
+            selectedWaterType = "Mineral";
+        }
+
+        String price = txtPrice.getText();
+
+        if (cbContainerType.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Please select a container type!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (price.equals(".00")) {
+            JOptionPane.showMessageDialog(null, "Price is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int isProductIDPresent = findProductID(selectedContainerType, selectedWaterType, Float.parseFloat(price));
+
+            System.out.println(isProductIDPresent);
+            if (isProductIDPresent == 0) {
+                int insertedProductID = insertProductToDB(selectedContainerType, selectedWaterType, Float.parseFloat(price));
+
+                if (insertedProductID > 0) {
+                    DefaultTableModel tblModel = (DefaultTableModel) ManagerProductPanel.tblProduct.getModel();
+
+                    String[] data = {selectedContainerType, selectedWaterType, "Php " + price};
+                    tblModel.addRow(data);
+
+                    JOptionPane.showMessageDialog(null, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Product not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Product has been already used!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private int insertAddressToDB(String street, String barangay, String municity) {
-        int insertedAddressID = 0;
-
+    private int findProductID(String containerType, String waterType, float price) {
+        int foundProductID = 0;
         try {
-            String sql = "INSERT INTO address(Street, Barangay, Municity) "
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT ProductID FROM product WHERE "
+                    + "ContainerType = '" + containerType + "' "
+                    + "AND WaterType = '" + waterType + "' "
+                    + "AND Price = " + price;
+
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            foundProductID = rs.getInt("ProductID");
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return foundProductID;
+    }
+
+    private int insertProductToDB(String containerType, String waterType, float price) {
+        int insertedProductID = 0;
+        try {
+            String sql = "INSERT INTO product(ContainerType, WaterType, Price) "
                     + "VALUES(?, ?, ?)";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            pstmt.setString(1, street);
-            pstmt.setString(2, barangay);
-            pstmt.setString(3, municity);
+            pstmt.setString(1, containerType);
+            pstmt.setString(2, waterType);
+            pstmt.setFloat(3, price);
 
             int rowAffected = pstmt.executeUpdate();
             if (rowAffected == 1) {
                 // get candidate id
                 rs = pstmt.getGeneratedKeys();
                 if (rs.next()) {
-                    insertedAddressID = rs.getInt(1);
+                    insertedProductID = rs.getInt(1);
                 }
 
             }
@@ -237,45 +261,7 @@ public class AddProductDialog extends javax.swing.JDialog {
             }
         }
 
-        return insertedAddressID;
-    }
-
-
-    private int insertCustomerToDB(String firstName, String lastName, String contactNumber, int addressID) {
-        int insertedCustomerID = 0;
-        try {
-            String sql = "INSERT INTO customer(FirstName, LastName, ContactNumber, AddressID) "
-                    + "VALUES(?, ?, ?, ?)";
-
-            pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            pstmt.setString(1, firstName);
-            pstmt.setString(2, lastName);
-            pstmt.setString(3, contactNumber);
-            pstmt.setInt(4, addressID);
-
-            int rowAffected = pstmt.executeUpdate();
-            if (rowAffected == 1) {
-                // get candidate id
-                rs = pstmt.getGeneratedKeys();
-                if (rs.next()) {
-                    insertedCustomerID = rs.getInt(1);
-                }
-
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
-
-        return insertedCustomerID;
+        return insertedProductID;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -289,6 +275,6 @@ public class AddProductDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JRadioButton rbAlkaline;
     private javax.swing.JRadioButton rbMineral;
-    private javax.swing.JTextField txtFirstName;
+    private javax.swing.JTextField txtPrice;
     // End of variables declaration//GEN-END:variables
 }

@@ -22,7 +22,6 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
     PreparedStatement pstmt = null;
 
     public static HashMap<String, Integer> cashierMap = new HashMap<>();
-    private int addressID = 0;
 
     /**
      * Creates new form TableCashier
@@ -33,24 +32,24 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
 
-        getCustomersFromDB();
+        getProductsFromDB();
     }
 
-    public void getCustomersFromDB() {
+    public void getProductsFromDB() {
         try {
             stmt = DBConnect.getInstance().createStatement();
 
-            String sql = "SELECT CONCAT(FirstName, ' ',  LastName) AS 'Name', ContactNumber, CONCAT(Street, ', ', Barangay, ', ', Municity) AS 'Address' FROM customer INNER JOIN address ON customer.AddressID = address.AddressID";
+            String sql = "SELECT * FROM product";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String name = rs.getString("Name");
-                String contactNumber = rs.getString("ContactNumber");
-                String address = rs.getString("Address");
+                String containerType = rs.getString("ContainerType");
+                String waterType = rs.getString("WaterType");
+                float price = rs.getFloat("Price");
 
-                String[] data = {name, contactNumber, address};
+                String[] data = {containerType, waterType, "Php " + price + "0"};
 
-                DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
+                DefaultTableModel tblModel = (DefaultTableModel) tblProduct.getModel();
                 tblModel.addRow(data);
             }
 
@@ -73,7 +72,7 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         btnAddProduct = new javax.swing.JButton();
         btnDeleteProduct = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCustomer = new javax.swing.JTable();
+        tblProduct = new javax.swing.JTable();
         btnEditProduct = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
@@ -102,9 +101,9 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
             }
         });
 
-        tblCustomer.setAutoCreateRowSorter(true);
-        tblCustomer.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        tblCustomer.setModel(new javax.swing.table.DefaultTableModel(
+        tblProduct.setAutoCreateRowSorter(true);
+        tblProduct.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tblProduct.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -120,8 +119,8 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        tblCustomer.setMinimumSize(new java.awt.Dimension(50, 0));
-        jScrollPane1.setViewportView(tblCustomer);
+        tblProduct.setMinimumSize(new java.awt.Dimension(50, 0));
+        jScrollPane1.setViewportView(tblProduct);
 
         btnEditProduct.setBackground(new java.awt.Color(255, 255, 0));
         btnEditProduct.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -175,30 +174,33 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
     private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
         // TODO add your handling code here:
 
-        if (tblCustomer.getSelectedRowCount() == 1) {
+        if (tblProduct.getSelectedRowCount() == 1) {
 
-            DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
+            DefaultTableModel tblModel = (DefaultTableModel) tblProduct.getModel();
 
-            String name = tblModel.getValueAt(tblCustomer.getSelectedRow(), 0).toString();
-            int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + name + "?", "Delete", JOptionPane.YES_NO_OPTION);
+            String containerType = tblModel.getValueAt(tblProduct.getSelectedRow(), 0).toString();
+            String waterType = tblModel.getValueAt(tblProduct.getSelectedRow(), 1).toString();
+            String priceString = tblModel.getValueAt(tblProduct.getSelectedRow(), 2).toString();
+            float price = Float.parseFloat(priceString.replaceAll("[Php]", ""));
+            String productName = containerType + " " + waterType;
+            int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + productName + "?", "Delete", JOptionPane.YES_NO_OPTION);
 
             if (answer == 0) {
-                String contactNumber = tblModel.getValueAt(tblCustomer.getSelectedRow(), 1).toString();
 
-                int toDeleteCustomerID = getCustomerID(contactNumber);
-                int rowAffected = deleteCustomerFromDB(toDeleteCustomerID);
+                int toDeleteProductID = getProductID(containerType, waterType, price);
+                int rowAffected = deleteProductFromDB(toDeleteProductID);
 
                 if (rowAffected > 0) {
-                    tblModel.removeRow(tblCustomer.getSelectedRow());
+                    tblModel.removeRow(tblProduct.getSelectedRow());
 
-                    JOptionPane.showMessageDialog(null, "Customer deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Product deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Customer not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Product not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
         } else {
-            if (tblCustomer.getRowCount() == 0) {
+            if (tblProduct.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -206,10 +208,10 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnDeleteProductActionPerformed
 
-    private int deleteCustomerFromDB(int customerID) {
+    private int deleteProductFromDB(int customerID) {
         int deletedRows = 0;
         try {
-            String sql = "DELETE FROM customer WHERE CustomerID = ?";
+            String sql = "DELETE FROM product WHERE ProductID = ?";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -232,16 +234,16 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
 
         return deletedRows;
     }
-    
+
     private void btnEditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProductActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
+        DefaultTableModel tblModel = (DefaultTableModel) tblProduct.getModel();
 
-        if (tblCustomer.getSelectedRowCount() == 1) {
-            String contactNumber = tblModel.getValueAt(tblCustomer.getSelectedRow(), 1).toString();
-            new EditCustomerDialog(null, true, getCustomerID(contactNumber), "Manager");
+        if (tblProduct.getSelectedRowCount() == 1) {
+            String contactNumber = tblModel.getValueAt(tblProduct.getSelectedRow(), 1).toString();
+//            new EditCustomerDialog(null, true, getProductID(containerType, waterType, price), "Manager");
         } else {
-            if (tblCustomer.getRowCount() == 0) {
+            if (tblProduct.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -250,7 +252,7 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditProductActionPerformed
 
     private void removeAllRowsTableCustomer() {
-        DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
+        DefaultTableModel tblModel = (DefaultTableModel) tblProduct.getModel();
 
         int rowsToRemove = tblModel.getRowCount();
         //remove rows from the bottom one by one
@@ -259,25 +261,28 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         }
     }
 
-    private int getCustomerID(String contactNumber) {
-        int customerID = 0;
+    private int getProductID(String containerType, String waterType, float price) {
+        int foundProductID = 0;
         try {
             stmt = DBConnect.getInstance().createStatement();
 
-            String sql = "SELECT CustomerID FROM customer WHERE ContactNumber = '" + contactNumber + "'";
-            
+            String sql = "SELECT ProductID FROM product WHERE "
+                    + "ContainerType = '" + containerType + "' "
+                    + "AND WaterType = '" + waterType + "' "
+                    + "AND Price = " + price;
+
             rs = stmt.executeQuery(sql);
 
             rs.next();
-            customerID = rs.getInt("CustomerID");
+            foundProductID = rs.getInt("ProductID");
+            System.out.println(foundProductID);
 
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
-        return customerID;
+        return foundProductID;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -285,6 +290,6 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnDeleteProduct;
     private javax.swing.JButton btnEditProduct;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tblCustomer;
+    public static javax.swing.JTable tblProduct;
     // End of variables declaration//GEN-END:variables
 }
