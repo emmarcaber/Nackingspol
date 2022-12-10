@@ -70,35 +70,35 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAddCustomer = new javax.swing.JButton();
-        btnDeleteCustomer = new javax.swing.JButton();
+        btnAddProduct = new javax.swing.JButton();
+        btnDeleteProduct = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCustomer = new javax.swing.JTable();
-        btnEditCustomer = new javax.swing.JButton();
+        btnEditProduct = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setVisible(true);
 
-        btnAddCustomer.setBackground(new java.awt.Color(0, 153, 0));
-        btnAddCustomer.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnAddCustomer.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddCustomer.setText("ADD PRODUCT");
-        btnAddCustomer.setFocusable(false);
-        btnAddCustomer.addActionListener(new java.awt.event.ActionListener() {
+        btnAddProduct.setBackground(new java.awt.Color(0, 153, 0));
+        btnAddProduct.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAddProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddProduct.setText("ADD PRODUCT");
+        btnAddProduct.setFocusable(false);
+        btnAddProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddCustomerActionPerformed(evt);
+                btnAddProductActionPerformed(evt);
             }
         });
 
-        btnDeleteCustomer.setBackground(new java.awt.Color(255, 0, 0));
-        btnDeleteCustomer.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnDeleteCustomer.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteCustomer.setText("DELETE PRODUCT");
-        btnDeleteCustomer.setToolTipText("");
-        btnDeleteCustomer.setFocusable(false);
-        btnDeleteCustomer.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteProduct.setBackground(new java.awt.Color(255, 0, 0));
+        btnDeleteProduct.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnDeleteProduct.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteProduct.setText("DELETE PRODUCT");
+        btnDeleteProduct.setToolTipText("");
+        btnDeleteProduct.setFocusable(false);
+        btnDeleteProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteCustomerActionPerformed(evt);
+                btnDeleteProductActionPerformed(evt);
             }
         });
 
@@ -123,14 +123,14 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         tblCustomer.setMinimumSize(new java.awt.Dimension(50, 0));
         jScrollPane1.setViewportView(tblCustomer);
 
-        btnEditCustomer.setBackground(new java.awt.Color(255, 255, 0));
-        btnEditCustomer.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnEditCustomer.setText("EDIT PRODUCT");
-        btnEditCustomer.setToolTipText("");
-        btnEditCustomer.setFocusable(false);
-        btnEditCustomer.addActionListener(new java.awt.event.ActionListener() {
+        btnEditProduct.setBackground(new java.awt.Color(255, 255, 0));
+        btnEditProduct.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnEditProduct.setText("EDIT PRODUCT");
+        btnEditProduct.setToolTipText("");
+        btnEditProduct.setFocusable(false);
+        btnEditProduct.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditCustomerActionPerformed(evt);
+                btnEditProductActionPerformed(evt);
             }
         });
 
@@ -144,11 +144,11 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
                 .addContainerGap(162, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddCustomer)
+                .addComponent(btnAddProduct)
                 .addGap(30, 30, 30)
-                .addComponent(btnEditCustomer)
+                .addComponent(btnEditProduct)
                 .addGap(27, 27, 27)
-                .addComponent(btnDeleteCustomer)
+                .addComponent(btnDeleteProduct)
                 .addGap(188, 188, 188))
         );
         layout.setVerticalGroup(
@@ -156,9 +156,9 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddCustomer)
-                    .addComponent(btnDeleteCustomer)
-                    .addComponent(btnEditCustomer))
+                    .addComponent(btnAddProduct)
+                    .addComponent(btnDeleteProduct)
+                    .addComponent(btnEditProduct))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
                 .addGap(63, 63, 63))
@@ -167,12 +167,12 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
+    private void btnAddProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProductActionPerformed
         // TODO add your handling code here:
-        new AddCustomerDialog(null, true);
-    }//GEN-LAST:event_btnAddCustomerActionPerformed
+        new AddProductDialog(null, true);
+    }//GEN-LAST:event_btnAddProductActionPerformed
 
-    private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
+    private void btnDeleteProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteProductActionPerformed
         // TODO add your handling code here:
 
         if (tblCustomer.getSelectedRowCount() == 1) {
@@ -204,7 +204,7 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnDeleteCustomerActionPerformed
+    }//GEN-LAST:event_btnDeleteProductActionPerformed
 
     private int deleteCustomerFromDB(int customerID) {
         int deletedRows = 0;
@@ -233,7 +233,7 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         return deletedRows;
     }
     
-    private void btnEditCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCustomerActionPerformed
+    private void btnEditProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditProductActionPerformed
         // TODO add your handling code here:
         DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
 
@@ -247,7 +247,7 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnEditCustomerActionPerformed
+    }//GEN-LAST:event_btnEditProductActionPerformed
 
     private void removeAllRowsTableCustomer() {
         DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
@@ -281,9 +281,9 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddCustomer;
-    private javax.swing.JButton btnDeleteCustomer;
-    private javax.swing.JButton btnEditCustomer;
+    private javax.swing.JButton btnAddProduct;
+    private javax.swing.JButton btnDeleteProduct;
+    private javax.swing.JButton btnEditProduct;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblCustomer;
     // End of variables declaration//GEN-END:variables

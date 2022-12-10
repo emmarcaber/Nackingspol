@@ -32,11 +32,11 @@
           </Group>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnAddCustomer" min="-2" max="-2" attributes="0"/>
+              <Component id="btnAddProduct" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-              <Component id="btnEditCustomer" min="-2" max="-2" attributes="0"/>
+              <Component id="btnEditProduct" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-              <Component id="btnDeleteCustomer" min="-2" max="-2" attributes="0"/>
+              <Component id="btnDeleteProduct" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="188" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -46,9 +46,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnAddCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnDeleteCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnEditCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnAddProduct" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDeleteProduct" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEditProduct" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="480" max="32767" attributes="0"/>
@@ -58,7 +58,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="btnAddCustomer">
+    <Component class="javax.swing.JButton" name="btnAddProduct">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="99" red="0" type="rgb"/>
@@ -73,10 +73,10 @@
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddCustomerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddProductActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="btnDeleteCustomer">
+    <Component class="javax.swing.JButton" name="btnDeleteProduct">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -92,7 +92,7 @@
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteCustomerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteProductActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -147,7 +147,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="btnEditCustomer">
+    <Component class="javax.swing.JButton" name="btnEditProduct">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="0" green="ff" red="ff" type="rgb"/>
@@ -160,7 +160,7 @@
         <Property name="focusable" type="boolean" value="false"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditCustomerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEditProductActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
