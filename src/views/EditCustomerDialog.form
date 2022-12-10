@@ -24,15 +24,13 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="67" pref="67" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="103" alignment="0" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel7" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="135" max="32767" attributes="0"/>
+              <EmptySpace pref="131" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="txtLastName" alignment="1" min="-2" pref="276" max="-2" attributes="0"/>
                   <Component id="txtFirstName" alignment="1" min="-2" pref="276" max="-2" attributes="0"/>
@@ -86,7 +84,7 @@
                   <Component id="btnCancel" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnAdd" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="25" max="32767" attributes="0"/>
+              <EmptySpace pref="29" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -103,7 +101,7 @@
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="14" style="1"/>
+          <Font name="SansSerif" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="First Name"/>
       </Properties>
@@ -111,7 +109,7 @@
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="14" style="1"/>
+          <Font name="SansSerif" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Last Name"/>
       </Properties>
@@ -119,7 +117,7 @@
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Century Gothic" size="14" style="1"/>
+          <Font name="SansSerif" size="14" style="1"/>
         </Property>
         <Property name="text" type="java.lang.String" value="Contact Number"/>
       </Properties>
@@ -152,21 +150,21 @@
     <Component class="javax.swing.JTextField" name="txtFirstName">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtLastName">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtContactNumber">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Segoe UI" size="14" style="0"/>
+          <Font name="Century Gothic" size="14" style="0"/>
         </Property>
       </Properties>
     </Component>
@@ -175,7 +173,7 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
             <TitledBorder title="Address">
-              <Font PropertyName="font" name="Century Gothic" size="14" style="1"/>
+              <Font PropertyName="font" name="SansSerif" size="14" style="1"/>
             </TitledBorder>
           </Border>
         </Property>
@@ -231,7 +229,7 @@
         <Component class="javax.swing.JComboBox" name="cbBarangay">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="14" style="1"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="1">
@@ -246,7 +244,7 @@
         <Component class="javax.swing.JComboBox" name="cbMunicity">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="14" style="1"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="3">
@@ -266,14 +264,14 @@
         <Component class="javax.swing.JTextField" name="txtStreet">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="14" style="0"/>
+              <Font name="Century Gothic" size="14" style="0"/>
             </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="14" style="1"/>
+              <Font name="SansSerif" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="City/Municipality"/>
           </Properties>
@@ -281,7 +279,7 @@
         <Component class="javax.swing.JLabel" name="jLabel11">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="14" style="1"/>
+              <Font name="SansSerif" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Barangay"/>
           </Properties>
@@ -289,7 +287,7 @@
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Century Gothic" size="14" style="1"/>
+              <Font name="SansSerif" size="14" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Street"/>
           </Properties>

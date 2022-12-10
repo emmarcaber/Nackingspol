@@ -110,13 +110,13 @@ public class EditCustomerDialog extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
         jLabel1.setText("EDIT CUSTOMER");
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setText("First Name");
 
-        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel4.setText("Last Name");
 
-        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel7.setText("Contact Number");
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 0));
@@ -136,18 +136,18 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             }
         });
 
-        txtFirstName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFirstName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        txtLastName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtLastName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        txtContactNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtContactNumber.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Century Gothic", 1, 14))); // NOI18N
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 14))); // NOI18N
 
-        cbBarangay.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        cbBarangay.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbBarangay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Barangay" }));
 
-        cbMunicity.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        cbMunicity.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbMunicity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose City/Municipality", "Iriga City", "Baao" }));
         cbMunicity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -155,15 +155,15 @@ public class EditCustomerDialog extends javax.swing.JDialog {
             }
         });
 
-        txtStreet.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtStreet.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel10.setText("City/Municipality");
 
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel11.setText("Barangay");
 
-        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel12.setText("Street");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -208,13 +208,12 @@ public class EditCustomerDialog extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(67, 67, 67)
+                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                    .addComponent(jLabel7))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtLastName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFirstName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -258,7 +257,7 @@ public class EditCustomerDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
                     .addComponent(btnAdd))
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         pack();

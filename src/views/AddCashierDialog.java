@@ -56,22 +56,22 @@ public class AddCashierDialog extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
         jLabel1.setText("ADD CASHIER");
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setText("First Name");
 
-        jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel4.setText("Last Name");
 
-        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel7.setText("Contact Number");
 
-        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel9.setText("Username");
 
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel11.setText("Password");
 
-        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtPasswordActionPerformed(evt);
@@ -96,18 +96,18 @@ public class AddCashierDialog extends javax.swing.JDialog {
             }
         });
 
-        txtFirstName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtFirstName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        txtLastName.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtLastName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        txtContactNumber.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtContactNumber.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel12.setText("Confirm Password");
 
-        txtConfirmPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtConfirmPassword.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtConfirmPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtConfirmPasswordActionPerformed(evt);
@@ -145,7 +145,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
                                     .addComponent(txtUsername)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
                                 .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(2, 2, 2)))
                 .addGap(38, 38, 38))
@@ -190,7 +190,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
                     .addComponent(txtConfirmPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnCancel))
