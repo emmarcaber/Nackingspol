@@ -202,10 +202,10 @@ public class AdminCashierPanel extends javax.swing.JInternalFrame {
                 int toDeleteID = getCashierID(userName);
                 int rowAffected = deleteCashierFromDB(toDeleteID);
 
-                System.out.println(toDeleteID);
                 if (rowAffected > 0) {
                     tblModel.removeRow(tblCashier.getSelectedRow());
 
+                    System.out.println("Deleted Cashier ID: " + toDeleteID);
                     JOptionPane.showMessageDialog(null, "Cashier deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Cashier not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);

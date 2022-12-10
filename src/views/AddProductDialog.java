@@ -185,13 +185,14 @@ public class AddProductDialog extends javax.swing.JDialog {
             System.out.println(isProductIDPresent);
             if (isProductIDPresent == 0) {
                 int insertedProductID = insertProductToDB(selectedContainerType, selectedWaterType, Float.parseFloat(price));
-
+                
                 if (insertedProductID > 0) {
                     DefaultTableModel tblModel = (DefaultTableModel) ManagerProductPanel.tblProduct.getModel();
 
                     String[] data = {selectedContainerType, selectedWaterType, "Php " + price};
                     tblModel.addRow(data);
 
+                    System.out.println("Inserted Product ID: " + insertedProductID);
                     JOptionPane.showMessageDialog(null, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();
                 } else {

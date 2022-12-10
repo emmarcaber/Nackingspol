@@ -259,7 +259,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         } else {
             int insertedAddressID = insertAddressToDB(street, barangay, municity);
             int insertedCustomerID = insertCustomerToDB(firstName, lastName, contactNumber, insertedAddressID);
-
+            
             if (insertedCustomerID > 0) {
                 DefaultTableModel tblModelCashier = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
                 DefaultTableModel tblModelManager = (DefaultTableModel) ManagerCustomerPanel.tblCustomer.getModel();
@@ -268,6 +268,8 @@ public class AddCustomerDialog extends javax.swing.JDialog {
                 tblModelCashier.addRow(data);
                 tblModelManager.addRow(data);
 
+                System.out.println("Inserted Address ID: " + insertedAddressID);
+                System.out.println("Inserted Customer ID: " + insertedCustomerID);
                 JOptionPane.showMessageDialog(null, "Customer added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } else {

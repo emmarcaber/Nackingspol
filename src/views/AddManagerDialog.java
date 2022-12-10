@@ -234,14 +234,15 @@ public class AddManagerDialog extends javax.swing.JDialog {
         } else if (!confirmPassword.equals(password)) {
             JOptionPane.showMessageDialog(null, "Password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int insertedCashierID = insertManagerToDB(firstName, lastName, contactNumber, userName, password);
+            int insertedManagerID = insertManagerToDB(firstName, lastName, contactNumber, userName, password);
             
-            if (insertedCashierID > 0) { 
+            if (insertedManagerID > 0) { 
                 DefaultTableModel tblModel = (DefaultTableModel) AdminManagerPanel.tblManager.getModel();
                 
                 String [] data = {firstName + " " + lastName, contactNumber, userName, password};
                 tblModel.addRow(data);
                 
+                System.out.println("Inserted Manager ID: " + insertedManagerID);
                 JOptionPane.showMessageDialog(null, "Manager added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose(); 
             } else {

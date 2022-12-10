@@ -77,6 +77,7 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
         txtSearchCustomer = new javax.swing.JTextField();
         btnSearchCustomer = new javax.swing.JButton();
         btnEditCustomer = new javax.swing.JButton();
+        btnRefresh = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setVisible(true);
@@ -155,28 +156,39 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
             }
         });
 
+        btnRefresh.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnRefresh.setForeground(new java.awt.Color(255, 255, 255));
+        btnRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/refreshIcon.jpg"))); // NOI18N
+        btnRefresh.setFocusable(false);
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(97, 97, 97)
-                        .addComponent(txtSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnSearchCustomer)))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 865, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(162, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnAddCustomer)
-                .addGap(30, 30, 30)
-                .addComponent(btnEditCustomer)
-                .addGap(27, 27, 27)
-                .addComponent(btnDeleteCustomer)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAddCustomer)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnEditCustomer)
+                        .addGap(27, 27, 27)
+                        .addComponent(btnDeleteCustomer))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearchCustomer)
+                        .addGap(87, 87, 87)
+                        .addComponent(btnRefresh)))
                 .addGap(191, 191, 191))
         );
         layout.setVerticalGroup(
@@ -185,14 +197,15 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearchCustomer))
+                    .addComponent(btnSearchCustomer)
+                    .addComponent(btnRefresh))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAddCustomer)
                     .addComponent(btnDeleteCustomer)
                     .addComponent(btnEditCustomer))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 479, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -324,6 +337,12 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditCustomerActionPerformed
 
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        // TODO add your handling code here:
+        removeAllRowsTableCustomer();
+        getCustomersFromDB();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
     private void removeAllRowsTableCustomer() {
         DefaultTableModel tblModel = (DefaultTableModel) tblCustomer.getModel();
 
@@ -359,6 +378,7 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnAddCustomer;
     private javax.swing.JButton btnDeleteCustomer;
     private javax.swing.JButton btnEditCustomer;
+    private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnSearchCustomer;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblCustomer;

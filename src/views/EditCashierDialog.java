@@ -287,6 +287,7 @@ public class EditCashierDialog extends javax.swing.JDialog {
                 tblModel.setValueAt(data[2], AdminCashierPanel.tblCashier.getSelectedRow(), 2);
                 tblModel.setValueAt(data[3], AdminCashierPanel.tblCashier.getSelectedRow(), 3);
 
+                System.out.println("Updated Cashier ID: " + cashierID);
                 JOptionPane.showMessageDialog(null, "Cashier updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } else {

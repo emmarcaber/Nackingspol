@@ -206,6 +206,7 @@ public class AdminManagerPanel extends javax.swing.JInternalFrame {
                 if (deletedID > 0) {
                     tblModel.removeRow(tblManager.getSelectedRow());
 
+                    System.out.println("Deleted Manager ID: " + toDeleteID);
                     JOptionPane.showMessageDialog(null, "Manager deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Manager not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);
