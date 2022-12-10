@@ -278,8 +278,7 @@ public class EditManagerDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Password does not match!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int rowAffected = updateManagerToDB(managerID, firstName, lastName, contactNumber, userName, newPassword);
-            System.out.println(rowAffected);
-            System.out.println(this.managerID);
+            
             if (rowAffected > 0) {
                 DefaultTableModel tblModel = (DefaultTableModel) AdminManagerPanel.tblManager.getModel();
 

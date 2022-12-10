@@ -187,7 +187,7 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
 
             if (answer == 0) {
 
-                int toDeleteProductID = getProductID(containerType, waterType, price);
+                int toDeleteProductID = getProductID(containerType, waterType);
                 int rowAffected = deleteProductFromDB(toDeleteProductID);
 
                 if (rowAffected > 0) {
@@ -240,8 +240,9 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         DefaultTableModel tblModel = (DefaultTableModel) tblProduct.getModel();
 
         if (tblProduct.getSelectedRowCount() == 1) {
-            String contactNumber = tblModel.getValueAt(tblProduct.getSelectedRow(), 1).toString();
-//            new EditCustomerDialog(null, true, getProductID(containerType, waterType, price), "Manager");
+            String containerType = tblModel.getValueAt(tblProduct.getSelectedRow(), 0).toString();
+            String waterType = tblModel.getValueAt(tblProduct.getSelectedRow(), 1).toString();
+            new EditProductDialog(null, true, getProductID(containerType, waterType));
         } else {
             if (tblProduct.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -261,15 +262,14 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
         }
     }
 
-    private int getProductID(String containerType, String waterType, float price) {
+    private int getProductID(String containerType, String waterType) {
         int foundProductID = 0;
         try {
             stmt = DBConnect.getInstance().createStatement();
 
             String sql = "SELECT ProductID FROM product WHERE "
                     + "ContainerType = '" + containerType + "' "
-                    + "AND WaterType = '" + waterType + "' "
-                    + "AND Price = " + price;
+                    + "AND WaterType = '" + waterType + "' ";
 
             rs = stmt.executeQuery(sql);
 
