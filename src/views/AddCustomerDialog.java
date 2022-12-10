@@ -30,6 +30,10 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             txtStreet.setEnabled(false);
         }
 
+        if (cbBarangay.getSelectedIndex() == 0) {
+            txtStreet.setEnabled(false);
+        }
+
         this.setVisible(true);
     }
 
@@ -101,6 +105,11 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 
         cbBarangay.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         cbBarangay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Barangay" }));
+        cbBarangay.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbBarangayActionPerformed(evt);
+            }
+        });
 
         cbMunicity.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         cbMunicity.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose City/Municipality", "Iriga City", "Baao" }));
@@ -233,7 +242,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         String municity = cbMunicity.getSelectedItem().toString();
         String barangay = cbBarangay.getSelectedItem().toString();
         String street = txtStreet.getText();
-        
+
         String address = street + ", " + barangay + ", " + municity;
 
         if (firstName.equals("")) {
@@ -251,17 +260,17 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         } else {
             int insertedAddressID = insertAddressToDB(street, barangay, municity);
             int insertedCustomerID = insertCustomerToDB(firstName, lastName, contactNumber, insertedAddressID);
-            
-            if (insertedCustomerID > 0) { 
+
+            if (insertedCustomerID > 0) {
                 DefaultTableModel tblModelCashier = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
                 DefaultTableModel tblModelManager = (DefaultTableModel) ManagerCustomerPanel.tblCustomer.getModel();
-                
-                String [] data = {firstName + " " + lastName, contactNumber, address};
+
+                String[] data = {firstName + " " + lastName, contactNumber, address};
                 tblModelCashier.addRow(data);
                 tblModelManager.addRow(data);
-                
+
                 JOptionPane.showMessageDialog(null, "Customer added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                this.dispose(); 
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Customer not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -315,13 +324,13 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             txtStreet.setEnabled(false);
         } else if (selectedMunicity.equals("Iriga City")) {
             cbBarangay.setEnabled(true);
-            txtStreet.setEnabled(true);
+            txtStreet.setEnabled(false);
             String[] barangays = {"Choose Barangay", "Antipolo", "Cristo Rey", "Del Rosario", "Francia", "La Anunciacion", "La Medalla", "La Purisima", "La Trinidad", "Niño Jesus", "Perpetual Help", "Sagrada", "Salvacion", "San Agustin", "San Andres", "San Antonio", "San Francisco", "San Isidro", "San Jose", "San Juan", "San Miguel", "San Nicolas", "San Pedro", "San Rafael", "San Ramon", "San Roque", "Santiago", "San Vicente Norte", "San Vicente Sur", "Sta. Cruz Norte", "Sta. Cruz Sur", "Sta. Elena", "Sta. Isabel", "Sta. Maria", "Sta. Teresita", "Sto. Domingo", "Sto. Niño"};
 
             cbBarangay.setModel(new DefaultComboBoxModel(barangays));
         } else if (selectedMunicity.equals("Baao")) {
             cbBarangay.setEnabled(true);
-            txtStreet.setEnabled(true);
+            txtStreet.setEnabled(false);
 
             String[] barangays = {"Choose Barangay", "Agdangan Poblacion", "Antipolo", "Bagumbayan", "Buluang", "Caranday", "Cristo Rey", "Del Pilar", "Del Rosario", "Iyagan", "La Medalla", "Lourdes", "Nababarera", "Pugay", "Sagrada", "Salvacion", "San Francisco", "San Isidro", "San Jose", "San Juan", "San Nicolas", "San Rafael", "San Ramon", "San Roque", "San Vicente", "Santa Cruz", "Santa Eulalia", "Santa Isabel", "Santa Teresa", "Santa Teresita", "Tapol"};
 
@@ -330,6 +339,15 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 
 
     }//GEN-LAST:event_cbMunicityActionPerformed
+
+    private void cbBarangayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbBarangayActionPerformed
+        // TODO add your handling code here:
+        if (cbBarangay.getSelectedIndex() == 0) {
+            txtStreet.setEnabled(false);
+        } else {
+            txtStreet.setEnabled(true);
+        }
+    }//GEN-LAST:event_cbBarangayActionPerformed
 
     private int insertCustomerToDB(String firstName, String lastName, String contactNumber, int addressID) {
         int insertedCustomerID = 0;
@@ -367,7 +385,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 
         return insertedCustomerID;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
