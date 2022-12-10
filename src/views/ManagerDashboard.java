@@ -54,7 +54,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         Customers = new javax.swing.JPanel();
         managerLabel = new javax.swing.JLabel();
         Products = new javax.swing.JPanel();
-        managerLabel1 = new javax.swing.JLabel();
+        productLabel = new javax.swing.JLabel();
         mainPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -215,9 +215,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
             }
         });
 
-        managerLabel1.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        managerLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        managerLabel1.setText("PRODUCTS");
+        productLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        productLabel.setForeground(new java.awt.Color(255, 255, 255));
+        productLabel.setText("PRODUCTS");
 
         javax.swing.GroupLayout ProductsLayout = new javax.swing.GroupLayout(Products);
         Products.setLayout(ProductsLayout);
@@ -225,14 +225,14 @@ public class ManagerDashboard extends javax.swing.JFrame {
             ProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProductsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(managerLabel1)
+                .addComponent(productLabel)
                 .addGap(15, 15, 15))
         );
         ProductsLayout.setVerticalGroup(
             ProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProductsLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
-                .addComponent(managerLabel1)
+                .addComponent(productLabel)
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -321,10 +321,11 @@ public class ManagerDashboard extends javax.swing.JFrame {
         // TODO add your handling code here:
         Orders.setBackground(ClickedColor);
         Customers.setBackground(DefaultColor);
+        Products.setBackground(DefaultColor);
         
         cashierLabel.setForeground(Color.BLACK);
         managerLabel.setForeground(Color.WHITE);
-        
+        productLabel.setForeground(Color.WHITE);
     }//GEN-LAST:event_OrdersMousePressed
 
     private void CustomersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomersMousePressed
@@ -332,10 +333,11 @@ public class ManagerDashboard extends javax.swing.JFrame {
        
         Customers.setBackground(ClickedColor);
         Orders.setBackground(DefaultColor);
+        Products.setBackground(DefaultColor);
         
         managerLabel.setForeground(Color.BLACK);
         cashierLabel.setForeground(Color.WHITE);
-        
+        productLabel.setForeground(Color.WHITE);
     }//GEN-LAST:event_CustomersMousePressed
 
     private void CustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomersMouseClicked
@@ -387,10 +389,20 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void ProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductsMouseClicked
         // TODO add your handling code here:
+        ManagerProductPanel Product = new ManagerProductPanel();
+        mainPane.removeAll();
+        mainPane.add(Product).setVisible(true);
     }//GEN-LAST:event_ProductsMouseClicked
 
     private void ProductsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductsMousePressed
         // TODO add your handling code here:
+        Customers.setBackground(DefaultColor);
+        Orders.setBackground(DefaultColor);
+        Products.setBackground(ClickedColor);
+        
+        managerLabel.setForeground(Color.WHITE);
+        cashierLabel.setForeground(Color.WHITE);
+        productLabel.setForeground(Color.BLACK);
     }//GEN-LAST:event_ProductsMousePressed
 
 
@@ -409,6 +421,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel logo;
     public static javax.swing.JDesktopPane mainPane;
     public static javax.swing.JLabel managerLabel;
-    public static javax.swing.JLabel managerLabel1;
+    public static javax.swing.JLabel productLabel;
     // End of variables declaration//GEN-END:variables
 }

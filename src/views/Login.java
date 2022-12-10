@@ -98,7 +98,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtPassword.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        txtPassword.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtPassword.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 10));
         txtPassword.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtPassword.setOpaque(true);
@@ -108,7 +108,7 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        txtUsername.setFont(new java.awt.Font("Poppins Light", 0, 12)); // NOI18N
+        txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txtUsername.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 10));
         txtUsername.setMargin(new java.awt.Insets(10, 20, 10, 10));
 
@@ -164,7 +164,7 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(39, 39, 39)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 0, 360, 410));
