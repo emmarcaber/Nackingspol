@@ -101,6 +101,11 @@ public class AddManagerDialog extends javax.swing.JDialog {
         txtLastName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         txtContactNumber.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtContactNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContactNumberKeyTyped(evt);
+            }
+        });
 
         txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
@@ -292,6 +297,13 @@ public class AddManagerDialog extends javax.swing.JDialog {
     private void txtConfirmPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtConfirmPasswordActionPerformed
+
+    private void txtContactNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactNumberKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtContactNumberKeyTyped
 
     /**
      * @param args the command line arguments

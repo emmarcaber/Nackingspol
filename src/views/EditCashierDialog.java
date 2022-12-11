@@ -88,6 +88,11 @@ public class EditCashierDialog extends javax.swing.JDialog {
                 txtContactNumberActionPerformed(evt);
             }
         });
+        txtContactNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContactNumberKeyTyped(evt);
+            }
+        });
 
         txtUsername.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
@@ -295,6 +300,13 @@ public class EditCashierDialog extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_btnEditActionPerformed
+
+    private void txtContactNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactNumberKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtContactNumberKeyTyped
 
     private int updateCashierToDB(int cashierID, String firstName, String lastName, String contactNumber, String userName, String password) {
         int updatedRows = 0;

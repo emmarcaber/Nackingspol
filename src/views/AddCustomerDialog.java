@@ -26,6 +26,8 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
+        this.userType = userType;
+        
         if (cbMunicity.getSelectedIndex() == 0) {
             cbBarangay.setEnabled(false);
             txtStreet.setEnabled(false);
@@ -101,6 +103,11 @@ public class AddCustomerDialog extends javax.swing.JDialog {
         txtLastName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         txtContactNumber.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtContactNumber.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtContactNumberKeyTyped(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 14))); // NOI18N
 
@@ -120,7 +127,7 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             }
         });
 
-        txtStreet.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtStreet.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         jLabel10.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel10.setText("City/Municipality");
@@ -354,6 +361,13 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             txtStreet.setEnabled(true);
         }
     }//GEN-LAST:event_cbBarangayActionPerformed
+
+    private void txtContactNumberKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContactNumberKeyTyped
+        // TODO add your handling code here:
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtContactNumberKeyTyped
 
     private int insertCustomerToDB(String firstName, String lastName, String contactNumber, int addressID) {
         int insertedCustomerID = 0;
