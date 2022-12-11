@@ -182,7 +182,6 @@ public class AddProductDialog extends javax.swing.JDialog {
         } else {
             int isProductIDPresent = findProductID(selectedContainerType, selectedWaterType, Float.parseFloat(price));
 
-            System.out.println(isProductIDPresent);
             if (isProductIDPresent == 0) {
                 int insertedProductID = insertProductToDB(selectedContainerType, selectedWaterType, Float.parseFloat(price));
                 

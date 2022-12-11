@@ -17,11 +17,12 @@ public class AddCustomerDialog extends javax.swing.JDialog {
 
     ResultSet rs = null;
     PreparedStatement pstmt = null;
+    private String userType = "";
 
     /**
      * Creates new form AddCashierDialog
      */
-    public AddCustomerDialog(java.awt.Frame parent, boolean modal) {
+    public AddCustomerDialog(java.awt.Frame parent, boolean modal, String userType) {
         super(parent, modal);
         initComponents();
 
@@ -260,13 +261,17 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             int insertedAddressID = insertAddressToDB(street, barangay, municity);
             int insertedCustomerID = insertCustomerToDB(firstName, lastName, contactNumber, insertedAddressID);
             
+            DefaultTableModel tblModel = null;
+            
+            if (this.userType.equals("Cashier")) {
+                    tblModel = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
+            } else if (this.userType.equals("Manager")) {
+                    tblModel = (DefaultTableModel) ManagerCustomerPanel.tblCustomer.getModel();
+            }
+            
             if (insertedCustomerID > 0) {
-                DefaultTableModel tblModelCashier = (DefaultTableModel) CashierCustomerPanel.tblCustomer.getModel();
-                DefaultTableModel tblModelManager = (DefaultTableModel) ManagerCustomerPanel.tblCustomer.getModel();
-
                 String[] data = {firstName + " " + lastName, contactNumber, address};
-                tblModelCashier.addRow(data);
-                tblModelManager.addRow(data);
+                tblModel.addRow(data);
 
                 System.out.println("Inserted Address ID: " + insertedAddressID);
                 System.out.println("Inserted Customer ID: " + insertedCustomerID);

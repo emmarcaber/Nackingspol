@@ -214,7 +214,7 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
 
     private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
         // TODO add your handling code here:
-        new AddCustomerDialog(null, true);
+        new AddCustomerDialog(null, true, "Manager");
     }//GEN-LAST:event_btnAddCustomerActionPerformed
 
     private void btnDeleteCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteCustomerActionPerformed
@@ -340,6 +340,7 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
         removeAllRowsTableCustomer();
+        txtSearchCustomer.setText("");
         getCustomersFromDB();
     }//GEN-LAST:event_btnRefreshActionPerformed
 

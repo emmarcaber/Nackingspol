@@ -200,7 +200,7 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
 
     private void btnAddCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCustomerActionPerformed
         // TODO add your handling code here:
-        new AddCustomerDialog(null, true);
+        new AddCustomerDialog(null, true, "Cashier");
     }//GEN-LAST:event_btnAddCustomerActionPerformed
 
     private void btnEditCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCustomerActionPerformed
@@ -266,6 +266,7 @@ public class CashierCustomerPanel extends javax.swing.JInternalFrame {
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
         // TODO add your handling code here:
         removeAllRowsTableCustomer();
+        txtSearchCustomer.setText("");
         getCustomersFromDB();
     }//GEN-LAST:event_btnRefreshActionPerformed
 
