@@ -96,11 +96,11 @@ public class AddCustomerDialog extends javax.swing.JDialog {
             }
         });
 
-        txtFirstName.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtFirstName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        txtLastName.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtLastName.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
-        txtContactNumber.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        txtContactNumber.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Address", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 14))); // NOI18N
 
