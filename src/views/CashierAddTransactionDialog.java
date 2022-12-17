@@ -347,8 +347,6 @@ public class CashierAddTransactionDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please enter a quantity!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (quantity.equals("0") || quantity.equals("")) {
             JOptionPane.showMessageDialog(null, "Quantity is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (total.equals("")) {
-            JOptionPane.showMessageDialog(null, "Total is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int insertedTransactionID = insertTransactionToDB(customersMap.get(selectedCustomer), cashierID, productsMap.get(selectedProduct),
                     Integer.parseInt(quantity), Float.parseFloat(total), transactionType

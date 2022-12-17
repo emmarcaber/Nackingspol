@@ -29,8 +29,8 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
     ResultSet rs = null;
     Statement stmt = null;
     PreparedStatement pstmt = null;
-    
-    private int cashierID = 0;
+
+    private int transactionID = 0;
 
     HashMap<String, Integer> productsMap = new HashMap<>();
     HashMap<String, Float> pricesMap = new HashMap<>();
@@ -40,7 +40,7 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
     /**
      * Creates new form AddCashierDialog
      */
-    public CashierEditTransactionDialog(java.awt.Frame parent, boolean modal, int cashierID) {
+    public CashierEditTransactionDialog(java.awt.Frame parent, boolean modal, int transactionID) {
         super(parent, modal);
         initComponents();
 
@@ -50,8 +50,9 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
         getCustomersFromDB();
         getProductsFromDB();
 
-        this.cashierID = cashierID;
-        txtQuantity.setText("0");
+        loadToComponents(transactionID);
+
+        this.transactionID = transactionID;
 
         this.setVisible(true);
     }
@@ -95,6 +96,39 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
         }
     }
 
+    private void loadToComponents(int transactionID) {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType \n"
+                    + "FROM transactions \n"
+                    + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID \n"
+                    + "INNER JOIN product ON transactions.ProductID = product.ProductID"
+                    + " WHERE TransactionID = " + transactionID;
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            cbCustomer.setSelectedItem(rs.getString("CustomerName"));
+            cbProduct.setSelectedItem(rs.getString("Product"));
+
+            txtQuantity.setText(String.valueOf(rs.getInt("Quantity")));
+
+            String typeOfTransaction = rs.getString("TransactionType");
+
+            if (typeOfTransaction.equals("Walk-In")) {
+                rbWalk.setSelected(true);
+            } else {
+                rbDelivery.setSelected(true);
+            }
+
+            txtTotal.setText(rs.getString("Total"));
+            cbCustomer.setEnabled(false);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -106,7 +140,7 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
 
         bgTransactionType = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        btnAdd = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
         cbCustomer = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
@@ -127,12 +161,12 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
         jLabel1.setText("EDIT TRANSACTION");
 
-        btnAdd.setBackground(new java.awt.Color(255, 255, 0));
-        btnAdd.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnAdd.setText("EDIT");
-        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+        btnEdit.setBackground(new java.awt.Color(255, 255, 0));
+        btnEdit.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnEdit.setText("EDIT");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddActionPerformed(evt);
+                btnEditActionPerformed(evt);
             }
         });
 
@@ -286,7 +320,7 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
                 .addGap(140, 140, 140)
                 .addComponent(btnCancel)
                 .addGap(50, 50, 50)
-                .addComponent(btnAdd)
+                .addComponent(btnEdit)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -307,7 +341,7 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancel)
-                    .addComponent(btnAdd))
+                    .addComponent(btnEdit))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -320,15 +354,15 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
         String selectedCustomer = cbCustomer.getSelectedItem().toString();
         String selectedProduct = cbProduct.getSelectedItem().toString();
         String quantity = txtQuantity.getText();
         String total = txtTotal.getText();
         String transactionType = "";
-        
-        Date date = new Date();  
+
+        Date date = new Date();
         String transactionDate = DateFormat.getDateInstance().format(date);
 
         if (rbWalk.isSelected()) {
@@ -337,42 +371,69 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
             transactionType = "Delivery";
         }
 
-
-        if (cbCustomer.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Please select a customer!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (cbProduct.getSelectedIndex() == 0) {
+        if (cbProduct.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Please select a product!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (quantity.equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter a quantity!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (quantity.equals("0") || quantity.equals("")) {
             JOptionPane.showMessageDialog(null, "Quantity is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (total.equals("")) {
-            JOptionPane.showMessageDialog(null, "Total is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int insertedTransactionID = insertTransactionToDB(customersMap.get(selectedCustomer), cashierID, productsMap.get(selectedProduct),
-                    Integer.parseInt(quantity), Float.parseFloat(total), transactionType
+            int rowAffected = updateTransactionToDB(
+                    productsMap.get(selectedProduct), Integer.parseInt(quantity),
+                    Float.parseFloat(total), transactionType, transactionID
             );
 
-            if (insertedTransactionID == 0) {
-                JOptionPane.showMessageDialog(null, "Transaction not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+            if (rowAffected == 0) {
+                JOptionPane.showMessageDialog(null, "Transaction not edited successfully!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Transaction added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Transaction edited successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
 
-                String[] data = {
-                    selectedCustomer, selectedProduct, quantity,
-                    "Php " + total, transactionType, transactionDate
-                };
+                String[] data = {selectedProduct, quantity, "Php " + total, transactionType};
+                tblModel.setValueAt(data[0], tblTransaction.getSelectedRow(), 1);
+                tblModel.setValueAt(data[1], tblTransaction.getSelectedRow(), 2);
+                tblModel.setValueAt(data[2], tblTransaction.getSelectedRow(), 3);
+                tblModel.setValueAt(data[3], tblTransaction.getSelectedRow(), 4);
 
-                tblModel.addRow(data);
                 this.dispose();
             }
 
         }
+    }//GEN-LAST:event_btnEditActionPerformed
 
-    }//GEN-LAST:event_btnAddActionPerformed
+    private int updateTransactionToDB(int productID, int quantity, float total, String transactionType, int transactionID) {
+        int updatedRows = 0;
 
+        try {
+            String sql = "UPDATE transactions SET ProductID = ?, Quantity = ?, Total = ?, TransactionType = ?"
+                    + " WHERE TransactionID = ?";
+
+            pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            pstmt.setInt(1, productID);
+            pstmt.setInt(2, quantity);
+            pstmt.setFloat(3, total);
+            pstmt.setString(4, transactionType);
+            pstmt.setInt(5, transactionID);
+
+            updatedRows = pstmt.executeUpdate();
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+        return updatedRows;
+    }
+    
+    
     private void rbDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDeliveryActionPerformed
         // TODO add your handling code here:
         float price = 0f;
@@ -534,8 +595,8 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTransactionType;
-    private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnEdit;
     private javax.swing.JComboBox<String> cbCustomer;
     private javax.swing.JComboBox<String> cbProduct;
     private javax.swing.JLabel jLabel1;

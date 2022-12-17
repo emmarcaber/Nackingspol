@@ -21,7 +21,7 @@ public class CashierTransactionPanel extends javax.swing.JInternalFrame {
     ResultSet rs = null;
     PreparedStatement pstmt = null;
 
-    private String userName = "";
+    private String name = "";
     
     HashMap<String, Integer> productsMap = new HashMap<>();
     HashMap<String, Float> pricesMap = new HashMap<>();
@@ -31,13 +31,13 @@ public class CashierTransactionPanel extends javax.swing.JInternalFrame {
     /**
      * Creates new form TableCashier
      */
-    public CashierTransactionPanel(String userName) {
+    public CashierTransactionPanel(String name) {
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
 
-        this.userName = userName;
+        this.name = name;
         
         getCashiersFromDB();
         getCustomersFromDB();
@@ -109,7 +109,7 @@ public class CashierTransactionPanel extends javax.swing.JInternalFrame {
                     + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
                     + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
                     + "INNER JOIN product ON transactions.ProductID = product.ProductID"
-                    + " WHERE UserID = " + cashiersMap.get(userName);
+                    + " WHERE UserID = " + cashiersMap.get(name);
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
@@ -230,7 +230,7 @@ public class CashierTransactionPanel extends javax.swing.JInternalFrame {
 
     private void btnAddTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTransactionActionPerformed
         // TODO add your handling code here:
-        new CashierAddTransactionDialog(null, true, cashiersMap.get(this.userName));
+        new CashierAddTransactionDialog(null, true, cashiersMap.get(this.name));
     }//GEN-LAST:event_btnAddTransactionActionPerformed
 
     private void btnEditTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditTransactionActionPerformed
@@ -240,11 +240,10 @@ public class CashierTransactionPanel extends javax.swing.JInternalFrame {
 
         if (tblTransaction.getSelectedRowCount() == 1) {
             int customerID = customersMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 0).toString());
-            int cashierID = cashiersMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 1).toString());
-            int productID = productsMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString());
-            int quantity = Integer.parseInt(tblModel.getValueAt(tblTransaction.getSelectedRow(), 3).toString());
-            String typeOfTransaction = tblModel.getValueAt(tblTransaction.getSelectedRow(), 5).toString();
-            //new ManagerEditTransactionDialog(null, true, getTransactionID(customerID, cashierID, productID, quantity, typeOfTransaction));
+            int productID = productsMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 1).toString());
+            int quantity = Integer.parseInt(tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString());
+            String typeOfTransaction = tblModel.getValueAt(tblTransaction.getSelectedRow(), 4).toString();
+            new CashierEditTransactionDialog(null, true, getTransactionID(customerID, cashiersMap.get(name), productID, quantity, typeOfTransaction));
         } else {
             if (tblTransaction.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -254,6 +253,30 @@ public class CashierTransactionPanel extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditTransactionActionPerformed
 
+    private int getTransactionID(int customerID, int cashierID, int productID, int quantity, String typeOfTransaction) {
+        int toDeleteID = 0;
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT TransactionID from transactions WHERE "
+                    + "CustomerID = " + customerID
+                    + " AND CashierID = " + cashierID
+                    + " AND ProductID = " + productID
+                    + " AND Quantity = " + quantity
+                    + " AND TransactionType = '" + typeOfTransaction + "'";
+            rs = stmt.executeQuery(sql);
+
+            rs.next();
+            toDeleteID = rs.getInt("TransactionID");
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return toDeleteID;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddTransaction;

@@ -403,8 +403,6 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please enter a quantity!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (quantity.equals("0") || quantity.equals("")) {
             JOptionPane.showMessageDialog(null, "Quantity is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (total.equals("")) {
-            JOptionPane.showMessageDialog(null, "Total is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (dateOfTransaction.equals("")) {
             JOptionPane.showMessageDialog(null, "Date of Transaction is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {

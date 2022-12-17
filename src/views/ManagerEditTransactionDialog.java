@@ -436,8 +436,6 @@ public class ManagerEditTransactionDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please enter a quantity!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (quantity.equals("0")) {
             JOptionPane.showMessageDialog(null, "Quantity is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (total.equals("")) {
-            JOptionPane.showMessageDialog(null, "Total is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int rowAffected = updateTransactionToDB(
                     productsMap.get(selectedProduct), Integer.parseInt(quantity),
