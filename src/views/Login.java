@@ -84,7 +84,7 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
         jLabel7.setText("Password");
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/icons8_key_20px_1.png"))); // NOI18N
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/key.png"))); // NOI18N
 
         btnLogin.setBackground(new java.awt.Color(204, 255, 255));
         btnLogin.setFont(new java.awt.Font("Poppins Light", 1, 14)); // NOI18N
@@ -187,6 +187,7 @@ public class Login extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Empty data!", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else if (username.equals("nackingspol") && password.equals("anaclita")) {
             this.dispose();
+            WriteLogs.writeLog("ADMINISTRATOR Login");
             System.out.println("ADMINISTRATOR Login");
             new AdminDashboard();
         } else {
@@ -194,10 +195,12 @@ public class Login extends javax.swing.JFrame {
 
                 if (userType.equals("Cashier")) {
                     this.dispose();
+                    WriteLogs.writeLog("CASHIER " + username + " Login");
                     System.out.println("CASHIER " + username + " Login");
                     new CashierDashboard(name);
                 } else if (userType.equals("Manager")) {
                     this.dispose();
+                    WriteLogs.writeLog("MANAGER " + username + " Login");
                     System.out.println("MANAGER " + username + " Login");
                     new ManagerDashboard(name);
                 }

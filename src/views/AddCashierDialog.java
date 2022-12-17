@@ -247,6 +247,7 @@ public class AddCashierDialog extends javax.swing.JDialog {
                 String [] data = {firstName + " " + lastName, contactNumber, userName, password};
                 tblModel.addRow(data);
                 
+                WriteLogs.writeLog("Inserted Cashier ID: " + insertedCashierID);
                 System.out.println("Inserted Cashier ID: " + insertedCashierID);
                 JOptionPane.showMessageDialog(null, "Cashier added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose(); 

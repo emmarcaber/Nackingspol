@@ -17,14 +17,14 @@ public class CashierDashboard extends javax.swing.JFrame {
      * Creates new form AdminDashboard
      */
     Color DefaultColor, ClickedColor;
-    private String userName = "";
+    private String name = "";
 
     public CashierDashboard(String name) {
         initComponents();
         labelCashierName2.setText(name);
-        mainPane.add(new AdminDashboardPanel()).setVisible(true);
+        mainPane.add(new CashierDashboardPanel(name)).setVisible(true);
        
-        this.userName = name;
+        this.name = name;
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
@@ -49,9 +49,9 @@ public class CashierDashboard extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         labelCashierName = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        Order = new javax.swing.JPanel();
+        Transactions = new javax.swing.JPanel();
         transactionLabel = new javax.swing.JLabel();
-        Customer = new javax.swing.JPanel();
+        Customers = new javax.swing.JPanel();
         customerLabel = new javax.swing.JLabel();
         mainPane = new javax.swing.JDesktopPane();
 
@@ -138,14 +138,14 @@ public class CashierDashboard extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(25, 118, 211));
 
-        Order.setBackground(new java.awt.Color(25, 118, 211));
-        Order.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Order.addMouseListener(new java.awt.event.MouseAdapter() {
+        Transactions.setBackground(new java.awt.Color(25, 118, 211));
+        Transactions.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Transactions.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                OrderMouseClicked(evt);
+                TransactionsMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                OrderMousePressed(evt);
+                TransactionsMousePressed(evt);
             }
         });
 
@@ -153,31 +153,31 @@ public class CashierDashboard extends javax.swing.JFrame {
         transactionLabel.setForeground(new java.awt.Color(255, 255, 255));
         transactionLabel.setText("TRANSACTIONS");
 
-        javax.swing.GroupLayout OrderLayout = new javax.swing.GroupLayout(Order);
-        Order.setLayout(OrderLayout);
-        OrderLayout.setHorizontalGroup(
-            OrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrderLayout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+        javax.swing.GroupLayout TransactionsLayout = new javax.swing.GroupLayout(Transactions);
+        Transactions.setLayout(TransactionsLayout);
+        TransactionsLayout.setHorizontalGroup(
+            TransactionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TransactionsLayout.createSequentialGroup()
+                .addContainerGap(11, Short.MAX_VALUE)
                 .addComponent(transactionLabel)
-                .addContainerGap())
+                .addGap(9, 9, 9))
         );
-        OrderLayout.setVerticalGroup(
-            OrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OrderLayout.createSequentialGroup()
+        TransactionsLayout.setVerticalGroup(
+            TransactionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TransactionsLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(transactionLabel)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
-        Customer.setBackground(new java.awt.Color(25, 118, 211));
-        Customer.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Customer.addMouseListener(new java.awt.event.MouseAdapter() {
+        Customers.setBackground(new java.awt.Color(25, 118, 211));
+        Customers.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Customers.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                CustomerMouseClicked(evt);
+                CustomersMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                CustomerMousePressed(evt);
+                CustomersMousePressed(evt);
             }
         });
 
@@ -191,21 +191,21 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout CustomerLayout = new javax.swing.GroupLayout(Customer);
-        Customer.setLayout(CustomerLayout);
-        CustomerLayout.setHorizontalGroup(
-            CustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomerLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout CustomersLayout = new javax.swing.GroupLayout(Customers);
+        Customers.setLayout(CustomersLayout);
+        CustomersLayout.setHorizontalGroup(
+            CustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomersLayout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(customerLabel)
-                .addContainerGap())
+                .addGap(9, 9, 9))
         );
-        CustomerLayout.setVerticalGroup(
-            CustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(CustomerLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+        CustomersLayout.setVerticalGroup(
+            CustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(CustomersLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addComponent(customerLabel)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -216,19 +216,19 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
-                        .addComponent(Order, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Transactions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(Customer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(Customers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(Order, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Transactions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(Customer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Customers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(591, Short.MAX_VALUE))
         );
 
@@ -252,10 +252,10 @@ public class CashierDashboard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(84, 84, 84)
                 .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -282,40 +282,40 @@ public class CashierDashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void OrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderMouseClicked
+    private void TransactionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransactionsMouseClicked
         // TODO add your handling code here:
-        CashierTransactionPanel CashierOrder = new CashierTransactionPanel(userName);
+        CashierTransactionPanel CashierOrder = new CashierTransactionPanel(name);
         mainPane.removeAll();
         mainPane.add(CashierOrder).setVisible(true);
-    }//GEN-LAST:event_OrderMouseClicked
+    }//GEN-LAST:event_TransactionsMouseClicked
 
-    private void OrderMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderMousePressed
+    private void TransactionsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransactionsMousePressed
         // TODO add your handling code here:
-        Order.setBackground(ClickedColor);
-        Customer.setBackground(DefaultColor);
+        Transactions.setBackground(ClickedColor);
+        Customers.setBackground(DefaultColor);
 
         transactionLabel.setForeground(Color.BLACK);
         customerLabel.setForeground(Color.WHITE);
 
-    }//GEN-LAST:event_OrderMousePressed
+    }//GEN-LAST:event_TransactionsMousePressed
 
-    private void CustomerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerMousePressed
+    private void CustomersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomersMousePressed
         // TODO add your handling code here:
 
-        Customer.setBackground(ClickedColor);
-        Order.setBackground(DefaultColor);
+        Customers.setBackground(ClickedColor);
+        Transactions.setBackground(DefaultColor);
 
         customerLabel.setForeground(Color.BLACK);
         transactionLabel.setForeground(Color.WHITE);
 
-    }//GEN-LAST:event_CustomerMousePressed
+    }//GEN-LAST:event_CustomersMousePressed
 
-    private void CustomerMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomerMouseClicked
+    private void CustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomersMouseClicked
         // TODO add your handling code here:
         CashierCustomerPanel CashierCustomer = new CashierCustomerPanel();
         mainPane.removeAll();
         mainPane.add(CashierCustomer).setVisible(true);
-    }//GEN-LAST:event_CustomerMouseClicked
+    }//GEN-LAST:event_CustomersMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
@@ -329,10 +329,10 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         // TODO add your handling code here:
-        CashierDashboardPanel dashboardPanel = new CashierDashboardPanel();
+        CashierDashboardPanel dashboardPanel = new CashierDashboardPanel(name);
 
-        Customer.setBackground(DefaultColor);
-        Order.setBackground(DefaultColor);
+        Customers.setBackground(DefaultColor);
+        Transactions.setBackground(DefaultColor);
 
         customerLabel.setForeground(Color.WHITE);
         transactionLabel.setForeground(Color.WHITE);
@@ -344,10 +344,10 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     private void DashNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashNameMouseClicked
         // TODO add your handling code here:
-        CashierDashboardPanel dashboardPanel = new CashierDashboardPanel();
+        CashierDashboardPanel dashboardPanel = new CashierDashboardPanel(this.name);
 
-        Customer.setBackground(DefaultColor);
-        Order.setBackground(DefaultColor);
+        Customers.setBackground(DefaultColor);
+        Transactions.setBackground(DefaultColor);
 
         customerLabel.setForeground(Color.WHITE);
         transactionLabel.setForeground(Color.WHITE);
@@ -358,8 +358,8 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     private void customerLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerLabelMouseClicked
         // TODO add your handling code here:
-        Customer.setBackground(ClickedColor);
-        Order.setBackground(DefaultColor);
+        Customers.setBackground(ClickedColor);
+        Transactions.setBackground(DefaultColor);
 
         customerLabel.setForeground(Color.BLACK);
         transactionLabel.setForeground(Color.WHITE);
@@ -371,9 +371,9 @@ public class CashierDashboard extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JPanel Customer;
+    public static javax.swing.JPanel Customers;
     private javax.swing.JLabel DashName;
-    public static javax.swing.JPanel Order;
+    public static javax.swing.JPanel Transactions;
     private javax.swing.JButton btnLogout;
     public static javax.swing.JLabel customerLabel;
     private javax.swing.JPanel jPanel1;

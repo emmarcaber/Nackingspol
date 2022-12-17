@@ -230,7 +230,8 @@ public class EditProductDialog extends javax.swing.JDialog {
                 tblModel.setValueAt(data[1], ManagerProductPanel.tblProduct.getSelectedRow(), 1);
                 tblModel.setValueAt(data[2], ManagerProductPanel.tblProduct.getSelectedRow(), 2);
                 
-                System.out.println("Updated Product ID: " + productID);
+                WriteLogs.writeLog("Edited Product ID: " + productID);
+                System.out.println("Edited Product ID: " + productID);
                 JOptionPane.showMessageDialog(null, "Product updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } else {

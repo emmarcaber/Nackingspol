@@ -280,6 +280,9 @@ public class AddCustomerDialog extends javax.swing.JDialog {
                 String[] data = {firstName + " " + lastName, contactNumber, address};
                 tblModel.addRow(data);
 
+                WriteLogs.writeLog("Inserted Address ID: " + insertedAddressID);
+                WriteLogs.writeLog("Inserted Customer ID: " + insertedCustomerID);
+                
                 System.out.println("Inserted Address ID: " + insertedAddressID);
                 System.out.println("Inserted Customer ID: " + insertedCustomerID);
                 JOptionPane.showMessageDialog(null, "Customer added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);

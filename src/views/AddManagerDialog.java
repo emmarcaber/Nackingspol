@@ -247,6 +247,7 @@ public class AddManagerDialog extends javax.swing.JDialog {
                 String [] data = {firstName + " " + lastName, contactNumber, userName, password};
                 tblModel.addRow(data);
                 
+                WriteLogs.writeLog("Inserted Manager ID: " + insertedManagerID);
                 System.out.println("Inserted Manager ID: " + insertedManagerID);
                 JOptionPane.showMessageDialog(null, "Manager added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose(); 

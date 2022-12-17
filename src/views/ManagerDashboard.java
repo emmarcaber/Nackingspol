@@ -49,12 +49,12 @@ public class ManagerDashboard extends javax.swing.JFrame {
         btnLogout = new javax.swing.JButton();
         labelManagerName1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        Orders = new javax.swing.JPanel();
+        Transactions = new javax.swing.JPanel();
         transactionsLabel = new javax.swing.JLabel();
         Customers = new javax.swing.JPanel();
-        managerLabel = new javax.swing.JLabel();
+        customersLabel = new javax.swing.JLabel();
         Products = new javax.swing.JPanel();
-        productLabel = new javax.swing.JLabel();
+        productsLabel = new javax.swing.JLabel();
         mainPane = new javax.swing.JDesktopPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,14 +140,14 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(25, 118, 211));
 
-        Orders.setBackground(new java.awt.Color(25, 118, 211));
-        Orders.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        Orders.addMouseListener(new java.awt.event.MouseAdapter() {
+        Transactions.setBackground(new java.awt.Color(25, 118, 211));
+        Transactions.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Transactions.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                OrdersMouseClicked(evt);
+                TransactionsMouseClicked(evt);
             }
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                OrdersMousePressed(evt);
+                TransactionsMousePressed(evt);
             }
         });
 
@@ -155,21 +155,21 @@ public class ManagerDashboard extends javax.swing.JFrame {
         transactionsLabel.setForeground(new java.awt.Color(255, 255, 255));
         transactionsLabel.setText("TRANSACTIONS");
 
-        javax.swing.GroupLayout OrdersLayout = new javax.swing.GroupLayout(Orders);
-        Orders.setLayout(OrdersLayout);
-        OrdersLayout.setHorizontalGroup(
-            OrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrdersLayout.createSequentialGroup()
+        javax.swing.GroupLayout TransactionsLayout = new javax.swing.GroupLayout(Transactions);
+        Transactions.setLayout(TransactionsLayout);
+        TransactionsLayout.setHorizontalGroup(
+            TransactionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, TransactionsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(transactionsLabel)
-                .addContainerGap())
+                .addGap(9, 9, 9))
         );
-        OrdersLayout.setVerticalGroup(
-            OrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrdersLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+        TransactionsLayout.setVerticalGroup(
+            TransactionsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(TransactionsLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addComponent(transactionsLabel)
-                .addGap(18, 18, 18))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         Customers.setBackground(new java.awt.Color(25, 118, 211));
@@ -183,25 +183,25 @@ public class ManagerDashboard extends javax.swing.JFrame {
             }
         });
 
-        managerLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        managerLabel.setForeground(new java.awt.Color(255, 255, 255));
-        managerLabel.setText("CUSTOMERS");
+        customersLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        customersLabel.setForeground(new java.awt.Color(255, 255, 255));
+        customersLabel.setText("CUSTOMERS");
 
         javax.swing.GroupLayout CustomersLayout = new javax.swing.GroupLayout(Customers);
         Customers.setLayout(CustomersLayout);
         CustomersLayout.setHorizontalGroup(
             CustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomersLayout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addComponent(managerLabel)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(customersLabel)
                 .addContainerGap())
         );
         CustomersLayout.setVerticalGroup(
             CustomersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(CustomersLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addComponent(managerLabel)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(customersLabel)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         Products.setBackground(new java.awt.Color(25, 118, 211));
@@ -215,9 +215,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
             }
         });
 
-        productLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        productLabel.setForeground(new java.awt.Color(255, 255, 255));
-        productLabel.setText("PRODUCTS");
+        productsLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        productsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        productsLabel.setText("PRODUCTS");
 
         javax.swing.GroupLayout ProductsLayout = new javax.swing.GroupLayout(Products);
         Products.setLayout(ProductsLayout);
@@ -225,15 +225,15 @@ public class ManagerDashboard extends javax.swing.JFrame {
             ProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ProductsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(productLabel)
+                .addComponent(productsLabel)
                 .addGap(15, 15, 15))
         );
         ProductsLayout.setVerticalGroup(
             ProductsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ProductsLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(productLabel)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(productsLabel)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -245,19 +245,19 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(Products, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(Customers, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Orders, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Transactions, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(Orders, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(Transactions, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Customers, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Products, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(527, Short.MAX_VALUE))
+                .addContainerGap(543, Short.MAX_VALUE))
         );
 
         mainPane.setBackground(new java.awt.Color(255, 255, 255));
@@ -280,10 +280,10 @@ public class ManagerDashboard extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
+                .addGap(81, 81, 81)
                 .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -292,52 +292,50 @@ public class ManagerDashboard extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(100, 100, 100)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(mainPane, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(mainPane, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(774, 774, 774)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(774, 774, 774))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void OrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdersMouseClicked
+    private void TransactionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransactionsMouseClicked
         // TODO add your handling code here:
         ManagerTransactionPanel Order = new ManagerTransactionPanel();
         mainPane.removeAll();
         mainPane.add(Order).setVisible(true);
-    }//GEN-LAST:event_OrdersMouseClicked
+    }//GEN-LAST:event_TransactionsMouseClicked
 
-    private void OrdersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdersMousePressed
+    private void TransactionsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransactionsMousePressed
         // TODO add your handling code here:
-        Orders.setBackground(ClickedColor);
+        Transactions.setBackground(ClickedColor);
         Customers.setBackground(DefaultColor);
         Products.setBackground(DefaultColor);
         
         transactionsLabel.setForeground(Color.BLACK);
-        managerLabel.setForeground(Color.WHITE);
-        productLabel.setForeground(Color.WHITE);
-    }//GEN-LAST:event_OrdersMousePressed
+        customersLabel.setForeground(Color.WHITE);
+        productsLabel.setForeground(Color.WHITE);
+    }//GEN-LAST:event_TransactionsMousePressed
 
     private void CustomersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomersMousePressed
         // TODO add your handling code here:
        
         Customers.setBackground(ClickedColor);
-        Orders.setBackground(DefaultColor);
+        Transactions.setBackground(DefaultColor);
         Products.setBackground(DefaultColor);
         
-        managerLabel.setForeground(Color.BLACK);
+        customersLabel.setForeground(Color.BLACK);
         transactionsLabel.setForeground(Color.WHITE);
-        productLabel.setForeground(Color.WHITE);
+        productsLabel.setForeground(Color.WHITE);
     }//GEN-LAST:event_CustomersMousePressed
 
     private void CustomersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CustomersMouseClicked
@@ -359,30 +357,30 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void logoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_logoMouseClicked
         // TODO add your handling code here:
-        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
-        
         Customers.setBackground(DefaultColor);
-        Orders.setBackground(DefaultColor);
+        Transactions.setBackground(DefaultColor);
+        Products.setBackground(DefaultColor);
         
-        managerLabel.setForeground(Color.WHITE);
+        customersLabel.setForeground(Color.WHITE);
         transactionsLabel.setForeground(Color.WHITE);
+        productsLabel.setForeground(Color.WHITE);
         
-        
+        ManagerDashboardPanel dashboardPanel = new ManagerDashboardPanel();
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
-        
     }//GEN-LAST:event_logoMouseClicked
 
     private void DashNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashNameMouseClicked
         // TODO add your handling code here:
-        AdminDashboardPanel dashboardPanel = new AdminDashboardPanel();
-        
         Customers.setBackground(DefaultColor);
-        Orders.setBackground(DefaultColor);
+        Transactions.setBackground(DefaultColor);
+        Products.setBackground(DefaultColor);
         
-        managerLabel.setForeground(Color.WHITE);
+        customersLabel.setForeground(Color.WHITE);
         transactionsLabel.setForeground(Color.WHITE);
+        productsLabel.setForeground(Color.WHITE);
         
+        ManagerDashboardPanel dashboardPanel = new ManagerDashboardPanel();
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
     }//GEN-LAST:event_DashNameMouseClicked
@@ -397,21 +395,22 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private void ProductsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ProductsMousePressed
         // TODO add your handling code here:
         Customers.setBackground(DefaultColor);
-        Orders.setBackground(DefaultColor);
+        Transactions.setBackground(DefaultColor);
         Products.setBackground(ClickedColor);
         
-        managerLabel.setForeground(Color.WHITE);
+        customersLabel.setForeground(Color.WHITE);
         transactionsLabel.setForeground(Color.WHITE);
-        productLabel.setForeground(Color.BLACK);
+        productsLabel.setForeground(Color.BLACK);
     }//GEN-LAST:event_ProductsMousePressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public static javax.swing.JPanel Customers;
     private javax.swing.JLabel DashName;
-    public static javax.swing.JPanel Orders;
     public static javax.swing.JPanel Products;
+    public static javax.swing.JPanel Transactions;
     private javax.swing.JButton btnLogout;
+    public static javax.swing.JLabel customersLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -419,8 +418,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel labelManagerName1;
     private javax.swing.JLabel logo;
     public static javax.swing.JDesktopPane mainPane;
-    public static javax.swing.JLabel managerLabel;
-    public static javax.swing.JLabel productLabel;
+    public static javax.swing.JLabel productsLabel;
     public static javax.swing.JLabel transactionsLabel;
     // End of variables declaration//GEN-END:variables
 }

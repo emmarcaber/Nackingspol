@@ -191,6 +191,7 @@ public class AddProductDialog extends javax.swing.JDialog {
                     String[] data = {selectedContainerType, selectedWaterType, "Php " + price};
                     tblModel.addRow(data);
 
+                    WriteLogs.writeLog("Inserted Product ID: " + insertedProductID);
                     System.out.println("Inserted Product ID: " + insertedProductID);
                     JOptionPane.showMessageDialog(null, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                     this.dispose();

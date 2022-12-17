@@ -193,6 +193,7 @@ public class ManagerProductPanel extends javax.swing.JInternalFrame {
                 if (rowAffected > 0) {
                     tblModel.removeRow(tblProduct.getSelectedRow());
 
+                    WriteLogs.writeLog("Deleted Product ID: " + toDeleteProductID);
                     System.out.println("Deleted Product ID: " + toDeleteProductID);
                     JOptionPane.showMessageDialog(null, "Product deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {

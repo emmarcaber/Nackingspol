@@ -386,6 +386,8 @@ public class CashierEditTransactionDialog extends javax.swing.JDialog {
             if (rowAffected == 0) {
                 JOptionPane.showMessageDialog(null, "Transaction not edited successfully!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
+                WriteLogs.writeLog("Edited Transaction ID: " + transactionID);
+                System.out.println("Edited Transaction ID: " + transactionID);
                 JOptionPane.showMessageDialog(null, "Transaction edited successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();

@@ -205,6 +205,7 @@ public class AdminCashierPanel extends javax.swing.JInternalFrame {
                 if (rowAffected > 0) {
                     tblModel.removeRow(tblCashier.getSelectedRow());
 
+                    WriteLogs.writeLog("Deleted Cashier ID: " + toDeleteID);
                     System.out.println("Deleted Cashier ID: " + toDeleteID);
                     JOptionPane.showMessageDialog(null, "Cashier deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {

@@ -294,6 +294,8 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                 int deletedID = deleteTransactionFromDB(toDeleteID);
 
                 if (deletedID > 0) {
+                    WriteLogs.writeLog("Deleted TransactionID ID: " + toDeleteID);
+                    System.out.println("Deleted TransactionID ID: " + toDeleteID);
                     tblModel.removeRow(tblTransaction.getSelectedRow());
 
                     JOptionPane.showMessageDialog(null, "Transaction deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);

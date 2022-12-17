@@ -27,11 +27,11 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="cashierPanel" min="-2" max="-2" attributes="0"/>
+              <Component id="transactionPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
-              <Component id="cashierPanel1" min="-2" max="-2" attributes="0"/>
+              <Component id="customerPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
-              <Component id="cashierPanel2" min="-2" max="-2" attributes="0"/>
+              <Component id="productPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="195" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -41,11 +41,9 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="108" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="cashierPanel2" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="cashierPanel" max="32767" attributes="0"/>
-                      <Component id="cashierPanel1" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="productPanel" max="32767" attributes="0"/>
+                  <Component id="transactionPanel" max="32767" attributes="0"/>
+                  <Component id="customerPanel" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="573" max="32767" attributes="0"/>
           </Group>
@@ -53,7 +51,7 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Container class="javax.swing.JPanel" name="cashierPanel">
+    <Container class="javax.swing.JPanel" name="transactionPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="ff" red="ff" type="rgb"/>
@@ -63,7 +61,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cashierPanelMouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="transactionPanelMouseClicked"/>
       </Events>
 
       <Layout>
@@ -128,7 +126,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="cashierPanel1">
+    <Container class="javax.swing.JPanel" name="customerPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="cc" green="33" red="0" type="rgb"/>
@@ -138,7 +136,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cashierPanel1MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="customerPanelMouseClicked"/>
       </Events>
 
       <Layout>
@@ -209,7 +207,7 @@
         </Component>
       </SubComponents>
     </Container>
-    <Container class="javax.swing.JPanel" name="cashierPanel2">
+    <Container class="javax.swing.JPanel" name="productPanel">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="33" green="cc" red="0" type="rgb"/>
@@ -219,7 +217,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="cashierPanel2MouseClicked"/>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="productPanelMouseClicked"/>
       </Events>
 
       <Layout>

@@ -236,6 +236,8 @@ public class ManagerCustomerPanel extends javax.swing.JInternalFrame {
                 if (rowAffected > 0) {
                     tblModel.removeRow(tblCustomer.getSelectedRow());
 
+                    WriteLogs.writeLog("Deleted Customer ID: " + toDeleteCustomerID);
+                    System.out.println("Deleted Customer ID: " + toDeleteCustomerID);
                     JOptionPane.showMessageDialog(null, "Customer deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Customer not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);

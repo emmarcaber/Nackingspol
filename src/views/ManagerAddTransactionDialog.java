@@ -413,6 +413,8 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             if (insertedTransactionID == 0) {
                 JOptionPane.showMessageDialog(null, "Transaction not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
+                WriteLogs.writeLog("Inserted Transaction ID: " + insertedTransactionID);
+                System.out.println("Inserted Transaction ID: " + insertedTransactionID);
                 JOptionPane.showMessageDialog(null, "Transaction added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();

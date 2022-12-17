@@ -329,7 +329,10 @@ public class EditCustomerDialog extends javax.swing.JDialog {
                 tblModel.setValueAt(data[1], selectedRow, 1);
                 tblModel.setValueAt(data[2], selectedRow, 2);
 
-                System.out.println("Updated Customer ID: " + customerID);
+                WriteLogs.writeLog("Edited Address ID: " + insertedAddressID);
+                WriteLogs.writeLog("Edited Customer ID: " + customerID);
+                System.out.println("Edited Address ID: " + insertedAddressID);
+                System.out.println("Edited Customer ID: " + customerID);
                 JOptionPane.showMessageDialog(null, "Customer edited successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 this.dispose();
             } else {
