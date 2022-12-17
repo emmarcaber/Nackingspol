@@ -23,7 +23,7 @@ public class WriteLogs {
         try {
             // Below constructor argument decides whether to append or override
             fr = new FileWriter(file, true);
-            fr.write(logs);
+            fr.write(logs + "\n");
 
         } catch (IOException e) {
             e.printStackTrace();
