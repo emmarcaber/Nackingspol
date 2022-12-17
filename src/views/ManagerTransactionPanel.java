@@ -31,25 +31,34 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
 
-        getCashiersFromDB();
+        getTransactionsFromDB();
     }
 
-    public void getCashiersFromDB() {
+    public void getTransactionsFromDB() {
         try {
             stmt = DBConnect.getInstance().createStatement();
 
-            String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS Name, ContactNumber, Username, Password FROM user WHERE UserType = 'Cashier'";
+            String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+                    + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
+                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TypeOfTransaction,\n"
+                    + "DATE_FORMAT(DateOfTransaction, '%M %e, %Y') AS 'DateOfTransaction' FROM transactions\n"
+                    + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
+                    + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
+                    + "INNER JOIN product ON transactions.ProductID = product.ProductID";
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                String name = rs.getString("Name");
-                String contactNumber = rs.getString("ContactNumber");
-                String userName = rs.getString("Username");
-                String password = rs.getString("Password");
+                String customerName = rs.getString("CustomerName");
+                String cashierName = rs.getString("CashierName");
+                String product = rs.getString("Product");
+                String quantity = String.valueOf(rs.getInt("Quantity"));
+                String total = "Php " + String.valueOf(rs.getFloat("Total")) + "0";
+                String typeOfTransaction = rs.getString("TypeOfTransaction");
+                String dateOfTransaction = rs.getString("DateOfTransaction");
 
-                String[] data = {name, contactNumber, userName, password};
+                String[] data = {customerName, cashierName, product, quantity, total, typeOfTransaction, dateOfTransaction};
 
-                DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
+                DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
                 tblModel.addRow(data);
             }
 
@@ -73,7 +82,7 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
         btnEditCashier = new javax.swing.JButton();
         btnDeleteOrder = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblCashier = new javax.swing.JTable();
+        tblTransaction = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setVisible(true);
@@ -110,26 +119,30 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
             }
         });
 
-        tblCashier.setAutoCreateRowSorter(true);
-        tblCashier.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        tblCashier.setModel(new javax.swing.table.DefaultTableModel(
+        tblTransaction.setAutoCreateRowSorter(true);
+        tblTransaction.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        tblTransaction.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Name", "Contact Number", "Username", "Password"
+                "Customer Name", "Cashier Name", "Product", "Quantity", "Total", "Type of Transaction", "Date of Transaction"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        tblCashier.setMinimumSize(new java.awt.Dimension(50, 0));
-        jScrollPane1.setViewportView(tblCashier);
+        tblTransaction.setMinimumSize(new java.awt.Dimension(50, 0));
+        jScrollPane1.setViewportView(tblTransaction);
+        if (tblTransaction.getColumnModel().getColumnCount() > 0) {
+            tblTransaction.getColumnModel().getColumn(3).setMaxWidth(50);
+            tblTransaction.getColumnModel().getColumn(4).setMaxWidth(100);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,13 +184,13 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
     private void btnEditCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCashierActionPerformed
         // TODO add your handling code here:
 
-        DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
+        DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
 
-        if (tblCashier.getSelectedRowCount() == 1) {
-            String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
+        if (tblTransaction.getSelectedRowCount() == 1) {
+            String userName = tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString();
             new EditCashierDialog(null, true, getCashierID(userName));
         } else {
-            if (tblCashier.getRowCount() == 0) {
+            if (tblTransaction.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -189,22 +202,22 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
     private void btnDeleteOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteOrderActionPerformed
         // TODO add your handling code here:
 
-        if (tblCashier.getSelectedRowCount() == 1) {
+        if (tblTransaction.getSelectedRowCount() == 1) {
 
-            DefaultTableModel tblModel = (DefaultTableModel) tblCashier.getModel();
+            DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
 
-            String name = tblModel.getValueAt(tblCashier.getSelectedRow(), 0).toString();
+            String name = tblModel.getValueAt(tblTransaction.getSelectedRow(), 0).toString();
             int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + name + "?", "Delete", JOptionPane.YES_NO_OPTION);
 
             if (answer == 0) {
-                String userName = tblModel.getValueAt(tblCashier.getSelectedRow(), 2).toString();
+                String userName = tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString();
 
                 int toDeleteID = getCashierID(userName);
                 int deletedID = deleteCashierFromDB(toDeleteID);
 
                 System.out.println(toDeleteID);
                 if (deletedID > 0) {
-                    tblModel.removeRow(tblCashier.getSelectedRow());
+                    tblModel.removeRow(tblTransaction.getSelectedRow());
 
                     JOptionPane.showMessageDialog(null, "Cashier deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -213,7 +226,7 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
             }
 
         } else {
-            if (tblCashier.getRowCount() == 0) {
+            if (tblTransaction.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -273,6 +286,6 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnDeleteOrder;
     private javax.swing.JButton btnEditCashier;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tblCashier;
+    public static javax.swing.JTable tblTransaction;
     // End of variables declaration//GEN-END:variables
 }
