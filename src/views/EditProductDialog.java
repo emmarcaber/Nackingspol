@@ -251,8 +251,7 @@ public class EditProductDialog extends javax.swing.JDialog {
             pstmt.setFloat(1, price);
             pstmt.setInt(2, productID);
 
-            int rowAffected = pstmt.executeUpdate();
-            updatedRows = rowAffected;
+            updatedRows = pstmt.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

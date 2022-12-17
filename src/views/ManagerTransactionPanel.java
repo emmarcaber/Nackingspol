@@ -15,24 +15,86 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Anaclita
  */
-public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
+public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
 
     Statement stmt = null;
     ResultSet rs = null;
     PreparedStatement pstmt = null;
 
-    public static HashMap<String, Integer> cashierMap = new HashMap<>();
+    HashMap<String, Integer> productsMap = new HashMap<>();
+    HashMap<String, Integer> customersMap = new HashMap<>();
+    HashMap<String, Integer> cashiersMap = new HashMap<>();
+
+    private void getCustomersFromDB() {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS 'Name', CustomerID FROM customer";
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                customersMap.put(rs.getString("Name"), rs.getInt("CustomerID"));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void getCashiersFromDB() {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS 'Name', UserID FROM `user` WHERE UserType = 'Cashier'";
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                cashiersMap.put(rs.getString("Name"), rs.getInt("UserID"));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void getProductsFromDB() {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT CONCAT(ContainerType, ' ', WaterType) AS 'Name', ProductID, Price FROM product";
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                productsMap.put(rs.getString("Name"), rs.getInt("ProductID"));
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     /**
      * Creates new form TableCashier
      */
     public ManagerTransactionPanel() {
+
         initComponents();
+        
+        getTransactionsFromDB();
+        getCustomersFromDB();
+        getCashiersFromDB();
+        getProductsFromDB();
+        
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-
-        getTransactionsFromDB();
+        
     }
 
     public void getTransactionsFromDB() {
@@ -41,8 +103,8 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
 
             String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
                     + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
-                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TypeOfTransaction,\n"
-                    + "DateOfTransaction FROM transactions\n"
+                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
+                    + "TransactionDate FROM transactions\n"
                     + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
                     + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
                     + "INNER JOIN product ON transactions.ProductID = product.ProductID";
@@ -54,8 +116,8 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                 String product = rs.getString("Product");
                 String quantity = String.valueOf(rs.getInt("Quantity"));
                 String total = "Php " + String.valueOf(rs.getFloat("Total")) + "0";
-                String typeOfTransaction = rs.getString("TypeOfTransaction");
-                String dateOfTransaction = DateFormat.getDateInstance().format(rs.getDate("DateOfTransaction"));
+                String typeOfTransaction = rs.getString("TransactionType");
+                String dateOfTransaction = DateFormat.getDateInstance().format(rs.getDate("TransactionDate"));
 
                 String[] data = {customerName, cashierName, product, quantity, total, typeOfTransaction, dateOfTransaction};
 
@@ -79,44 +141,44 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnAddCashier = new javax.swing.JButton();
-        btnEditCashier = new javax.swing.JButton();
-        btnDeleteOrder = new javax.swing.JButton();
+        btnAddTransaction = new javax.swing.JButton();
+        btnEditTransaction = new javax.swing.JButton();
+        btnDeleteTransaction = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTransaction = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setVisible(true);
 
-        btnAddCashier.setBackground(new java.awt.Color(0, 153, 0));
-        btnAddCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnAddCashier.setForeground(new java.awt.Color(255, 255, 255));
-        btnAddCashier.setText("ADD TRANSACTION");
-        btnAddCashier.setFocusable(false);
-        btnAddCashier.addActionListener(new java.awt.event.ActionListener() {
+        btnAddTransaction.setBackground(new java.awt.Color(0, 153, 0));
+        btnAddTransaction.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnAddTransaction.setForeground(new java.awt.Color(255, 255, 255));
+        btnAddTransaction.setText("ADD TRANSACTION");
+        btnAddTransaction.setFocusable(false);
+        btnAddTransaction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddCashierActionPerformed(evt);
+                btnAddTransactionActionPerformed(evt);
             }
         });
 
-        btnEditCashier.setBackground(new java.awt.Color(255, 255, 0));
-        btnEditCashier.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnEditCashier.setText("EDIT TRANSACTION");
-        btnEditCashier.setFocusable(false);
-        btnEditCashier.addActionListener(new java.awt.event.ActionListener() {
+        btnEditTransaction.setBackground(new java.awt.Color(255, 255, 0));
+        btnEditTransaction.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnEditTransaction.setText("EDIT TRANSACTION");
+        btnEditTransaction.setFocusable(false);
+        btnEditTransaction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditCashierActionPerformed(evt);
+                btnEditTransactionActionPerformed(evt);
             }
         });
 
-        btnDeleteOrder.setBackground(new java.awt.Color(255, 0, 0));
-        btnDeleteOrder.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        btnDeleteOrder.setForeground(new java.awt.Color(255, 255, 255));
-        btnDeleteOrder.setText("DELETE TRANSACTION");
-        btnDeleteOrder.setFocusable(false);
-        btnDeleteOrder.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteTransaction.setBackground(new java.awt.Color(255, 0, 0));
+        btnDeleteTransaction.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnDeleteTransaction.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeleteTransaction.setText("DELETE TRANSACTION");
+        btnDeleteTransaction.setFocusable(false);
+        btnDeleteTransaction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDeleteOrderActionPerformed(evt);
+                btnDeleteTransactionActionPerformed(evt);
             }
         });
 
@@ -127,7 +189,7 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Customer Name", "Cashier Name", "Product", "Quantity", "Total", "Type of Transaction", "Date of Transaction"
+                "Customer Name", "Cashier Name", "Product", "Quantity", "Total", "Type", "Date"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -141,9 +203,13 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
         tblTransaction.setMinimumSize(new java.awt.Dimension(50, 0));
         jScrollPane1.setViewportView(tblTransaction);
         if (tblTransaction.getColumnModel().getColumnCount() > 0) {
-            tblTransaction.getColumnModel().getColumn(3).setMaxWidth(50);
-            tblTransaction.getColumnModel().getColumn(4).setMaxWidth(100);
-            tblTransaction.getColumnModel().getColumn(5).setMaxWidth(100);
+            tblTransaction.getColumnModel().getColumn(0).setPreferredWidth(150);
+            tblTransaction.getColumnModel().getColumn(1).setPreferredWidth(150);
+            tblTransaction.getColumnModel().getColumn(2).setPreferredWidth(150);
+            tblTransaction.getColumnModel().getColumn(3).setPreferredWidth(50);
+            tblTransaction.getColumnModel().getColumn(4).setPreferredWidth(100);
+            tblTransaction.getColumnModel().getColumn(5).setPreferredWidth(100);
+            tblTransaction.getColumnModel().getColumn(6).setPreferredWidth(100);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,11 +220,11 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnAddCashier)
+                        .addComponent(btnAddTransaction)
                         .addGap(82, 82, 82)
-                        .addComponent(btnEditCashier)
+                        .addComponent(btnEditTransaction)
                         .addGap(79, 79, 79)
-                        .addComponent(btnDeleteOrder))
+                        .addComponent(btnDeleteTransaction))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(126, 126, 126))
         );
@@ -167,9 +233,9 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddCashier)
-                    .addComponent(btnEditCashier)
-                    .addComponent(btnDeleteOrder))
+                    .addComponent(btnAddTransaction)
+                    .addComponent(btnEditTransaction)
+                    .addComponent(btnDeleteTransaction))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -178,19 +244,23 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAddCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCashierActionPerformed
+    private void btnAddTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddTransactionActionPerformed
         // TODO add your handling code here:
         new ManagerAddTransactionDialog(null, true);
-    }//GEN-LAST:event_btnAddCashierActionPerformed
+    }//GEN-LAST:event_btnAddTransactionActionPerformed
 
-    private void btnEditCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCashierActionPerformed
+    private void btnEditTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditTransactionActionPerformed
         // TODO add your handling code here:
 
         DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
 
         if (tblTransaction.getSelectedRowCount() == 1) {
-            String userName = tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString();
-            new EditCashierDialog(null, true, getCashierID(userName));
+            int customerID = customersMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 0).toString());
+            int cashierID = cashiersMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 1).toString());
+            int productID = productsMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString());
+            int quantity = Integer.parseInt(tblModel.getValueAt(tblTransaction.getSelectedRow(), 3).toString());
+            String typeOfTransaction = tblModel.getValueAt(tblTransaction.getSelectedRow(), 5).toString();
+            new ManagerEditTransactionDialog(null, true, getTransactionID(customerID, cashierID, productID, quantity, typeOfTransaction));
         } else {
             if (tblTransaction.getRowCount() == 0) {
                 JOptionPane.showMessageDialog(null, "Table is empty!", "Error", JOptionPane.ERROR_MESSAGE);
@@ -198,32 +268,37 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnEditCashierActionPerformed
+    }//GEN-LAST:event_btnEditTransactionActionPerformed
 
 
-    private void btnDeleteOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteOrderActionPerformed
+    private void btnDeleteTransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteTransactionActionPerformed
         // TODO add your handling code here:
 
         if (tblTransaction.getSelectedRowCount() == 1) {
 
             DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
 
-            String name = tblModel.getValueAt(tblTransaction.getSelectedRow(), 0).toString();
-            int answer = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete " + name + "?", "Delete", JOptionPane.YES_NO_OPTION);
+            String customerName = tblModel.getValueAt(tblTransaction.getSelectedRow(), 0).toString();
+            String product = tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString();
+            String typeOfTransaction = tblModel.getValueAt(tblTransaction.getSelectedRow(), 5).toString();
+            String deleteMessage = "Are you sure you want to delete " + customerName + "'s " + typeOfTransaction + " transaction of " + product + "?";
+            int answer = JOptionPane.showConfirmDialog(null, deleteMessage, "Delete", JOptionPane.YES_NO_OPTION);
 
             if (answer == 0) {
-                String userName = tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString();
+                int customerID = customersMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 0).toString());
+                int cashierID = cashiersMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 1).toString());
+                int productID = productsMap.get(tblModel.getValueAt(tblTransaction.getSelectedRow(), 2).toString());
+                int quantity = Integer.parseInt(tblModel.getValueAt(tblTransaction.getSelectedRow(), 3).toString());
 
-                int toDeleteID = getCashierID(userName);
-                int deletedID = deleteCashierFromDB(toDeleteID);
+                int toDeleteID = getTransactionID(customerID, cashierID, productID, quantity, typeOfTransaction);
+                int deletedID = deleteTransactionFromDB(toDeleteID);
 
-                System.out.println(toDeleteID);
                 if (deletedID > 0) {
                     tblModel.removeRow(tblTransaction.getSelectedRow());
 
-                    JOptionPane.showMessageDialog(null, "Cashier deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Transaction deleted successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cashier not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Transaction not deleted successfully!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }
 
@@ -234,18 +309,23 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "Please select a single row!", "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
-    }//GEN-LAST:event_btnDeleteOrderActionPerformed
+    }//GEN-LAST:event_btnDeleteTransactionActionPerformed
 
-    private int getCashierID(String userName) {
+    private int getTransactionID(int customerID, int cashierID, int productID, int quantity, String typeOfTransaction) {
         int toDeleteID = 0;
         try {
             stmt = DBConnect.getInstance().createStatement();
 
-            String sql = "SELECT UserID FROM user WHERE UserType = 'Cashier' AND Username = '" + userName + "'";
+            String sql = "SELECT TransactionID from transactions WHERE "
+                    + "CustomerID = " + customerID
+                    + " AND CashierID = " + cashierID
+                    + " AND ProductID = " + productID
+                    + " AND Quantity = " + quantity
+                    + " AND TransactionType = '" + typeOfTransaction + "'";
             rs = stmt.executeQuery(sql);
 
             rs.next();
-            toDeleteID = rs.getInt("UserID");
+            toDeleteID = rs.getInt("TransactionID");
 
             rs.close();
             stmt.close();
@@ -256,10 +336,10 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
         return toDeleteID;
     }
 
-    private int deleteCashierFromDB(int deleteID) {
+    private int deleteTransactionFromDB(int deleteID) {
         int deletedRows = 0;
         try {
-            String sql = "DELETE FROM user WHERE UserID = ?  AND UserType = 'Cashier'";
+            String sql = "DELETE FROM transactions WHERE TransactionID = ?";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -284,9 +364,9 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddCashier;
-    private javax.swing.JButton btnDeleteOrder;
-    private javax.swing.JButton btnEditCashier;
+    private javax.swing.JButton btnAddTransaction;
+    private javax.swing.JButton btnDeleteTransaction;
+    private javax.swing.JButton btnEditTransaction;
     private javax.swing.JScrollPane jScrollPane1;
     public static javax.swing.JTable tblTransaction;
     // End of variables declaration//GEN-END:variables

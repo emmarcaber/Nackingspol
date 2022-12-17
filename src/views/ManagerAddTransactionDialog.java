@@ -29,10 +29,10 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
     Statement stmt = null;
     PreparedStatement pstmt = null;
 
-    HashMap<String, Integer> products = new HashMap<>();
-    HashMap<String, Float> prices = new HashMap<>();
-    HashMap<String, Integer> customers = new HashMap<>();
-    HashMap<String, Integer> cashiers = new HashMap<>();
+    HashMap<String, Integer> productsMap = new HashMap<>();
+    HashMap<String, Float> pricesMap = new HashMap<>();
+    HashMap<String, Integer> customersMap = new HashMap<>();
+    HashMap<String, Integer> cashiersMap = new HashMap<>();
 
     /**
      * Creates new form AddCashierDialog
@@ -49,7 +49,6 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
         getProductsFromDB();
 
         txtQuantity.setText("0");
-        txtTotal.setEnabled(false);
 
         this.setVisible(true);
     }
@@ -62,7 +61,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                customers.put(rs.getString("Name"), rs.getInt("CustomerID"));
+                customersMap.put(rs.getString("Name"), rs.getInt("CustomerID"));
                 cbCustomer.addItem(rs.getString("Name"));
             }
 
@@ -81,7 +80,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                cashiers.put(rs.getString("Name"), rs.getInt("UserID"));
+                cashiersMap.put(rs.getString("Name"), rs.getInt("UserID"));
                 cbCashier.addItem(rs.getString("Name"));
             }
 
@@ -100,8 +99,8 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                products.put(rs.getString("Name"), rs.getInt("ProductID"));
-                prices.put(rs.getString("Name"), rs.getFloat("Price"));
+                productsMap.put(rs.getString("Name"), rs.getInt("ProductID"));
+                pricesMap.put(rs.getString("Name"), rs.getFloat("Price"));
                 cbProduct.addItem(rs.getString("Name"));
             }
 
@@ -139,7 +138,8 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
         rbWalk = new javax.swing.JRadioButton();
         rbDelivery = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        txtTotal = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JLabel();
+        txtTotal1 = new javax.swing.JLabel();
         dcDateOfTransaction = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -195,6 +195,9 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtQuantityKeyPressed(evt);
             }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtQuantityKeyTyped(evt);
             }
@@ -232,14 +235,15 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
         });
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        jLabel4.setText("Total");
+        jLabel4.setText("TOTAL");
 
-        txtTotal.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtTotal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalActionPerformed(evt);
-            }
-        });
+        txtTotal.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        txtTotal.setForeground(new java.awt.Color(255, 0, 0));
+        txtTotal.setText("0.00");
+
+        txtTotal1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        txtTotal1.setForeground(new java.awt.Color(255, 0, 0));
+        txtTotal1.setText("Php");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -260,13 +264,15 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(39, 39, 39)
-                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTotal1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtTotal))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
                                 .addComponent(rbWalk)))
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addComponent(rbDelivery)))
                 .addContainerGap(8, Short.MAX_VALUE))
         );
@@ -284,11 +290,12 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(rbWalk)
                     .addComponent(rbDelivery))
-                .addGap(21, 21, 21)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                    .addComponent(txtTotal)
+                    .addComponent(txtTotal1))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -300,7 +307,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(63, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(86, Short.MAX_VALUE)
+                .addContainerGap(92, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -308,7 +315,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
                         .addComponent(cbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel12)
-                        .addGap(92, 92, 92)
+                        .addGap(86, 86, 86)
                         .addComponent(cbCashier, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(90, 90, 90))
             .addGroup(layout.createSequentialGroup()
@@ -321,7 +328,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
                 .addGap(82, 82, 82)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(dcDateOfTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dcDateOfTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -380,6 +387,12 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             transactionType = "Delivery";
         }
 
+        try {
+            dateOfTransaction = DateFormat.getDateInstance().format(dcDateOfTransaction.getDate());
+            SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+            stringDate = DateFor.format(dcDateOfTransaction.getDate());
+        } catch (NullPointerException e) {}
+
         if (cbCustomer.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Please select a customer!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (cbCashier.getSelectedIndex() == 0) {
@@ -388,37 +401,27 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Please select a product!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (quantity.equals("")) {
             JOptionPane.showMessageDialog(null, "Please enter a quantity!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (quantity.equals("0")) {
+        } else if (quantity.equals("0") || quantity.equals("")) {
             JOptionPane.showMessageDialog(null, "Quantity is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (total.equals("")) {
             JOptionPane.showMessageDialog(null, "Total is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            
-            try {
-                dateOfTransaction = DateFormat.getDateInstance().format(dcDateOfTransaction.getDate());
-                SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
-                stringDate = DateFor.format(dcDateOfTransaction.getDate());
-            } catch (NullPointerException e) {
-                JOptionPane.showMessageDialog(null, "Date of Transaction is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            
         } else if (dateOfTransaction.equals("")) {
             JOptionPane.showMessageDialog(null, "Date of Transaction is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            int insertedTransactionID = insertTransactionToDB(
-                    customers.get(selectedCustomer), cashiers.get(selectedCashier), products.get(selectedProduct),
+            int insertedTransactionID = insertTransactionToDB(customersMap.get(selectedCustomer), cashiersMap.get(selectedCashier), productsMap.get(selectedProduct),
                     Integer.parseInt(quantity), Float.parseFloat(total), transactionType, stringDate
             );
 
             if (insertedTransactionID == 0) {
                 JOptionPane.showMessageDialog(null, "Transaction not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Transaction added successfully!", "Success", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Transaction added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
 
                 DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
 
                 String[] data = {
                     selectedCustomer, selectedCashier, selectedProduct, quantity,
-                    "Php " + total + "0", transactionType, dateOfTransaction
+                    "Php " + total, transactionType, dateOfTransaction
                 };
 
                 tblModel.addRow(data);
@@ -433,7 +436,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
         int insertedProductID = 0;
 
         try {
-            String sql = "INSERT INTO transactions(CustomerID, CashierID, ProductID, Quantity, Total, TypeOfTransaction, DateOfTransaction) "
+            String sql = "INSERT INTO transactions(CustomerID, CashierID, ProductID, Quantity, Total, TransactionType, TransactionDate) "
                     + "VALUES(?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -474,28 +477,23 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
 
     }//GEN-LAST:event_txtQuantityActionPerformed
 
-    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTotalActionPerformed
-
     private void cbProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductActionPerformed
         // TODO add your handling code here:
-        Float price = 0f;
+        float price = 0f;
         int quantity = 0;
         int deliveryAdditions = 0;
+        float total = 0f;
 
-        if (cbProduct.getSelectedIndex() != 0) {
-            price = prices.get(cbProduct.getSelectedItem().toString());
-        }
-        if (!txtQuantity.getText().equals("")) {
-            quantity = Integer.parseInt(txtQuantity.getText());
-        }
         if (rbDelivery.isSelected()) {
             deliveryAdditions = quantity * 5;
         }
-
-        Float total = price * quantity + deliveryAdditions;
-        txtTotal.setText(String.valueOf(total));
+        if (cbProduct.getSelectedIndex() != 0 && !txtQuantity.getText().equals("")) {
+            price = pricesMap.get(cbProduct.getSelectedItem().toString());
+            quantity = Integer.parseInt(txtQuantity.getText());
+            total = price * quantity + deliveryAdditions;
+        }
+        
+        txtTotal.setText(String.valueOf(total) + "0");
     }//GEN-LAST:event_cbProductActionPerformed
 
     private void txtQuantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyTyped
@@ -505,83 +503,95 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             evt.consume();
         }
 
-        Float price = 0f;
+        float price = 0f;
         int quantity = 0;
         int deliveryAdditions = 0;
+        float total = 0f;
 
-        if (cbProduct.getSelectedIndex() != 0) {
-            price = prices.get(cbProduct.getSelectedItem().toString());
-        }
-        if (!txtQuantity.getText().equals("")) {
-            quantity = Integer.parseInt(txtQuantity.getText());
-        }
         if (rbDelivery.isSelected()) {
             deliveryAdditions = quantity * 5;
         }
-
-        Float total = price * quantity + deliveryAdditions;
-        txtTotal.setText(String.valueOf(total));
+        if (cbProduct.getSelectedIndex() != 0 && !txtQuantity.getText().equals("")) {
+            price = pricesMap.get(cbProduct.getSelectedItem().toString());
+            quantity = Integer.parseInt(txtQuantity.getText());
+            total = price * quantity + deliveryAdditions;
+        }
+        
+        txtTotal.setText(String.valueOf(total) + "0");
     }//GEN-LAST:event_txtQuantityKeyTyped
 
     private void txtQuantityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyPressed
         // TODO add your handling code here:
-        Float price = 0f;
+        float price = 0f;
         int quantity = 0;
         int deliveryAdditions = 0;
+        float total = 0f;
 
-        if (cbProduct.getSelectedIndex() != 0) {
-            price = prices.get(cbProduct.getSelectedItem().toString());
-        }
-        if (!txtQuantity.getText().equals("")) {
-            quantity = Integer.parseInt(txtQuantity.getText());
-        }
         if (rbDelivery.isSelected()) {
             deliveryAdditions = quantity * 5;
         }
-
-        Float total = price * quantity + deliveryAdditions;
-        txtTotal.setText(String.valueOf(total));
+        if (cbProduct.getSelectedIndex() != 0 && !txtQuantity.getText().equals("")) {
+            price = pricesMap.get(cbProduct.getSelectedItem().toString());
+            quantity = Integer.parseInt(txtQuantity.getText());
+            total = price * quantity + deliveryAdditions;
+        }
+        
+        txtTotal.setText(String.valueOf(total) + "0");
     }//GEN-LAST:event_txtQuantityKeyPressed
 
     private void rbDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDeliveryActionPerformed
         // TODO add your handling code here:
-        Float price = 0f;
+        float price = 0f;
         int quantity = 0;
         int deliveryAdditions = 0;
+        float total = 0f;
 
-        if (cbProduct.getSelectedIndex() != 0) {
-            price = prices.get(cbProduct.getSelectedItem().toString());
-        }
-        if (!txtQuantity.getText().equals("")) {
+        if (cbProduct.getSelectedIndex() != 0 && !txtQuantity.getText().equals("")) {
+            price = pricesMap.get(cbProduct.getSelectedItem().toString());
             quantity = Integer.parseInt(txtQuantity.getText());
+            total = price * quantity + (quantity * 5);
         }
-        if (rbDelivery.isSelected()) {
-            deliveryAdditions = quantity * 5;
-        }
-
-        Float total = price * quantity + deliveryAdditions;
-        txtTotal.setText(String.valueOf(total));
+        
+        txtTotal.setText(String.valueOf(total) + "0");
     }//GEN-LAST:event_rbDeliveryActionPerformed
 
     private void rbWalkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbWalkActionPerformed
         // TODO add your handling code here:
-        Float price = 0f;
+        float price = 0f;
         int quantity = 0;
         int deliveryAdditions = 0;
+        float total = 0f;
 
-        if (cbProduct.getSelectedIndex() != 0) {
-            price = prices.get(cbProduct.getSelectedItem().toString());
-        }
-        if (!txtQuantity.getText().equals("")) {
-            quantity = Integer.parseInt(txtQuantity.getText());
-        }
         if (rbDelivery.isSelected()) {
             deliveryAdditions = quantity * 5;
         }
-
-        Float total = price * quantity + deliveryAdditions;
-        txtTotal.setText(String.valueOf(total));
+        if (cbProduct.getSelectedIndex() != 0 && !txtQuantity.getText().equals("")) {
+            price = pricesMap.get(cbProduct.getSelectedItem().toString());
+            quantity = Integer.parseInt(txtQuantity.getText());
+            total = price * quantity;
+        }
+        
+        txtTotal.setText(String.valueOf(total) + "0");
     }//GEN-LAST:event_rbWalkActionPerformed
+
+    private void txtQuantityKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyReleased
+        // TODO add your handling code here:
+        float price = 0f;
+        int quantity = 0;
+        int deliveryAdditions = 0;
+        float total = 0f;
+
+        if (rbDelivery.isSelected()) {
+            deliveryAdditions = quantity * 5;
+        }
+        if (cbProduct.getSelectedIndex() != 0 && !txtQuantity.getText().equals("")) {
+            price = pricesMap.get(cbProduct.getSelectedItem().toString());
+            quantity = Integer.parseInt(txtQuantity.getText());
+            total = price * quantity + deliveryAdditions;
+        }
+        
+        txtTotal.setText(String.valueOf(total) + "0");
+    }//GEN-LAST:event_txtQuantityKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTransactionType;
@@ -603,6 +613,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
     private javax.swing.JRadioButton rbDelivery;
     private javax.swing.JRadioButton rbWalk;
     private javax.swing.JTextField txtQuantity;
-    private javax.swing.JTextField txtTotal;
+    private javax.swing.JLabel txtTotal;
+    private javax.swing.JLabel txtTotal1;
     // End of variables declaration//GEN-END:variables
 }
