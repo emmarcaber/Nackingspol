@@ -189,7 +189,7 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Customer Name", "Cashier Name", "Product", "Quantity", "Total", "Type", "Date"
+                "Customer Name", "Cashier Name", "Product", "Quantity", "Total", "Type", "Date Transacted"
             }
         ) {
             boolean[] canEdit = new boolean [] {

@@ -17,12 +17,14 @@ public class CashierDashboard extends javax.swing.JFrame {
      * Creates new form AdminDashboard
      */
     Color DefaultColor, ClickedColor;
+    private String userName = "";
 
     public CashierDashboard(String name) {
         initComponents();
         labelCashierName2.setText(name);
         mainPane.add(new AdminDashboardPanel()).setVisible(true);
-
+       
+        this.userName = name;
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
@@ -282,7 +284,7 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     private void OrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderMouseClicked
         // TODO add your handling code here:
-        CashierTransactionPanel CashierOrder = new CashierTransactionPanel();
+        CashierTransactionPanel CashierOrder = new CashierTransactionPanel(userName);
         mainPane.removeAll();
         mainPane.add(CashierOrder).setVisible(true);
     }//GEN-LAST:event_OrderMouseClicked
