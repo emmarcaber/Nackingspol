@@ -6,6 +6,7 @@ package views;
 
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,6 +20,10 @@ public class AddTransactionDialog extends javax.swing.JDialog {
     Statement stmt = null;
     PreparedStatement pstmt = null;
 
+    HashMap <String, Integer> products = new HashMap<>();
+    HashMap <String, Integer> customers = new HashMap<>();
+    HashMap <String, Integer> cashiers = new HashMap<>();
+    
     /**
      * Creates new form AddCashierDialog
      */
@@ -26,12 +31,75 @@ public class AddTransactionDialog extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
 
-        bgWaterType.add(rbAlkaline);
-        bgWaterType.add(rbMineral);
+        bgTransactionType.add(rbWalk);
+        bgTransactionType.add(rbDelivery);
 
+        getCustomersFromDB();
+        getCashiersFromDB();
+        getProductsFromDB();
+        
         this.setVisible(true);
     }
+    
+    private void getCustomersFromDB() {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+            
+            String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS 'Name', CustomerID FROM customer";
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+               customers.put(rs.getString("Name"), rs.getInt("CustomerID"));
+               cbCustomer.addItem(rs.getString("Name"));
+            }
+            
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
+    private void getCashiersFromDB() {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+            
+            String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS 'Name', UserID FROM `user` WHERE UserType = 'Cashier'";
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+               cashiers.put(rs.getString("Name"), rs.getInt("UserID"));
+               cbCashier.addItem(rs.getString("Name"));
+            }
+            
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+   
+    private void getProductsFromDB() {
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+            
+            String sql = "SELECT CONCAT(ContainerType, ' ', WaterType) AS 'Name', ProductID FROM product";
+            rs = stmt.executeQuery(sql);
+            
+            while (rs.next()) {
+               products.put(rs.getString("Name"), rs.getInt("ProductID"));
+               cbProduct.addItem(rs.getString("Name"));
+            }
+            
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,25 +109,31 @@ public class AddTransactionDialog extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bgWaterType = new javax.swing.ButtonGroup();
+        bgTransactionType = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         btnAdd = new javax.swing.JButton();
         btnCancel = new javax.swing.JButton();
-        txtPrice = new javax.swing.JTextField();
-        cbContainerType = new javax.swing.JComboBox<>();
+        cbCustomer = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        cbCashier = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        txtPrice1 = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        rbAlkaline = new javax.swing.JRadioButton();
-        rbMineral = new javax.swing.JRadioButton();
+        cbProduct = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        rbWalk = new javax.swing.JRadioButton();
+        rbDelivery = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
+        txtPrice2 = new javax.swing.JTextField();
+        txtPrice3 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
-        jLabel1.setText("ADD PRODUCT");
-
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel2.setText("Price");
+        jLabel1.setText("ADD TRANSACTION");
 
         btnAdd.setBackground(new java.awt.Color(0, 153, 0));
         btnAdd.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -79,78 +153,177 @@ public class AddTransactionDialog extends javax.swing.JDialog {
             }
         });
 
-        txtPrice.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtPrice.setText(".00");
+        cbCustomer.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbCustomer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Customer" }));
 
-        cbContainerType.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        cbContainerType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Container Type", "Water Jug", "Water Gallon", "10L" }));
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel10.setText("Customer");
 
-        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel10.setText("Container Type");
+        jLabel12.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel12.setText("Cashier");
 
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel11.setText("Water Type");
+        cbCashier.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbCashier.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Cashier" }));
 
-        rbAlkaline.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        rbAlkaline.setSelected(true);
-        rbAlkaline.setText("Alkaline");
+        jLabel5.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel5.setText("Date of Transaction");
 
-        rbMineral.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        rbMineral.setText("Mineral");
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("SansSerif", 1, 14))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel2.setText("Quantity");
+
+        txtPrice1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPrice1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrice1ActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel11.setText("Product");
+
+        cbProduct.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        cbProduct.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Product" }));
+
+        jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel3.setText("Transaction Type");
+
+        rbWalk.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        rbWalk.setSelected(true);
+        rbWalk.setText("Walk-In");
+
+        rbDelivery.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        rbDelivery.setText("Delivery");
+
+        jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        jLabel4.setText("Total");
+
+        txtPrice2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPrice2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrice2ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(13, 13, 13)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(39, 39, 39)
+                                .addComponent(txtPrice2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbWalk)))
+                        .addGap(18, 18, 18)
+                        .addComponent(rbDelivery)))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(cbProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(rbWalk)
+                    .addComponent(rbDelivery))
+                .addGap(21, 21, 21)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtPrice2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        txtPrice3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPrice3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrice3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(65, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(63, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap(86, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(btnCancel)
-                        .addGap(44, 44, 44)
-                        .addComponent(btnAdd))
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(rbAlkaline)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbMineral))
-                            .addComponent(cbContainerType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtPrice)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(131, 131, 131)
-                        .addComponent(jLabel1)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                        .addComponent(jLabel12)
+                        .addGap(92, 92, 92)
+                        .addComponent(cbCashier, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(90, 90, 90))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(136, 136, 136)
+                .addComponent(btnCancel)
+                .addGap(54, 54, 54)
+                .addComponent(btnAdd)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(jLabel5)
+                .addGap(18, 18, 18)
+                .addComponent(txtPrice3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(133, 133, 133))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
-                    .addComponent(cbContainerType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(rbAlkaline)
-                    .addComponent(rbMineral))
+                    .addComponent(jLabel12)
+                    .addComponent(cbCashier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                    .addComponent(txtPrice3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancel)
-                    .addComponent(btnAdd))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(btnAdd)
+                    .addComponent(btnCancel))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -164,46 +337,56 @@ public class AddTransactionDialog extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        String selectedContainerType = cbContainerType.getSelectedItem().toString();
+        String selectedContainerType = cbCustomer.getSelectedItem().toString();
         String selectedWaterType = "";
 
-        if (rbAlkaline.isSelected()) {
+        if (rbWalk.isSelected()) {
             selectedWaterType = "Alkaline";
-        } else if (rbMineral.isSelected()) {
+        } else if (rbDelivery.isSelected()) {
             selectedWaterType = "Mineral";
         }
 
-        String price = txtPrice.getText();
-
-        if (cbContainerType.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Please select a container type!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (price.equals(".00")) {
-            JOptionPane.showMessageDialog(null, "Price is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            int isProductIDPresent = findProductID(selectedContainerType, selectedWaterType, Float.parseFloat(price));
-
-            if (isProductIDPresent == 0) {
-                int insertedProductID = insertProductToDB(selectedContainerType, selectedWaterType, Float.parseFloat(price));
-                
-                if (insertedProductID > 0) {
-                    DefaultTableModel tblModel = (DefaultTableModel) ManagerProductPanel.tblProduct.getModel();
-
-                    String[] data = {selectedContainerType, selectedWaterType, "Php " + price};
-                    tblModel.addRow(data);
-
-                    System.out.println("Inserted Product ID: " + insertedProductID);
-                    JOptionPane.showMessageDialog(null, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Product not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Product has been already used!", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+//        if (cbCustomer.getSelectedIndex() == 0) {
+//            JOptionPane.showMessageDialog(null, "Please select a container type!", "Error", JOptionPane.ERROR_MESSAGE);
+//        } else if (price.equals(".00")) {
+//            JOptionPane.showMessageDialog(null, "Price is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            int isProductIDPresent = findProductID(selectedContainerType, selectedWaterType, Float.parseFloat(price));
+//
+//            if (isProductIDPresent == 0) {
+//                int insertedProductID = insertProductToDB(selectedContainerType, selectedWaterType, Float.parseFloat(price));
+//                
+//                if (insertedProductID > 0) {
+//                    DefaultTableModel tblModel = (DefaultTableModel) ManagerProductPanel.tblProduct.getModel();
+//
+//                    String[] data = {selectedContainerType, selectedWaterType, "Php " + price};
+//                    tblModel.addRow(data);
+//
+//                    System.out.println("Inserted Product ID: " + insertedProductID);
+//                    JOptionPane.showMessageDialog(null, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+//                    this.dispose();
+//                } else {
+//                    JOptionPane.showMessageDialog(null, "Product not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+//                }
+//
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Product has been already used!", "Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
 
     }//GEN-LAST:event_btnAddActionPerformed
+
+    private void txtPrice1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrice1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrice1ActionPerformed
+
+    private void txtPrice2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrice2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrice2ActionPerformed
+
+    private void txtPrice3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrice3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrice3ActionPerformed
 
     private int findProductID(String containerType, String waterType, float price) {
         int foundProductID = 0;
@@ -265,16 +448,25 @@ public class AddTransactionDialog extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup bgWaterType;
+    private javax.swing.ButtonGroup bgTransactionType;
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnCancel;
-    private javax.swing.JComboBox<String> cbContainerType;
+    private javax.swing.JComboBox<String> cbCashier;
+    private javax.swing.JComboBox<String> cbCustomer;
+    private javax.swing.JComboBox<String> cbProduct;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JRadioButton rbAlkaline;
-    private javax.swing.JRadioButton rbMineral;
-    private javax.swing.JTextField txtPrice;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JRadioButton rbDelivery;
+    private javax.swing.JRadioButton rbWalk;
+    private javax.swing.JTextField txtPrice1;
+    private javax.swing.JTextField txtPrice2;
+    private javax.swing.JTextField txtPrice3;
     // End of variables declaration//GEN-END:variables
 }

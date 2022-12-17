@@ -58,7 +58,7 @@ public class AddProductDialog extends javax.swing.JDialog {
         jLabel1.setFont(new java.awt.Font("Georgia", 1, 22)); // NOI18N
         jLabel1.setText("ADD PRODUCT");
 
-        jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setText("Price");
 
         btnAdd.setBackground(new java.awt.Color(0, 153, 0));
@@ -85,10 +85,10 @@ public class AddProductDialog extends javax.swing.JDialog {
         cbContainerType.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbContainerType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Container Type", "Water Jug", "Water Gallon", "10L" }));
 
-        jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel10.setText("Container Type");
 
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel11.setText("Water Type");
 
         rbAlkaline.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -126,7 +126,7 @@ public class AddProductDialog extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(131, 131, 131)
                         .addComponent(jLabel1)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -142,6 +142,7 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
         if (tblTransaction.getColumnModel().getColumnCount() > 0) {
             tblTransaction.getColumnModel().getColumn(3).setMaxWidth(50);
             tblTransaction.getColumnModel().getColumn(4).setMaxWidth(100);
+            tblTransaction.getColumnModel().getColumn(5).setMaxWidth(100);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,7 +179,7 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
 
     private void btnAddCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCashierActionPerformed
         // TODO add your handling code here:
-        new AddCashierDialog(null, true);
+        new AddTransactionDialog(null, true);
     }//GEN-LAST:event_btnAddCashierActionPerformed
 
     private void btnEditCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCashierActionPerformed
