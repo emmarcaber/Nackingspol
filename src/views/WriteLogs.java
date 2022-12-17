@@ -15,7 +15,7 @@ import java.io.IOException;
  */
 public class WriteLogs {
 
-    static String filePath = "./logs.txt";
+    static String filePath = "./activity_logs.txt";
     static File file = new File(filePath);
     static FileWriter fr = null;
 

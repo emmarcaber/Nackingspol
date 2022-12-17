@@ -1,0 +1,1 @@
+ADMINISTRATOR LoginMANAGER mel143 LoginADMINISTRATOR LoginDeleted Cashier ID: 31Deleted Cashier ID: 38Deleted Cashier ID: 35Deleted Cashier ID: 19Deleted Manager ID: 37Deleted Manager ID: 27ADMINISTRATOR LoginInserted Cashier ID: 39Inserted Manager ID: 40Edited Cashier ID: 39Edited Manager ID: 40CASHIER nico LoginMANAGER nackings LoginDeleted Customer ID: 9Deleted Customer ID: 8
