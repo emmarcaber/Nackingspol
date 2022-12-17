@@ -23,7 +23,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
     public ManagerDashboard(String name) {
         initComponents();
         labelManagerName.setText(name);
-        mainPane.add(new AdminDashboardPanel()).setVisible(true);
+        mainPane.add(new ManagerDashboardPanel()).setVisible(true);
         
         this.setVisible(true);
         this.setLocationRelativeTo(null);
