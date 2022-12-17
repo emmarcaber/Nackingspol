@@ -50,7 +50,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         labelManagerName1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Orders = new javax.swing.JPanel();
-        cashierLabel = new javax.swing.JLabel();
+        transactionsLabel = new javax.swing.JLabel();
         Customers = new javax.swing.JPanel();
         managerLabel = new javax.swing.JLabel();
         Products = new javax.swing.JPanel();
@@ -151,9 +151,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
             }
         });
 
-        cashierLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        cashierLabel.setForeground(new java.awt.Color(255, 255, 255));
-        cashierLabel.setText("ORDERS");
+        transactionsLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        transactionsLabel.setForeground(new java.awt.Color(255, 255, 255));
+        transactionsLabel.setText("TRANSACTIONS");
 
         javax.swing.GroupLayout OrdersLayout = new javax.swing.GroupLayout(Orders);
         Orders.setLayout(OrdersLayout);
@@ -161,14 +161,14 @@ public class ManagerDashboard extends javax.swing.JFrame {
             OrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrdersLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cashierLabel)
-                .addGap(17, 17, 17))
+                .addComponent(transactionsLabel)
+                .addContainerGap())
         );
         OrdersLayout.setVerticalGroup(
             OrdersLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrdersLayout.createSequentialGroup()
                 .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(cashierLabel)
+                .addComponent(transactionsLabel)
                 .addGap(18, 18, 18))
         );
 
@@ -312,9 +312,9 @@ public class ManagerDashboard extends javax.swing.JFrame {
 
     private void OrdersMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdersMouseClicked
         // TODO add your handling code here:
-        AdminCashierPanel Cashier = new AdminCashierPanel();
+        ManagerTransactionPanel Order = new ManagerTransactionPanel();
         mainPane.removeAll();
-        mainPane.add(Cashier).setVisible(true);
+        mainPane.add(Order).setVisible(true);
     }//GEN-LAST:event_OrdersMouseClicked
 
     private void OrdersMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrdersMousePressed
@@ -323,7 +323,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         Customers.setBackground(DefaultColor);
         Products.setBackground(DefaultColor);
         
-        cashierLabel.setForeground(Color.BLACK);
+        transactionsLabel.setForeground(Color.BLACK);
         managerLabel.setForeground(Color.WHITE);
         productLabel.setForeground(Color.WHITE);
     }//GEN-LAST:event_OrdersMousePressed
@@ -336,7 +336,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         Products.setBackground(DefaultColor);
         
         managerLabel.setForeground(Color.BLACK);
-        cashierLabel.setForeground(Color.WHITE);
+        transactionsLabel.setForeground(Color.WHITE);
         productLabel.setForeground(Color.WHITE);
     }//GEN-LAST:event_CustomersMousePressed
 
@@ -365,7 +365,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         Orders.setBackground(DefaultColor);
         
         managerLabel.setForeground(Color.WHITE);
-        cashierLabel.setForeground(Color.WHITE);
+        transactionsLabel.setForeground(Color.WHITE);
         
         
         mainPane.removeAll();
@@ -381,7 +381,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         Orders.setBackground(DefaultColor);
         
         managerLabel.setForeground(Color.WHITE);
-        cashierLabel.setForeground(Color.WHITE);
+        transactionsLabel.setForeground(Color.WHITE);
         
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
@@ -401,7 +401,7 @@ public class ManagerDashboard extends javax.swing.JFrame {
         Products.setBackground(ClickedColor);
         
         managerLabel.setForeground(Color.WHITE);
-        cashierLabel.setForeground(Color.WHITE);
+        transactionsLabel.setForeground(Color.WHITE);
         productLabel.setForeground(Color.BLACK);
     }//GEN-LAST:event_ProductsMousePressed
 
@@ -412,7 +412,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
     public static javax.swing.JPanel Orders;
     public static javax.swing.JPanel Products;
     private javax.swing.JButton btnLogout;
-    public static javax.swing.JLabel cashierLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -422,5 +421,6 @@ public class ManagerDashboard extends javax.swing.JFrame {
     public static javax.swing.JDesktopPane mainPane;
     public static javax.swing.JLabel managerLabel;
     public static javax.swing.JLabel productLabel;
+    public static javax.swing.JLabel transactionsLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -48,7 +48,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         labelCashierName = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         Order = new javax.swing.JPanel();
-        ordersLabel = new javax.swing.JLabel();
+        transactionLabel = new javax.swing.JLabel();
         Customer = new javax.swing.JPanel();
         customerLabel = new javax.swing.JLabel();
         mainPane = new javax.swing.JDesktopPane();
@@ -147,25 +147,25 @@ public class CashierDashboard extends javax.swing.JFrame {
             }
         });
 
-        ordersLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
-        ordersLabel.setForeground(new java.awt.Color(255, 255, 255));
-        ordersLabel.setText("ORDERS");
+        transactionLabel.setFont(new java.awt.Font("Century Gothic", 1, 16)); // NOI18N
+        transactionLabel.setForeground(new java.awt.Color(255, 255, 255));
+        transactionLabel.setText("TRANSACTIONS");
 
         javax.swing.GroupLayout OrderLayout = new javax.swing.GroupLayout(Order);
         Order.setLayout(OrderLayout);
         OrderLayout.setHorizontalGroup(
             OrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(OrderLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(ordersLabel)
-                .addContainerGap(30, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrderLayout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(transactionLabel)
+                .addContainerGap())
         );
         OrderLayout.setVerticalGroup(
             OrderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, OrderLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
-                .addComponent(ordersLabel)
-                .addGap(18, 18, 18))
+            .addGroup(OrderLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(transactionLabel)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         Customer.setBackground(new java.awt.Color(25, 118, 211));
@@ -196,14 +196,14 @@ public class CashierDashboard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomerLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(customerLabel)
-                .addGap(26, 26, 26))
+                .addContainerGap())
         );
         CustomerLayout.setVerticalGroup(
             CustomerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CustomerLayout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+            .addGroup(CustomerLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addComponent(customerLabel)
-                .addGap(18, 18, 18))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -253,7 +253,7 @@ public class CashierDashboard extends javax.swing.JFrame {
                 .addGap(39, 39, 39)
                 .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, 886, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -282,7 +282,7 @@ public class CashierDashboard extends javax.swing.JFrame {
 
     private void OrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OrderMouseClicked
         // TODO add your handling code here:
-        CashierOrderPanel CashierOrder = new CashierOrderPanel();
+        CashierTransactionPanel CashierOrder = new CashierTransactionPanel();
         mainPane.removeAll();
         mainPane.add(CashierOrder).setVisible(true);
     }//GEN-LAST:event_OrderMouseClicked
@@ -292,7 +292,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         Order.setBackground(ClickedColor);
         Customer.setBackground(DefaultColor);
 
-        ordersLabel.setForeground(Color.BLACK);
+        transactionLabel.setForeground(Color.BLACK);
         customerLabel.setForeground(Color.WHITE);
 
     }//GEN-LAST:event_OrderMousePressed
@@ -304,7 +304,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         Order.setBackground(DefaultColor);
 
         customerLabel.setForeground(Color.BLACK);
-        ordersLabel.setForeground(Color.WHITE);
+        transactionLabel.setForeground(Color.WHITE);
 
     }//GEN-LAST:event_CustomerMousePressed
 
@@ -333,7 +333,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         Order.setBackground(DefaultColor);
 
         customerLabel.setForeground(Color.WHITE);
-        ordersLabel.setForeground(Color.WHITE);
+        transactionLabel.setForeground(Color.WHITE);
 
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
@@ -348,7 +348,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         Order.setBackground(DefaultColor);
 
         customerLabel.setForeground(Color.WHITE);
-        ordersLabel.setForeground(Color.WHITE);
+        transactionLabel.setForeground(Color.WHITE);
 
         mainPane.removeAll();
         mainPane.add(dashboardPanel).setVisible(true);
@@ -360,7 +360,7 @@ public class CashierDashboard extends javax.swing.JFrame {
         Order.setBackground(DefaultColor);
 
         customerLabel.setForeground(Color.BLACK);
-        ordersLabel.setForeground(Color.WHITE);
+        transactionLabel.setForeground(Color.WHITE);
         
         CashierCustomerPanel CashierCustomer = new CashierCustomerPanel();
         mainPane.removeAll();
@@ -381,6 +381,6 @@ public class CashierDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel labelCashierName2;
     private javax.swing.JLabel logo;
     public static javax.swing.JDesktopPane mainPane;
-    public static javax.swing.JLabel ordersLabel;
+    public static javax.swing.JLabel transactionLabel;
     // End of variables declaration//GEN-END:variables
 }
