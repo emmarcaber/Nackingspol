@@ -5,29 +5,39 @@
 package views;
 
 import javax.swing.JOptionPane;
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
+import static views.ManagerTransactionPanel.tblTransaction;
 
 /**
  *
  * @author Anaclita
  */
-public class AddTransactionDialog extends javax.swing.JDialog {
+public class ManagerEditTransactionDialog extends javax.swing.JDialog {
 
     ResultSet rs = null;
     Statement stmt = null;
     PreparedStatement pstmt = null;
 
-    HashMap <String, Integer> products = new HashMap<>();
-    HashMap <String, Integer> customers = new HashMap<>();
-    HashMap <String, Integer> cashiers = new HashMap<>();
-    
+    HashMap<String, Integer> products = new HashMap<>();
+    HashMap<String, Float> prices = new HashMap<>();
+    HashMap<String, Integer> customers = new HashMap<>();
+    HashMap<String, Integer> cashiers = new HashMap<>();
+
     /**
      * Creates new form AddCashierDialog
      */
-    public AddTransactionDialog(java.awt.Frame parent, boolean modal) {
+    public ManagerEditTransactionDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 
@@ -37,22 +47,25 @@ public class AddTransactionDialog extends javax.swing.JDialog {
         getCustomersFromDB();
         getCashiersFromDB();
         getProductsFromDB();
-        
+
+        txtQuantity.setText("0");
+        txtTotal.setEnabled(false);
+
         this.setVisible(true);
     }
-    
+
     private void getCustomersFromDB() {
         try {
             stmt = DBConnect.getInstance().createStatement();
-            
+
             String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS 'Name', CustomerID FROM customer";
             rs = stmt.executeQuery(sql);
-            
+
             while (rs.next()) {
-               customers.put(rs.getString("Name"), rs.getInt("CustomerID"));
-               cbCustomer.addItem(rs.getString("Name"));
+                customers.put(rs.getString("Name"), rs.getInt("CustomerID"));
+                cbCustomer.addItem(rs.getString("Name"));
             }
-            
+
             rs.close();
             stmt.close();
         } catch (SQLException e) {
@@ -63,43 +76,42 @@ public class AddTransactionDialog extends javax.swing.JDialog {
     private void getCashiersFromDB() {
         try {
             stmt = DBConnect.getInstance().createStatement();
-            
+
             String sql = "SELECT CONCAT(FirstName, ' ', LastName) AS 'Name', UserID FROM `user` WHERE UserType = 'Cashier'";
             rs = stmt.executeQuery(sql);
-            
+
             while (rs.next()) {
-               cashiers.put(rs.getString("Name"), rs.getInt("UserID"));
-               cbCashier.addItem(rs.getString("Name"));
+                cashiers.put(rs.getString("Name"), rs.getInt("UserID"));
+                cbCashier.addItem(rs.getString("Name"));
             }
-            
+
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-   
+
     private void getProductsFromDB() {
         try {
             stmt = DBConnect.getInstance().createStatement();
-            
-            String sql = "SELECT CONCAT(ContainerType, ' ', WaterType) AS 'Name', ProductID FROM product";
+
+            String sql = "SELECT CONCAT(ContainerType, ' ', WaterType) AS 'Name', ProductID, Price FROM product";
             rs = stmt.executeQuery(sql);
-            
+
             while (rs.next()) {
-               products.put(rs.getString("Name"), rs.getInt("ProductID"));
-               cbProduct.addItem(rs.getString("Name"));
+                products.put(rs.getString("Name"), rs.getInt("ProductID"));
+                prices.put(rs.getString("Name"), rs.getFloat("Price"));
+                cbProduct.addItem(rs.getString("Name"));
             }
-            
+
             rs.close();
             stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     }
-    
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,15 +132,15 @@ public class AddTransactionDialog extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtPrice1 = new javax.swing.JTextField();
+        txtQuantity = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         cbProduct = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         rbWalk = new javax.swing.JRadioButton();
         rbDelivery = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
-        txtPrice2 = new javax.swing.JTextField();
-        txtPrice3 = new javax.swing.JTextField();
+        txtTotal = new javax.swing.JTextField();
+        dcDateOfTransaction = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -173,10 +185,18 @@ public class AddTransactionDialog extends javax.swing.JDialog {
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setText("Quantity");
 
-        txtPrice1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtPrice1.addActionListener(new java.awt.event.ActionListener() {
+        txtQuantity.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtQuantity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrice1ActionPerformed(evt);
+                txtQuantityActionPerformed(evt);
+            }
+        });
+        txtQuantity.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQuantityKeyTyped(evt);
             }
         });
 
@@ -185,6 +205,11 @@ public class AddTransactionDialog extends javax.swing.JDialog {
 
         cbProduct.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         cbProduct.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Choose Product" }));
+        cbProduct.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbProductActionPerformed(evt);
+            }
+        });
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setText("Transaction Type");
@@ -192,17 +217,27 @@ public class AddTransactionDialog extends javax.swing.JDialog {
         rbWalk.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         rbWalk.setSelected(true);
         rbWalk.setText("Walk-In");
+        rbWalk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbWalkActionPerformed(evt);
+            }
+        });
 
         rbDelivery.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         rbDelivery.setText("Delivery");
+        rbDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbDeliveryActionPerformed(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel4.setText("Total");
 
-        txtPrice2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtPrice2.addActionListener(new java.awt.event.ActionListener() {
+        txtTotal.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrice2ActionPerformed(evt);
+                txtTotalActionPerformed(evt);
             }
         });
 
@@ -220,13 +255,13 @@ public class AddTransactionDialog extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(txtPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(39, 39, 39)
-                                .addComponent(txtPrice2, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
@@ -240,7 +275,7 @@ public class AddTransactionDialog extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrice1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(cbProduct, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
@@ -252,16 +287,9 @@ public class AddTransactionDialog extends javax.swing.JDialog {
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtPrice2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
-
-        txtPrice3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtPrice3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrice3ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -293,7 +321,7 @@ public class AddTransactionDialog extends javax.swing.JDialog {
                 .addGap(82, 82, 82)
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
-                .addComponent(txtPrice3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(dcDateOfTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -316,14 +344,14 @@ public class AddTransactionDialog extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtPrice3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(dcDateOfTransaction, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdd)
                     .addComponent(btnCancel))
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -337,91 +365,85 @@ public class AddTransactionDialog extends javax.swing.JDialog {
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
         // TODO add your handling code here:
-        String selectedContainerType = cbCustomer.getSelectedItem().toString();
-        String selectedWaterType = "";
+        String selectedCustomer = cbCustomer.getSelectedItem().toString();
+        String selectedCashier = cbCashier.getSelectedItem().toString();
+        String selectedProduct = cbProduct.getSelectedItem().toString();
+        String quantity = txtQuantity.getText();
+        String total = txtTotal.getText();
+        String transactionType = "";
+        String dateOfTransaction = "";
+        String stringDate = "";
 
         if (rbWalk.isSelected()) {
-            selectedWaterType = "Alkaline";
+            transactionType = "Walk-In";
         } else if (rbDelivery.isSelected()) {
-            selectedWaterType = "Mineral";
+            transactionType = "Delivery";
         }
 
-//        if (cbCustomer.getSelectedIndex() == 0) {
-//            JOptionPane.showMessageDialog(null, "Please select a container type!", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else if (price.equals(".00")) {
-//            JOptionPane.showMessageDialog(null, "Price is empty!", "Error", JOptionPane.ERROR_MESSAGE);
-//        } else {
-//            int isProductIDPresent = findProductID(selectedContainerType, selectedWaterType, Float.parseFloat(price));
-//
-//            if (isProductIDPresent == 0) {
-//                int insertedProductID = insertProductToDB(selectedContainerType, selectedWaterType, Float.parseFloat(price));
-//                
-//                if (insertedProductID > 0) {
-//                    DefaultTableModel tblModel = (DefaultTableModel) ManagerProductPanel.tblProduct.getModel();
-//
-//                    String[] data = {selectedContainerType, selectedWaterType, "Php " + price};
-//                    tblModel.addRow(data);
-//
-//                    System.out.println("Inserted Product ID: " + insertedProductID);
-//                    JOptionPane.showMessageDialog(null, "Product added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-//                    this.dispose();
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Product not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
-//                }
-//
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Product has been already used!", "Error", JOptionPane.ERROR_MESSAGE);
-//            }
-//        }
+        if (cbCustomer.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Please select a customer!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (cbCashier.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Please select a cashier!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (cbProduct.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Please select a product!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (quantity.equals("")) {
+            JOptionPane.showMessageDialog(null, "Please enter a quantity!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (quantity.equals("0")) {
+            JOptionPane.showMessageDialog(null, "Quantity is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (total.equals("")) {
+            JOptionPane.showMessageDialog(null, "Total is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            try {
+                dateOfTransaction = DateFormat.getDateInstance().format(dcDateOfTransaction.getDate());
+                SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+                stringDate = DateFor.format(dcDateOfTransaction.getDate());
+            } catch (NullPointerException e) {
+                JOptionPane.showMessageDialog(null, "Date of Transaction is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+            
+        } else if (dateOfTransaction.equals("")) {
+            JOptionPane.showMessageDialog(null, "Date of Transaction is empty!", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int insertedTransactionID = insertTransactionToDB(
+                    customers.get(selectedCustomer), cashiers.get(selectedCashier), products.get(selectedProduct),
+                    Integer.parseInt(quantity), Float.parseFloat(total), transactionType, stringDate
+            );
+
+            if (insertedTransactionID == 0) {
+                JOptionPane.showMessageDialog(null, "Transaction not added successfully!", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Transaction added successfully!", "Success", JOptionPane.ERROR_MESSAGE);
+
+                DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
+
+                String[] data = {
+                    selectedCustomer, selectedCashier, selectedProduct, quantity,
+                    "Php " + total + "0", transactionType, dateOfTransaction
+                };
+
+                tblModel.addRow(data);
+                this.dispose();
+            }
+
+        }
 
     }//GEN-LAST:event_btnAddActionPerformed
 
-    private void txtPrice1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrice1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrice1ActionPerformed
-
-    private void txtPrice2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrice2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrice2ActionPerformed
-
-    private void txtPrice3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrice3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPrice3ActionPerformed
-
-    private int findProductID(String containerType, String waterType, float price) {
-        int foundProductID = 0;
-        try {
-            stmt = DBConnect.getInstance().createStatement();
-
-            String sql = "SELECT ProductID FROM product WHERE "
-                    + "ContainerType = '" + containerType + "' "
-                    + "AND WaterType = '" + waterType + "' "
-                    + "AND Price = " + price;
-
-            rs = stmt.executeQuery(sql);
-
-            rs.next();
-            foundProductID = rs.getInt("ProductID");
-
-            rs.close();
-            stmt.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return foundProductID;
-    }
-
-    private int insertProductToDB(String containerType, String waterType, float price) {
+    private int insertTransactionToDB(int customerID, int userID, int productID, int quantity, float total, String typeOfTransaction, String dateOfTransaction) {
         int insertedProductID = 0;
+
         try {
-            String sql = "INSERT INTO product(ContainerType, WaterType, Price) "
-                    + "VALUES(?, ?, ?)";
+            String sql = "INSERT INTO transactions(CustomerID, CashierID, ProductID, Quantity, Total, TypeOfTransaction, DateOfTransaction) "
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?)";
 
             pstmt = DBConnect.getInstance().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-
-            pstmt.setString(1, containerType);
-            pstmt.setString(2, waterType);
-            pstmt.setFloat(3, price);
+            pstmt.setInt(1, customerID);
+            pstmt.setInt(2, userID);
+            pstmt.setInt(3, productID);
+            pstmt.setInt(4, quantity);
+            pstmt.setFloat(5, total);
+            pstmt.setString(6, typeOfTransaction);
+            pstmt.setString(7, dateOfTransaction);
 
             int rowAffected = pstmt.executeUpdate();
             if (rowAffected == 1) {
@@ -447,6 +469,120 @@ public class AddTransactionDialog extends javax.swing.JDialog {
         return insertedProductID;
     }
 
+    private void txtQuantityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantityActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_txtQuantityActionPerformed
+
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalActionPerformed
+
+    private void cbProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbProductActionPerformed
+        // TODO add your handling code here:
+        Float price = 0f;
+        int quantity = 0;
+        int deliveryAdditions = 0;
+
+        if (cbProduct.getSelectedIndex() != 0) {
+            price = prices.get(cbProduct.getSelectedItem().toString());
+        }
+        if (!txtQuantity.getText().equals("")) {
+            quantity = Integer.parseInt(txtQuantity.getText());
+        }
+        if (rbDelivery.isSelected()) {
+            deliveryAdditions = quantity * 5;
+        }
+
+        Float total = price * quantity + deliveryAdditions;
+        txtTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_cbProductActionPerformed
+
+    private void txtQuantityKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyTyped
+        // TODO add your handling code here:
+
+        if (!Character.isDigit(evt.getKeyChar())) {
+            evt.consume();
+        }
+
+        Float price = 0f;
+        int quantity = 0;
+        int deliveryAdditions = 0;
+
+        if (cbProduct.getSelectedIndex() != 0) {
+            price = prices.get(cbProduct.getSelectedItem().toString());
+        }
+        if (!txtQuantity.getText().equals("")) {
+            quantity = Integer.parseInt(txtQuantity.getText());
+        }
+        if (rbDelivery.isSelected()) {
+            deliveryAdditions = quantity * 5;
+        }
+
+        Float total = price * quantity + deliveryAdditions;
+        txtTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_txtQuantityKeyTyped
+
+    private void txtQuantityKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantityKeyPressed
+        // TODO add your handling code here:
+        Float price = 0f;
+        int quantity = 0;
+        int deliveryAdditions = 0;
+
+        if (cbProduct.getSelectedIndex() != 0) {
+            price = prices.get(cbProduct.getSelectedItem().toString());
+        }
+        if (!txtQuantity.getText().equals("")) {
+            quantity = Integer.parseInt(txtQuantity.getText());
+        }
+        if (rbDelivery.isSelected()) {
+            deliveryAdditions = quantity * 5;
+        }
+
+        Float total = price * quantity + deliveryAdditions;
+        txtTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_txtQuantityKeyPressed
+
+    private void rbDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDeliveryActionPerformed
+        // TODO add your handling code here:
+        Float price = 0f;
+        int quantity = 0;
+        int deliveryAdditions = 0;
+
+        if (cbProduct.getSelectedIndex() != 0) {
+            price = prices.get(cbProduct.getSelectedItem().toString());
+        }
+        if (!txtQuantity.getText().equals("")) {
+            quantity = Integer.parseInt(txtQuantity.getText());
+        }
+        if (rbDelivery.isSelected()) {
+            deliveryAdditions = quantity * 5;
+        }
+
+        Float total = price * quantity + deliveryAdditions;
+        txtTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_rbDeliveryActionPerformed
+
+    private void rbWalkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbWalkActionPerformed
+        // TODO add your handling code here:
+        Float price = 0f;
+        int quantity = 0;
+        int deliveryAdditions = 0;
+
+        if (cbProduct.getSelectedIndex() != 0) {
+            price = prices.get(cbProduct.getSelectedItem().toString());
+        }
+        if (!txtQuantity.getText().equals("")) {
+            quantity = Integer.parseInt(txtQuantity.getText());
+        }
+        if (rbDelivery.isSelected()) {
+            deliveryAdditions = quantity * 5;
+        }
+
+        Float total = price * quantity + deliveryAdditions;
+        txtTotal.setText(String.valueOf(total));
+    }//GEN-LAST:event_rbWalkActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup bgTransactionType;
     private javax.swing.JButton btnAdd;
@@ -454,6 +590,7 @@ public class AddTransactionDialog extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cbCashier;
     private javax.swing.JComboBox<String> cbCustomer;
     private javax.swing.JComboBox<String> cbProduct;
+    private com.toedter.calendar.JDateChooser dcDateOfTransaction;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -465,8 +602,7 @@ public class AddTransactionDialog extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JRadioButton rbDelivery;
     private javax.swing.JRadioButton rbWalk;
-    private javax.swing.JTextField txtPrice1;
-    private javax.swing.JTextField txtPrice2;
-    private javax.swing.JTextField txtPrice3;
+    private javax.swing.JTextField txtQuantity;
+    private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
 }

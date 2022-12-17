@@ -6,6 +6,7 @@ package views;
 
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.sql.*;
+import java.text.DateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -41,7 +42,7 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
             String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
                     + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
                     + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TypeOfTransaction,\n"
-                    + "DATE_FORMAT(DateOfTransaction, '%M %e, %Y') AS 'DateOfTransaction' FROM transactions\n"
+                    + "DateOfTransaction FROM transactions\n"
                     + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
                     + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
                     + "INNER JOIN product ON transactions.ProductID = product.ProductID";
@@ -54,7 +55,7 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                 String quantity = String.valueOf(rs.getInt("Quantity"));
                 String total = "Php " + String.valueOf(rs.getFloat("Total")) + "0";
                 String typeOfTransaction = rs.getString("TypeOfTransaction");
-                String dateOfTransaction = rs.getString("DateOfTransaction");
+                String dateOfTransaction = DateFormat.getDateInstance().format(rs.getDate("DateOfTransaction"));
 
                 String[] data = {customerName, cashierName, product, quantity, total, typeOfTransaction, dateOfTransaction};
 
@@ -179,7 +180,7 @@ public class ManagerTransactionPanel extends javax.swing.JInternalFrame {
 
     private void btnAddCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddCashierActionPerformed
         // TODO add your handling code here:
-        new AddTransactionDialog(null, true);
+        new ManagerAddTransactionDialog(null, true);
     }//GEN-LAST:event_btnAddCashierActionPerformed
 
     private void btnEditCashierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditCashierActionPerformed
