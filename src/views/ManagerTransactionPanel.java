@@ -307,7 +307,7 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                             .addComponent(btnFilterDate)
                             .addComponent(btnRefreshSearch)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(208, Short.MAX_VALUE)
                         .addComponent(btnAddTransaction)
                         .addGap(88, 88, 88)
                         .addComponent(btnEditTransaction)
@@ -316,8 +316,8 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                 .addGap(126, 126, 126))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 868, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -582,7 +582,7 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
 
         if (rbWalk.isSelected()) {
             transactionType = "Walk-In";
-        } else {
+        } else if (rbDelivery.isSelected()) {
             transactionType = "Delivery";
         }
 
@@ -602,7 +602,7 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                     + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
                     + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName"
                     + " LIKE '" + toSearch + "%'"
-                    + " AND TransactionType = '" + transactionType + "'"
+                    + " AND TransactionType LIKE '" + transactionType + "%'"
                     + " AND TransactionDate = '" + transactionDate + "'";
 
             rs = stmt.executeQuery(sql);

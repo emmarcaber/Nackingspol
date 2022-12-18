@@ -40,3 +40,50 @@ MANAGER nackings Login
 MANAGER nackings Login
 MANAGER nackings Login
 MANAGER nackings Login
+ADMINISTRATOR Login
+CASHIER nico Login
+CASHIER nico Login
+MANAGER nackings Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+MANAGER nackings Login
+CASHIER nico Login
+MANAGER nackings Login
+ADMINISTRATOR Login
+Inserted Cashier ID: 41
+CASHIER mjbed Login
+Inserted Transaction ID: 3
+MANAGER nackings Login
+Inserted Product ID: 4
+Edited Product ID: 2
+CASHIER mjbed Login
+CASHIER mjbed Login
+CASHIER mjbed Login
+CASHIER nico Login
+CASHIER nico Login
+MANAGER nackings Login
+MANAGER nackings Login
+CASHIER nico Login
+MANAGER nackings Login
+MANAGER nackings Login
+MANAGER nackings Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+MANAGER nackings Login
+MANAGER nackings Login
+MANAGER nackings Login
+MANAGER nackings Login
+MANAGER nackings Login
+CASHIER nico Login
+MANAGER nackings Login
+MANAGER nackings Login
+CASHIER nico Login
