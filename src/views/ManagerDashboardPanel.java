@@ -149,13 +149,13 @@ public class ManagerDashboardPanel extends javax.swing.JInternalFrame {
                 .addGroup(transactionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, transactionPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(47, 47, 47))
+                        .addGap(56, 56, 56))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, transactionPanelLayout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addGap(33, 33, 33))
+                        .addGap(39, 39, 39))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, transactionPanelLayout.createSequentialGroup()
                         .addComponent(txtTotalTransactions)
-                        .addGap(104, 104, 104))))
+                        .addGap(116, 116, 116))))
         );
         transactionPanelLayout.setVerticalGroup(
             transactionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

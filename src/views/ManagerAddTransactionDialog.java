@@ -379,7 +379,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
         String total = txtTotal.getText();
         String transactionType = "";
         String dateOfTransaction = "";
-        String stringDate = "";
+        String transactionDate = "";
 
         if (rbWalk.isSelected()) {
             transactionType = "Walk-In";
@@ -390,7 +390,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
         try {
             dateOfTransaction = DateFormat.getDateInstance().format(dcDateOfTransaction.getDate());
             SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
-            stringDate = DateFor.format(dcDateOfTransaction.getDate());
+            transactionDate = DateFor.format(dcDateOfTransaction.getDate());
         } catch (NullPointerException e) {}
 
         if (cbCustomer.getSelectedIndex() == 0) {
@@ -407,7 +407,7 @@ public class ManagerAddTransactionDialog extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, "Date of Transaction is empty!", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int insertedTransactionID = insertTransactionToDB(customersMap.get(selectedCustomer), cashiersMap.get(selectedCashier), productsMap.get(selectedProduct),
-                    Integer.parseInt(quantity), Float.parseFloat(total), transactionType, stringDate
+                    Integer.parseInt(quantity), Float.parseFloat(total), transactionType, transactionDate
             );
 
             if (insertedTransactionID == 0) {

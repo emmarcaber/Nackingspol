@@ -7,6 +7,7 @@ package views;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import java.sql.*;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -85,16 +86,29 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
     public ManagerTransactionPanel() {
 
         initComponents();
-        
+
         getTransactionsFromDB();
         getCustomersFromDB();
         getCashiersFromDB();
         getProductsFromDB();
-        
+
+        bgTransactionType.add(rbWalk);
+        bgTransactionType.add(rbDelivery);
+
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
-        
+
+    }
+
+    private void removeAllRowsTableTransaction() {
+        DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
+
+        int rowsToRemove = tblModel.getRowCount();
+        //remove rows from the bottom one by one
+        for (int i = rowsToRemove - 1; i >= 0; i--) {
+            tblModel.removeRow(i);
+        }
     }
 
     public void getTransactionsFromDB() {
@@ -141,11 +155,19 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        bgTransactionType = new javax.swing.ButtonGroup();
         btnAddTransaction = new javax.swing.JButton();
         btnEditTransaction = new javax.swing.JButton();
         btnDeleteTransaction = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblTransaction = new javax.swing.JTable();
+        txtSearchCustomer = new javax.swing.JTextField();
+        btnSearch = new javax.swing.JButton();
+        rbWalk = new javax.swing.JRadioButton();
+        rbDelivery = new javax.swing.JRadioButton();
+        dcDOT = new com.toedter.calendar.JDateChooser();
+        btnRefreshSearch = new javax.swing.JButton();
+        btnFilterDate = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setVisible(true);
@@ -212,33 +234,114 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
             tblTransaction.getColumnModel().getColumn(6).setPreferredWidth(100);
         }
 
+        txtSearchCustomer.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtSearchCustomer.setMargin(new java.awt.Insets(3, 6, 3, 6));
+
+        btnSearch.setBackground(new java.awt.Color(0, 102, 255));
+        btnSearch.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(255, 255, 255));
+        btnSearch.setText("SEARCH CUSTOMER");
+        btnSearch.setFocusable(false);
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        rbWalk.setBackground(new java.awt.Color(255, 255, 255));
+        rbWalk.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        rbWalk.setText("Walk-In");
+        rbWalk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbWalkActionPerformed(evt);
+            }
+        });
+
+        rbDelivery.setBackground(new java.awt.Color(255, 255, 255));
+        rbDelivery.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        rbDelivery.setText("Delivery");
+        rbDelivery.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbDeliveryActionPerformed(evt);
+            }
+        });
+
+        btnRefreshSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/refreshIcon.jpg"))); // NOI18N
+        btnRefreshSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshSearchActionPerformed(evt);
+            }
+        });
+
+        btnFilterDate.setBackground(new java.awt.Color(0, 102, 255));
+        btnFilterDate.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        btnFilterDate.setForeground(new java.awt.Color(255, 255, 255));
+        btnFilterDate.setText("FILTER BY DATE");
+        btnFilterDate.setFocusable(false);
+        btnFilterDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFilterDateActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(txtSearchCustomer)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSearch)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbWalk)
+                        .addGap(18, 18, 18)
+                        .addComponent(rbDelivery)
+                        .addGap(18, 18, 18)
+                        .addComponent(dcDOT, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnFilterDate)
+                            .addComponent(btnRefreshSearch)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnAddTransaction)
-                        .addGap(82, 82, 82)
+                        .addGap(88, 88, 88)
                         .addComponent(btnEditTransaction)
-                        .addGap(79, 79, 79)
-                        .addComponent(btnDeleteTransaction))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(72, 72, 72)
+                        .addComponent(btnDeleteTransaction)))
                 .addGap(126, 126, 126))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 846, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(126, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAddTransaction)
-                    .addComponent(btnEditTransaction)
-                    .addComponent(btnDeleteTransaction))
+                .addGap(16, 16, 16)
+                .addComponent(btnRefreshSearch)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtSearchCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSearch)
+                        .addComponent(rbWalk)
+                        .addComponent(rbDelivery))
+                    .addComponent(dcDOT, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFilterDate)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDeleteTransaction)
+                    .addComponent(btnEditTransaction)
+                    .addComponent(btnAddTransaction))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 454, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
@@ -313,6 +416,218 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnDeleteTransactionActionPerformed
 
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        String toSearch = txtSearchCustomer.getText();
+
+        if (toSearch.equals("")) {
+            removeAllRowsTableTransaction();
+            getTransactionsFromDB();
+        } else {
+            DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
+
+            removeAllRowsTableTransaction();
+
+            try {
+                stmt = DBConnect.getInstance().createStatement();
+
+                String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+                        + "customer.LastName, "
+                        + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
+                        + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
+                        + "TransactionDate FROM transactions\n"
+                        + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
+                        + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
+                        + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName LIKE '"
+                        + toSearch + "%'";
+
+                rs = stmt.executeQuery(sql);
+
+                while (rs.next()) {
+                    String customerName = rs.getString("CustomerName");
+                    String cashierName = rs.getString("CashierName");
+                    String product = rs.getString("Product");
+                    String quantity = String.valueOf(rs.getInt("Quantity"));
+                    String total = "Php " + String.valueOf(rs.getFloat("Total")) + "0";
+                    String typeOfTransaction = rs.getString("TransactionType");
+                    String dateOfTransaction = DateFormat.getDateInstance().format(rs.getDate("TransactionDate"));
+
+                    String[] data = {customerName, cashierName, product, quantity, total, typeOfTransaction, dateOfTransaction};
+
+                    tblModel.addRow(data);
+                }
+
+                rs.close();
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnRefreshSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshSearchActionPerformed
+        // TODO add your handling code here:
+        removeAllRowsTableTransaction();
+
+        txtSearchCustomer.setText("");
+        bgTransactionType.clearSelection();
+        dcDOT.setCalendar(null);
+
+        getTransactionsFromDB();
+    }//GEN-LAST:event_btnRefreshSearchActionPerformed
+
+    private void rbWalkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbWalkActionPerformed
+        // TODO add your handling code here:
+        String toSearch = txtSearchCustomer.getText();
+
+        DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
+
+        removeAllRowsTableTransaction();
+
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+                    + "customer.LastName, "
+                    + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
+                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
+                    + "TransactionDate FROM transactions\n"
+                    + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
+                    + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
+                    + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName"
+                    + " LIKE '" + toSearch + "%'"
+                    + " AND TransactionType = 'Walk-In'";
+
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String customerName = rs.getString("CustomerName");
+                String cashierName = rs.getString("CashierName");
+                String product = rs.getString("Product");
+                String quantity = String.valueOf(rs.getInt("Quantity"));
+                String total = "Php " + String.valueOf(rs.getFloat("Total")) + "0";
+                String typeOfTransaction = rs.getString("TransactionType");
+                String dateOfTransaction = DateFormat.getDateInstance().format(rs.getDate("TransactionDate"));
+
+                String[] data = {customerName, cashierName, product, quantity, total, typeOfTransaction, dateOfTransaction};
+
+                tblModel.addRow(data);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_rbWalkActionPerformed
+
+    private void rbDeliveryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbDeliveryActionPerformed
+        // TODO add your handling code here:
+        String toSearch = txtSearchCustomer.getText();
+
+        DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
+
+        removeAllRowsTableTransaction();
+
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+                    + "customer.LastName, "
+                    + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
+                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
+                    + "TransactionDate FROM transactions\n"
+                    + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
+                    + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
+                    + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName"
+                    + " LIKE '" + toSearch + "%'"
+                    + " AND TransactionType = 'Delivery'";
+
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String customerName = rs.getString("CustomerName");
+                String cashierName = rs.getString("CashierName");
+                String product = rs.getString("Product");
+                String quantity = String.valueOf(rs.getInt("Quantity"));
+                String total = "Php " + String.valueOf(rs.getFloat("Total")) + "0";
+                String typeOfTransaction = rs.getString("TransactionType");
+                String dateOfTransaction = DateFormat.getDateInstance().format(rs.getDate("TransactionDate"));
+
+                String[] data = {customerName, cashierName, product, quantity, total, typeOfTransaction, dateOfTransaction};
+
+                tblModel.addRow(data);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_rbDeliveryActionPerformed
+
+    private void btnFilterDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFilterDateActionPerformed
+        // TODO add your handling code here:
+        String toSearch = txtSearchCustomer.getText();
+        String transactionType = "";
+
+        String transactionDate = "";
+        try {
+            SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+            transactionDate = DateFor.format(dcDOT.getDate());
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "No selected date to filter!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (rbWalk.isSelected()) {
+            transactionType = "Walk-In";
+        } else {
+            transactionType = "Delivery";
+        }
+
+        DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
+
+        removeAllRowsTableTransaction();
+
+        try {
+            stmt = DBConnect.getInstance().createStatement();
+
+            String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+                    + "customer.LastName, "
+                    + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
+                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
+                    + "TransactionDate FROM transactions\n"
+                    + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
+                    + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
+                    + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName"
+                    + " LIKE '" + toSearch + "%'"
+                    + " AND TransactionType = '" + transactionType + "'"
+                    + " AND TransactionDate = '" + transactionDate + "'";
+
+            rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                String customerName = rs.getString("CustomerName");
+                String cashierName = rs.getString("CashierName");
+                String product = rs.getString("Product");
+                String quantity = String.valueOf(rs.getInt("Quantity"));
+                String total = "Php " + String.valueOf(rs.getFloat("Total")) + "0";
+                String typeOfTransaction = rs.getString("TransactionType");
+                String dateOfTransaction = DateFormat.getDateInstance().format(rs.getDate("TransactionDate"));
+
+                String[] data = {customerName, cashierName, product, quantity, total, typeOfTransaction, dateOfTransaction};
+
+                tblModel.addRow(data);
+            }
+
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_btnFilterDateActionPerformed
+
     private int getTransactionID(int customerID, int cashierID, int productID, int quantity, String typeOfTransaction) {
         int toDeleteID = 0;
         try {
@@ -366,10 +681,18 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup bgTransactionType;
     private javax.swing.JButton btnAddTransaction;
     private javax.swing.JButton btnDeleteTransaction;
     private javax.swing.JButton btnEditTransaction;
+    private javax.swing.JButton btnFilterDate;
+    private javax.swing.JButton btnRefreshSearch;
+    private javax.swing.JButton btnSearch;
+    private com.toedter.calendar.JDateChooser dcDOT;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton rbDelivery;
+    private javax.swing.JRadioButton rbWalk;
     public static javax.swing.JTable tblTransaction;
+    private javax.swing.JTextField txtSearchCustomer;
     // End of variables declaration//GEN-END:variables
 }
