@@ -243,11 +243,11 @@ public class CashierDashboardPanel extends javax.swing.JInternalFrame {
 
     private void transactionPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionPanelMouseClicked
         // TODO add your handling code here:
-        Transactions.setBackground(DefaultColor);
-        Customers.setBackground(ClickedColor);
+        Transactions.setBackground(ClickedColor);
+        Customers.setBackground(DefaultColor);
         
-        transactionLabel.setForeground(Color.WHITE);
-        customerLabel.setForeground(Color.BLACK);
+        transactionLabel.setForeground(Color.BLACK);
+        customerLabel.setForeground(Color.WHITE);
         
         CashierTransactionPanel Transactions = new CashierTransactionPanel(name);
         mainPane.removeAll();
@@ -257,11 +257,11 @@ public class CashierDashboardPanel extends javax.swing.JInternalFrame {
 
     private void customerPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_customerPanelMouseClicked
         // TODO add your handling code here:
-        Transactions.setBackground(ClickedColor);
-        Customers.setBackground(DefaultColor);
+        Transactions.setBackground(DefaultColor);
+        Customers.setBackground(ClickedColor);
         
-        transactionLabel.setForeground(Color.BLACK);
-        customerLabel.setForeground(Color.WHITE);
+        transactionLabel.setForeground(Color.WHITE);
+        customerLabel.setForeground(Color.BLACK);
         
         CashierCustomerPanel Customers = new CashierCustomerPanel();
         mainPane.removeAll();

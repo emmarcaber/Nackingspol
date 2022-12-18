@@ -88,3 +88,48 @@ MANAGER nackings Login
 MANAGER nackings Login
 CASHIER nico Login
 MANAGER nackings Login
+ADMINISTRATOR Login
+Inserted Manager ID: 42
+Inserted Cashier ID: 43
+MANAGER melem Login
+Inserted Address ID: 17
+Inserted Customer ID: 10
+Deleted Customer ID: 10
+Deleted TransactionID ID: 1
+Deleted TransactionID ID: 3
+Deleted Customer ID: 2
+Inserted Address ID: 18
+Inserted Customer ID: 11
+Inserted Address ID: 19
+Inserted Customer ID: 12
+Inserted Address ID: 20
+Inserted Customer ID: 13
+Inserted Address ID: 21
+Inserted Customer ID: 14
+Inserted Address ID: 22
+Inserted Customer ID: 15
+Inserted Address ID: 23
+Inserted Customer ID: 16
+Inserted Address ID: 24
+Inserted Customer ID: 17
+Inserted Address ID: 25
+Inserted Customer ID: 18
+Inserted Address ID: 26
+Inserted Customer ID: 19
+ADMINISTRATOR Login
+ADMINISTRATOR Login
+MANAGER Melem Login
+Inserted Transaction ID: 4
+ADMINISTRATOR Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+CASHIER nico Login
+MANAGER Melem Login
+MANAGER Melem Login
+Edited Address ID: 27
+Edited Customer ID: 17
+ADMINISTRATOR Login
+MANAGER Melem Login
