@@ -87,3 +87,4 @@ CASHIER nico Login
 MANAGER nackings Login
 MANAGER nackings Login
 CASHIER nico Login
+MANAGER nackings Login

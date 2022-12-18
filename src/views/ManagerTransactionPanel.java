@@ -483,11 +483,19 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
         DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
 
         removeAllRowsTableTransaction();
+        
+        String transactionDate = "";
+        try {
+            SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+            transactionDate = DateFor.format(dcDOT.getDate());
+        } catch (NullPointerException e) {}
 
         try {
             stmt = DBConnect.getInstance().createStatement();
-
-            String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+            String sql = "";
+            
+            if (transactionDate.equals("")) {
+                sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
                     + "customer.LastName, "
                     + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
                     + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
@@ -497,6 +505,19 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                     + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName"
                     + " LIKE '" + toSearch + "%'"
                     + " AND TransactionType = 'Walk-In'";
+            } else {
+                sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+                    + "customer.LastName, "
+                    + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
+                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
+                    + "TransactionDate FROM transactions\n"
+                    + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
+                    + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
+                    + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName"
+                    + " LIKE '" + toSearch + "%'"
+                    + " AND TransactionType = 'Walk-In'"
+                    + " AND TransactionDate = '" + transactionDate + "'";
+            }
 
             rs = stmt.executeQuery(sql);
 
@@ -527,12 +548,20 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
 
         DefaultTableModel tblModel = (DefaultTableModel) tblTransaction.getModel();
 
+        String transactionDate = "";
+        try {
+            SimpleDateFormat DateFor = new SimpleDateFormat("yyyy-MM-dd");
+            transactionDate = DateFor.format(dcDOT.getDate());
+        } catch (NullPointerException e) {}
+        
         removeAllRowsTableTransaction();
 
         try {
             stmt = DBConnect.getInstance().createStatement();
-
-            String sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+            String sql = "";
+            
+            if (transactionDate.equals("")) {
+                sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
                     + "customer.LastName, "
                     + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
                     + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
@@ -542,6 +571,20 @@ public final class ManagerTransactionPanel extends javax.swing.JInternalFrame {
                     + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName"
                     + " LIKE '" + toSearch + "%'"
                     + " AND TransactionType = 'Delivery'";
+            } else {
+                sql = "SELECT CONCAT(customer.FirstName, ' ', customer.Lastname) AS 'CustomerName', \n"
+                    + "customer.LastName, "
+                    + "CONCAT(`user`.FirstName, ' ', `user`.LastName) AS 'CashierName', \n"
+                    + "CONCAT(ContainerType, ' ', WaterType) AS 'Product', Quantity, Total, TransactionType,\n"
+                    + "TransactionDate FROM transactions\n"
+                    + "INNER JOIN customer ON transactions.CustomerID = customer.CustomerID\n"
+                    + "INNER JOIN `user` ON transactions.CashierID = `user`.UserID\n"
+                    + "INNER JOIN product ON transactions.ProductID = product.ProductID WHERE customer.LastName"
+                    + " LIKE '" + toSearch + "%'"
+                    + " AND TransactionType = 'Delivery'"
+                    + " AND TransactionDate = '" + transactionDate + "'";
+            }
+            
 
             rs = stmt.executeQuery(sql);
 
