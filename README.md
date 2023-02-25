@@ -21,7 +21,9 @@ Java is the main programming language used to develop the whole system.
 ### How to Run the Project
 1. __Clone__ the repository.
 
-      ```git clone https://github.com/emmarcaber/Nackingspol.git```
+      ```
+      git clone https://github.com/emmarcaber/Nackingspol.git
+      ```
 
 2. Import the __nackingspol.sql__ to your mysql database.
 
