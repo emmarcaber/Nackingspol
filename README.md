@@ -1,5 +1,5 @@
 ## Nackingspol
-Nackingspol is a desktop application and a water refilling station transaction management system.
+A desktop application and a water refilling station transaction management system.
 
 ### Features
 1. Accounts Management. An Administrator can create accounts for managers and cashiers.
