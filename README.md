@@ -23,6 +23,8 @@ Java is the main programming language used to develop the whole system.
 
       ```git clone https://github.com/emmarcaber/Nackingspol.git```
 
+2. Import the __nackingspol.sql__ to your mysql database.
+
 2. Open the project in Apache Netbeans 14 or 15.
 
 ### Contributors
