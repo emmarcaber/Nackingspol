@@ -1,7 +1,7 @@
-## Nackingspol
-A desktop application and a water refilling station transaction management system.
+# Nackingspol
+A desktop application and water refilling station transaction management system.
 
-### Features
+## Features
 1. Accounts Management. An Administrator can create accounts for managers and cashiers.
 
 2. Customer Management. Managers and can create, edit and delete accounts for the customers. Whereas, cashiers can only create and edit accounts for the customers.
@@ -18,7 +18,7 @@ The system caters two types of water which are Alkaline and Mineral. It also off
 
 Java is the main programming language used to develop the whole system.
 
-### How to Run the Project
+## How to Run the Project
 1. __Clone__ the repository.
 
       ```
@@ -30,7 +30,7 @@ Java is the main programming language used to develop the whole system.
 3. Open the project in Apache Netbeans 14 or 15.
 3. Run the project as a java application. 
 
-### Contributors
+## Contributors
 <p>
   <a href="https://github.com/Luccharl" target="_blank"><img src="https://avatars.githubusercontent.com/u/88816678?v=4" height="40" width="40" /></a>
   <a href="https://github.com/AyJayyyyy" target="_blank"><img src="https://avatars.githubusercontent.com/u/106132941?v=4" height="40" width="40" /></a>
