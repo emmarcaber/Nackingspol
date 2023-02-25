@@ -19,9 +19,17 @@ The system caters two types of water which are Alkaline and Mineral. It also off
 Java is the main programming language used to develop the whole system.
 
 ### How to Run the Project
+1. __Clone__ the repository.
 
+      ```git clone https://github.com/emmarcaber/Nackingspol.git```
+
+2. Open the project in Apache Netbeans 14 or 15.
 
 ### Contributors
 <p>
   <a href="https://github.com/Luccharl" target="_blank"><img src="https://avatars.githubusercontent.com/u/88816678?v=4" height="40" width="40" /></a>
+  <a href="https://github.com/AyJayyyyy" target="_blank"><img src="https://avatars.githubusercontent.com/u/106132941?v=4" height="40" width="40" /></a>
+  <a href="https://github.com/melemmel" target="_blank"><img src="https://avatars.githubusercontent.com/u/119399992?v=4" height="40" width="40" /></a>
+  <a href="https://github.com/allen014" target="_blank"><img src="https://avatars.githubusercontent.com/u/122859820?v=4" height="40" width="40" /></a>
+  <a href="https://github.com/Carlszenn25" target="_blank"><img src="https://avatars.githubusercontent.com/u/121145896?v=4" height="40" width="40" /></a>
 </p>
