@@ -27,7 +27,8 @@ Java is the main programming language used to develop the whole system.
 
 2. Import the __nackingspol.sql__ to your mysql database.
 
-2. Open the project in Apache Netbeans 14 or 15.
+3. Open the project in Apache Netbeans 14 or 15.
+3. Run the project as a java application. 
 
 ### Contributors
 <p>
