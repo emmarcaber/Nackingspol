@@ -22,4 +22,6 @@ Java is the main programming language used to develop the whole system.
 
 
 ### Contributors
-[https://github.com/Luccharl]
+<p>
+  <a href="https://github.com/Luccharl" target="_blank"><img src="https://avatars.githubusercontent.com/u/88816678?v=4" height="40" width="40" /></a>
+</p>
